@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Data Visualization</title>
+
+<script src="jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+<script>
+var results;
+$.getJSON("https://spreadsheets.google.com/feeds/cells/1SDK0D9UqZUpGt80BDaeC31_aTTACGthcH-KOImK42BA/1/public/values?alt=json"
+	,function(result){
+		results = result;
+		console.log(results.feed.entry[0].content.$t);
+	}
+);
+	
+</script>
+</body>
+</html>
