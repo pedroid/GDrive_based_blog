@@ -300,10 +300,17 @@ $(document).ready(function(e) {
                log("Client", "> " + content);
             });
             break;
-		 case "read":
+		 case "edit":
 			console.log(word[1]);
-
-			$(location).attr('href', 'loadpage.html?FileID='+word[1]);
+			var tmpFolderID=1;
+			var tmpOwnerID=1;
+			$(location).attr('href', 'edit.html?FileID='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID);
+			break;
+		case "new":
+			//console.log(word[1]);
+			var tmpFolderID=1;
+			var tmpOwnerID=1;
+			$(location).attr('href', 'new.html?FileName='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID);
 			break;
          case "/login":
             if (word.length >= 3) {
