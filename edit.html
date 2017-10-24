@@ -3,15 +3,15 @@
 	<head>
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript">
-	
+
 		$(document).ready(function(e) {
 					var number_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1];
 					console.log(number_tmp);
 					$.get("https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec",
-				
+
 							{
 									number:number_tmp,
-									"command":"read",	
+									"command":"read",
 									tab:"blog"
 							},
 						function (data) {
@@ -19,11 +19,11 @@
 							$('#text-input').val(data);
 							$('#text-input')[0].editor.update()
 						});
-			
+
 		});
 
 
-        
+
     </script>
 		<script src="markdown.js"></script>
 	<script src = "html_preprocessing.js"></script>
@@ -35,10 +35,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script type="text/javascript">
         function SendScore(){
+					var number_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1];
+					console.log(number_tmp);
             $.get("https://script.google.com/macros/s/AKfycbwBJv96vJClyQMJbktpy8ZuMuPateF-OWrOmuY7GkS33AFxUFVT/exec", {
                         "title": document.getElementById("titleInput").value,
                         "content": document.getElementById("text-input").value,
-						"is_public":$("#is_publicInput").prop("checked")
+												"is_public":$("#is_publicInput").prop("checked"),
+												"FileID":number_tmp
                     },
                     function (data) {
 						$('#feedback').html(data)
@@ -49,7 +52,7 @@
         }
     </script>
 	</head>
-  <body>    
+  <body>
 <div class="container">
 <div class="row">
 	<div class="col-lg-12 bg-warning">
@@ -77,18 +80,18 @@
 	<div class="col-lg-12">
     		<input type="button" value="send" onclick="SendScore()">
 		<p>cmd</p>
-		<div id='path'>~/$</div>	
-		
+		<div id='path'>~/$</div>
+
     		<textarea id="text" rows="1" style="width:100%"></textarea>
 	</div>
 	<div class="col-lg-12 bg-info">
 		<p>client response:</p>
-		<div id='client_response'></div>	
+		<div id='client_response'></div>
 		    <p>server response:</p>
 	    <div id="div_response"></div>
 </div>
 
-	</div>	
+	</div>
 </div>
 
 
@@ -124,13 +127,13 @@
 			cmd = $('#text').val();
 		}else{
 			cmd = $('#text').val().split('\n')[1];
-			
+
 		}
 		switch(cmd.split(' ')[0]){
 			case('save'):{
 				console.log('save');
 //				console.log($('#text-input').html());
-				if(filename){			
+				if(filename){
 					console.log(parse_result.tag_content_array);
 					//console.log($('#preview').html());
 					socket.emit('markdown',{
@@ -200,7 +203,7 @@
 						'command':'mkdir',
 						'path':argv
 					});
-					
+
 				}else{
 					$('#client_response').html('please enter the directory name as argument[1]');
 
@@ -245,15 +248,15 @@
 						current_dir += argv+'/';
 					}
 					$('#title').html('/'+current_dir+filename+'.markdown');
-					
+
 				}else{
 					$('#client_response').html('please enter the filepath as argument[1]');
-					
+
 				}
 				*/
 				break;
 			}
-			
+
 			case('rm'):{
 				if(cmd.split(' ')[1]){
 					argv = cmd.split(' ')[1];
@@ -270,11 +273,11 @@
 				break;
 			}
 			case('new'):{
-				if(cmd.split(' ')[1]){					
+				if(cmd.split(' ')[1]){
 					argv = cmd.split(' ')[1];
 					filename = argv;
 					$('#title').html(current_dir+filename+'.markdown');
-					
+
 				}else{
 					console.log('please enter the filename as argument[1]');
 					$('#client_response').html('please enter the filename as argument[1]');
@@ -290,12 +293,12 @@
 			}
 			/*
 			case('pwd'):{
-				
+
 				socket.emit('markdown',{
 					'type':'cmd',
 					'command':'pwd'
 				});
-				
+
 				break;
 			}
 			*/
@@ -309,7 +312,7 @@
         });
       });
     </script>
-    
+
     <script src="showdown.min.js"></script>
     <script>
 	var converter = new showdown.Converter();
@@ -319,8 +322,8 @@
         this.update = function () {
 		preview.innerHTML = "";
 		content = input.value;
-		//console.log(content);	
-		[preprocessed_content, parse_result, StringSet] = html_preprocessing(content);	
+		//console.log(content);
+		[preprocessed_content, parse_result, StringSet] = html_preprocessing(content);
 		for(var i=0;i<StringSet.length;i++){
 			switch(StringSet[i].property){
 				case "markdown_input":{
@@ -331,14 +334,14 @@
 					break;
 				}
 				case "system_cmd":{
-					//console.log("system_cmd");	
+					//console.log("system_cmd");
 					break;
 				}
 				case "html":{
 					//console.log("html");
 //					console.log(StringSet[i].data);
 					preview.innerHTML += StringSet[i].data;
-					
+
 					break;
 				}
 				case "u2b":{
@@ -350,7 +353,7 @@
 		  var final_html = html_results;
 		  var preview_height = $('#preview').height();
 		  if(preview_height < 100) preview_height = 100;
-		
+
 		  $('.AutoHeight').height(preview_height);
         };
         input.editor = this;
