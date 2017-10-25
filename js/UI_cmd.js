@@ -351,7 +351,7 @@ $(document).ready(function(e) {
 			$.get("https://script.google.com/macros/s/AKfycbwBJv96vJClyQMJbktpy8ZuMuPateF-OWrOmuY7GkS33AFxUFVT/exec", {
 							"title": word[1],
 							"content": "",											
-							"is_public":false
+							"is_public":"000"
 						},
 						function (data) {
 							$('#feedback').html(data)
