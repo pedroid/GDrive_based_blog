@@ -15,10 +15,23 @@
 									tab:"blog"
 							},
 						function (data) {
-							console.log("the result is :"+data);
-							$('#text-input').val(data);
+							//console.log("the result is :"+data);
+							title = data.split(':')[0];
+							
+							content = data.split(':');
+							var mode = content.pop();
+							if(mode=="777"){
+								$('#is_publicInput').attr('checked', true);
+							}else if (mode == "000"){
+								$('#is_publicInput').attr('checked', false);
+							}
+							content.shift();
+							
+							$('#text-input').val(content.join());
 							$('#text-input')[0].editor.update()
+							$('#titleInput').val(title);
 						});
+					document.getElementById('text-input').focus();
 
 		});
 
@@ -37,10 +50,16 @@
         function SendScore(){
 					var number_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1];
 					console.log(number_tmp);
+					var mode;
+					if($("#is_publicInput").prop("checked")){
+						mode = "777"
+					}else{
+						mode = "000"
+					}
             $.get("https://script.google.com/macros/s/AKfycbwBJv96vJClyQMJbktpy8ZuMuPateF-OWrOmuY7GkS33AFxUFVT/exec", {
                         "title": document.getElementById("titleInput").value,
                         "content": document.getElementById("text-input").value,
-												"is_public":$("#is_publicInput").prop("checked"),
+												"is_public":mode,
 												"FileID":number_tmp
                     },
                     function (data) {
@@ -67,9 +86,12 @@
 		<div id="div_photo_list"></div>
 	</div>
 	<div class="col-lg-12" id="preview_link" style="overflow:auto"></div>
-	<div class="col-lg-12" id="title">[Filename]</div>
+	
 	<div class="col-lg-12">
     		title: <input type="text" id="titleInput"><br><br>
+	</div>
+		<div class="col-lg-12">
+		<input type="checkbox" id="is_publicInput"> Public </br>
 	</div>
 	<div class="col-lg-6" id="title">
 	    <textarea class="AutoHeight" id="text-input" oninput=this.editor.update()
@@ -78,7 +100,7 @@
 	</div>
     	<div class="col-lg-6" id="preview"> </div>
 	<div class="col-lg-12">
-    		<input type="button" value="send" onclick="SendScore()">
+    		<input type="button" value="Update" onclick="SendScore()">
 		<p>cmd</p>
 		<div id='path'>~/$</div>
 
