@@ -295,16 +295,69 @@ $(document).ready(function(e) {
                log("Client", "'" + word[1] + "' does not exist.");
             }
             break;
+		 case "rm":
+            $.get("https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec", {
+						"number": word[1],
+						"tab":"blog", 
+						"command":"delete"   
+                    },
+                    function (data) {
+
+                    });
+			break;
+		 case "chmod":
+            $.get("https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec", {
+						"number": word[2],
+						"tab":"blog", 
+						"command":"chmod",
+						"argument":word[1]
+                    },
+                    function (data) {
+
+                    });
+			break;		 
+		 
+		 case "ls":
          case "/list":
-            $.each(pageindex, function(id, content) {
-               log("Client", "> " + content);
-            });
+				$('.editline').hide()
+				$.get("https://script.google.com/macros/s/AKfycbyKzP6PVt8N7Z0lWbxzUk-DS2z2wtz4xRZGKpRRkOKLmsLWiUPK/exec",
+		
+					{
+							number:1,
+							tab:"blog"
+					},
+				function (data) {
+					$('.editline').show()
+					document.getElementById('test').focus();
+					var tmp = data.split('||');
+					tmp.pop();
+					for(var i=0;i<tmp.length;i++){
+							log("Client", tmp[i]);
+					}
+					
+					
+					//console.log("the result is :"+data);
+					//$('#GDrive_content').html(data);
+				});
+			
             break;
 		 case "edit":
 			console.log(word[1]);
 			var tmpFolderID=1;
 			var tmpOwnerID=1;
 			$(location).attr('href', 'edit.html?FileID='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID);
+			break;
+		case "touch":
+			$.get("https://script.google.com/macros/s/AKfycbwBJv96vJClyQMJbktpy8ZuMuPateF-OWrOmuY7GkS33AFxUFVT/exec", {
+							"title": word[1],
+							"content": "",											
+							"is_public":false
+						},
+						function (data) {
+							$('#feedback').html(data)
+						}
+				);			
+				$('#submit_button').val('update')
 			break;
 		case "new":
 			//console.log(word[1]);
