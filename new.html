@@ -23,10 +23,16 @@
         function SendScore(){
 			if(!has_submitted){
 				console.log('submit');
+				var mode;
+				if($("#is_publicInput").prop("checked")){
+					mode = "777"
+				}else{
+					mode = "000"
+				}
 				$.get("https://script.google.com/macros/s/AKfycbwBJv96vJClyQMJbktpy8ZuMuPateF-OWrOmuY7GkS33AFxUFVT/exec", {
 							"title": document.getElementById("titleInput").value,
 							"content": document.getElementById("text-input").value,											
-							"is_public":$("#is_publicInput").prop("checked")
+							"is_public":mode
 						},
 						function (data) {
 							$('#feedback').html(data)
@@ -60,6 +66,9 @@
 	<div class="col-lg-12" id="title">[Filename]</div>
 	<div class="col-lg-12">
     		title: <input type="text" id="titleInput"><br><br>
+	</div>
+	<div class="col-lg-12">
+		<input type="checkbox" id="is_publicInput"> Public </br>
 	</div>
 	<div class="col-lg-6" id="title">
 	    <textarea class="AutoHeight" id="text-input" oninput=this.editor.update()
