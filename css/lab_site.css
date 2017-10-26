@@ -1,0 +1,249 @@
+/* -- Universal Setting
+--------------------------------------------------*/
+body {
+	font-family:'Open Sans',"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple LiGothic","微�??����???","Microsoft JhengHei";
+	font-weight: 300;
+	margin: 0;
+	padding: 0;
+	background: #f5faf1;
+}
+
+h1,h2,h3,h4,h5,h6{
+	font-weight: normal;
+	font-family:'Open Sans',"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple LiGothic","微�??����???","Microsoft JhengHei";
+}
+
+h2{
+	color: #90ae22;
+	margin-bottom: 10px;
+	font-size: 24px;
+	text-transform: uppercase;
+}
+
+h6{
+	font-weight: normal;
+	margin: 0px 0px 10px 0px;
+}
+
+:focus { outline:none !important;}
+
+.clear-both{
+	clear: both;
+}
+
+.center{
+	text-align: center;
+}
+
+.f-left{
+	float: left;
+}
+
+.f-right{
+	float: right;
+}
+
+a{
+	color:#ADD445;
+	transition: color .2s;
+	-moz-transition: color .2s;
+	-webkit-transition: color .2s;
+	-o-transition: color .2s;
+}
+
+a:hover{
+	color:#5C5B50;
+	transition: color .3s;
+	-moz-transition: color .3s;
+	-webkit-transition: color .3s;
+	-o-transition: color .3s;
+	text-decoration: none;
+}
+
+hr{
+	border: 0px;
+	border-bottom: #dddddd 1px solid;
+	margin: 40px auto;
+	clear: both;
+}
+
+.lab-box{
+	height: auto;
+	overflow: hidden;
+	margin: 10px 2% 20px 2%;
+	padding-top:30px;
+	padding-bottom:30px;
+	position: relative;
+	box-shadow: #dbe0d9 5px 5px 0px;
+	background: #ffffff;
+}
+
+
+/* -- FontFace
+----------------------------------------*/
+.entypo {
+	font-family: 'entypo';
+	font-size: 30px;
+}
+
+/* -- ?????
+----------------------------------------*/
+header{
+	overflow: hidden;
+	padding: 25px 10px 25px 30px;
+	background-color: #c2dfea;
+}
+
+#title{
+	float: left;
+	display: block;
+	width: 300px;
+}
+
+#title img{
+	max-width: 100%;
+}
+
+.links{
+	float: right;
+	font-size: 13px;
+	margin-top: 15px;
+	margin-right: 20px;
+}
+
+.links a{
+	color: #fff;
+	margin: 0px 5px;
+	width: 36px;
+	height: 36px;
+	background-image: url(../images/navi-icon.png);
+	display: inline-block;
+	vertical-align: top;
+}
+
+.links-1{ background-position: 0px 0px; }
+.links-2{ background-position: -36px 0px; }
+.links-3{ background-position: -72px 0px; }
+.links-4{ background-image:none !important;}
+.links-1:hover{ background-position: 0px -36px; }
+.links-2:hover{ background-position: -36px -36px; }
+.links-3:hover{ background-position: -72px -36px; }
+
+#share-box{
+	position: relative;
+	float: right;
+	margin-top: 18px;
+	margin-right: 20px;
+	width: 160px;
+	text-align: right;
+}
+
+#share-box a{
+	padding:0px;
+	margin: 0px 10px 0px 0px;
+	border-radius: 32px;
+	width: 32px;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.lab-name{
+	width: 50%;
+	overflow: hidden;
+	padding: 1% 1% 1% 3%;
+	color: #90ae22;
+	background-color: #ffffff;
+	line-height: 1.5;
+	font-size: 28px;
+	float: left;
+	height: 45px;
+	overflow: hidden;
+}
+
+.lab-detail{
+	width: 42%;
+	overflow: hidden;
+	padding: 1% 2%;
+	color: #ffffff;
+	background-color: #90ae22;
+	line-height: 1.5;
+	font-size: 14px;
+	float: right;
+	height: 45px;
+	overflow: hidden;
+}
+
+.container{
+	width: 100%;
+	margin: 0px auto;
+	overflow: hidden;
+}
+
+.content-container{
+	width: 90%;
+	margin: 30px auto;
+	overflow: hidden;
+}
+
+.info-block{
+	background-color: #ffffff;
+	border-radius: 4px;
+	border: #dddddd 1px solid;
+	padding: 1% 0.9%;
+	width: 98%;
+	overflow: hidden;
+	margin-top: 5px;
+	margin-bottom: 15px;
+	font-size: 15px;
+	color: #666666;
+	line-height: 1.5;
+}
+
+
+/*---------Responsive-----------
+--------------------------------------------*/
+@media all and (max-width: 1024px) {
+	.lab-name{
+		width: 94%;
+		padding: 2% 3%;
+		height: auto;
+	}
+
+	.lab-detail{
+		width: 94%;
+		padding: 2% 3%;
+		height: auto;
+	}
+}
+
+/* Portrait tablet to landscape and desktop */
+@media all and (max-width:960px){
+	.links a.links-4{
+		display: none !important;
+	}
+
+}
+
+/*Landscape phone to portrait tablet */
+@media all and (max-width:720px){
+	header{
+		text-align: center;
+	}
+
+	#title{
+		float: none;
+		margin: 0px auto;
+	}
+
+	.links{
+		float: none;
+		margin: 20px auto 0px auto;
+	}
+}
+
+/* Landscape phones and down */
+@media all and (max-width:480px){
+	#title{
+		width: 100%;
+	}
+}
