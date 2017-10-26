@@ -1,0 +1,96 @@
+
+/*---------Responsive-----------
+--------------------------------------------*/
+@media all and (max-width: 1200px) {
+	.sort-wrapper-sprouts{
+		width: 48%
+	}
+
+	.sort-wrapper-language{
+		width: 48%
+	}
+
+	.sort-result-wrapper{
+		display: none;
+	}
+
+	.content-wrapper .grid-item{
+		width: 29%;
+	}
+}
+
+/* Portrait tablet to landscape and desktop */
+@media all and (max-width:960px){
+	.links a.links-4{
+		display: none !important;
+	}
+
+	.sort-result-wrapper{
+		display: block;
+		width: 100%;
+		font-size: 20px;
+		height: 30px;
+		line-height: 1.5;
+	}
+
+	.sort-wrapper-sprouts{
+		width: 98%
+	}
+
+	.sort-wrapper-language{
+		width: 98%
+	}
+
+	.content-wrapper .grid-item{
+		width: 46%;
+	}
+}
+
+/*Landscape phone to portrait tablet */
+@media all and (max-width:720px){
+	header{
+		text-align: center;
+	}
+
+	#title{
+		float: none;
+		margin: 0px auto;
+	}
+
+	.links{
+		float: none;
+		margin: 20px auto 0px auto;
+	}
+
+	.sort-wrapper{
+		text-align: center;
+	}
+
+	.sort-text{
+		display: none;
+	}
+
+	.sort{
+		display: inline-block;
+		float: none;
+	}
+
+	.sort-wrapper-sprouts{
+		width: 98%
+	}
+
+	.sort-wrapper-language{
+		width: 98%
+	}
+
+	.content-wrapper .grid-item{
+		width: 96%;
+	}
+}
+
+/* Landscape phones and down */
+@media all and (max-width:480px){
+	#title{
+		width: 100%;
+	}
+}
