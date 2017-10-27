@@ -6,8 +6,10 @@ $(document).ready(function(e) {
  • Add cookies to track previous commands? (You can press up and down to browse previous commands this session)
 */
 
+	var currFolderID = 1;
    var faviconnumber = 1;
-
+	var directories_set_under_currDir = {};
+	directories_set_under_currDir[1] = "home";
    console.clear();
    var commandlist = [ /*Can be populated with various methods*/
       ["/help", "Show commands"],
@@ -60,6 +62,30 @@ $(document).ready(function(e) {
 	  urlvars();
       log("Client", "For help say '/help'");
 	  $('#test').focus()
+	  	$('.editline').hide()
+		
+		
+		$.get("https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec",
+
+				{
+						command:"read",
+						ParentID:1   
+				},
+			function (data) {
+				console.log("test");
+				console.log(data);
+				$('.editline').show()
+				document.getElementById('test').focus();
+				var tmp = data.split('||');
+				tmp.pop();
+				for(var i=0;i<tmp.length;i++){
+						//log("Client", tmp[i]);
+						directories_set_under_currDir[tmp[i].split(":")[0]] = tmp[i].split(":")[1];
+				}
+				console.log(directories_set_under_currDir);
+				log("Client", "get directories under /home/ [done]");
+
+		});
    }
 
    function urlvars() {
@@ -137,7 +163,7 @@ $(document).ready(function(e) {
          information = information.substr(2);
          postcolour = " important";
       }
-
+/*
       while (information.indexOf("](") >= 0) { //URL parser
 
          var NAMEregExp = /\(([^)]+)\)/;
@@ -159,7 +185,7 @@ $(document).ready(function(e) {
          }
          //information = '<a href="' + url + '">' + uname + '</a>'; //working
 
-      }
+      }*/
       var tobold = true;
       var boldnumber = 0;
       for (var i = 0; i < information.length; i++) {
@@ -167,6 +193,7 @@ $(document).ready(function(e) {
             boldnumber++;
          }
       }
+	  /*
       while (information.indexOf("*") >= 0) { //Bold parser
          var pos = information.indexOf("*");
          information = information.replace("*", "");
@@ -181,6 +208,7 @@ $(document).ready(function(e) {
          }
          //information = '<a href="' + url + '">' + uname + '</a>'; //working
       }
+	  */
       var tounderline = true;
       var underlinenumber = 0;
       for (var i = 0; i < information.length; i++) {
@@ -188,6 +216,7 @@ $(document).ready(function(e) {
             underlinenumber++;
          }
       }
+	  /*
       while (information.indexOf("**") >= 0) { //Bold parser
          var pos = information.indexOf("**");
          information = information.replace("**", "");
@@ -201,7 +230,8 @@ $(document).ready(function(e) {
             break;
          }
          //information = '<a href="' + url + '">' + uname + '</a>'; //working
-      } /**/
+      } 
+	  *//**/
       $(".stream").append('<div class="line">' +
          '<p class="time">[' + hours + ":" + minutes + ":" + seconds + ']</p>' +
          '<p class="name ' + colour + '">' + name + '</p>' +
@@ -316,15 +346,32 @@ $(document).ready(function(e) {
 
                     });
 			break;		 
+		 case "blog":
+			var tmpFolderID=1;
+			var tmpOwnerID=1;
+			$(location).attr('href', 'blog.html?FileID='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID);
+			break;	
+		 case "pwd":
+			
+			console.log(currFolderID);
+			log("Client", directories_set_under_currDir[currFolderID]+'/');
+			break;
 		 
 		 case "ls":
          case "/list":
 				$('.editline').hide()
+				console.log(word[1]);
+				var FileIDInput;
+				if(typeof word[1] == "undefined"){
+					FileIDInput = 1;
+				}else{
+					FileIDInput = word[1];
+				}
 				$.get("https://script.google.com/macros/s/AKfycbyKzP6PVt8N7Z0lWbxzUk-DS2z2wtz4xRZGKpRRkOKLmsLWiUPK/exec",
 		
 					{
-							number:1,
-							tab:"blog"
+							tab:"blog",
+							FolderID:FileIDInput   
 					},
 				function (data) {
 					$('.editline').show()
@@ -341,6 +388,31 @@ $(document).ready(function(e) {
 				});
 			
             break;
+		 case "cat":
+					$('.editline').hide()
+					$.get("https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec",
+
+							{
+									number:word[1],
+									"command":"read",
+									tab:"blog"
+							},
+						function (data) {
+							console.log("the result is :"+data);
+							$('.editline').show()
+							document.getElementById('test').focus();
+							title = data.split(':')[0];
+							
+							content = data.split(':');
+							var mode = content.pop();
+							content.shift();
+							console.log(content.join());
+							log("Client", content.join());
+							//$('#text-input').val(content.join());
+							//$('#text-input')[0].editor.update()
+							//$('#titleInput').val(title);
+						});	
+			break;
 		 case "edit":
 			console.log(word[1]);
 			var tmpFolderID=1;
@@ -359,6 +431,9 @@ $(document).ready(function(e) {
 				);			
 				$('#submit_button').val('update')
 			break;
+		case "test":
+
+		break;
 		case "new":
 			//console.log(word[1]);
 			var tmpFolderID=1;
