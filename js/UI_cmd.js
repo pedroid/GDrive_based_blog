@@ -12,6 +12,7 @@ $(document).ready(function(e) {
    var blogs_set_under_currDir={};
    var ParentID_set_under_currDir = {};
 	var directories_set_under_currDir = {};
+	var variables_set = {};
 	directories_set_under_currDir[1] = "home";
    console.clear();
    var commandlist = [ /*Can be populated with various methods*/
@@ -374,6 +375,28 @@ $(document).ready(function(e) {
                 }
              }
 
+			break;
+		 case "print":
+			if(typeof variables_set[word[1]] == "undefined"){
+				
+				log("Client",word[1]+" is not defined.");
+			}else{
+				log("Client", variables_set[word[1]]);
+			}
+			break;
+		 case "var":
+			console.log(word[1]);
+			if(typeof word[1] == "undefined"){
+				//console.log("w/o arguments");
+				
+			}else{
+				//console.log("with argument");
+				var value_variable = word[1].split("=")[1].split(';')[0];
+				variables_set[word[1].split("=")[0]] = value_variable;	
+				//console.log(variables_set);
+				
+			}
+			
 			break;
 		 case "chmod":
             $.get("https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec", {
