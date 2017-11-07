@@ -347,6 +347,7 @@ $(document).ready(function(e) {
                          command:"delete",
                          FolderID:word[2],
                          ParentID:currFolderID,
+						 
                      },function (data) {
                              console.log(data);
                              $('.editline').show()
@@ -365,7 +366,7 @@ $(document).ready(function(e) {
 
                }else{
                      $.get("https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec", {
-                     "number": word[1],
+                     "FileID": word[1],
                      "tab":"Files",
                      "command":"delete"
                              },
@@ -617,22 +618,22 @@ $(document).ready(function(e) {
 					var tmp = data.split('||');
 					tmp.pop();
 
-          //console.log(directories_set_under_currDir);
-          if(typeof word[1] == "undefined"){
+				//console.log(directories_set_under_currDir);
+				  if(typeof word[1] == "undefined"){
 
-            for(var i=0;i<Object.keys(directories_set_under_currDir).length;i++){
-                log("Client", '('+ Object.keys(directories_set_under_currDir)[i] +') '+directories_set_under_currDir[Object.keys(directories_set_under_currDir)[i]]+'/');
+					for(var i=0;i<Object.keys(directories_set_under_currDir).length;i++){
+						log("Client", '('+ Object.keys(directories_set_under_currDir)[i] +') '+directories_set_under_currDir[Object.keys(directories_set_under_currDir)[i]]+'/');
 
-             }
-          }
-          blogs_set_under_currDir = {};
-          for(var i=0;i<tmp.length;i++){
-              var FileID = tmp[i].split(':')[0];
-              var Authen = tmp[i].split(':')[1];
-              var Filename = tmp[i].split(':')[2];
-              blogs_set_under_currDir[FileID] = Filename;
-              log("Client", '['+FileID+'] '+Authen+' '+Filename);
-          }
+					 }
+				  }
+					blogs_set_under_currDir = {};
+				  for(var i=0;i<tmp.length;i++){
+					  var FileID = tmp[i].split(':')[0];
+					  var Authen = tmp[i].split(':')[1];
+					  var Filename = tmp[i].split(':')[2];
+					  blogs_set_under_currDir[FileID] = Filename;
+					  log("Client", '['+FileID+'] '+Authen+' '+Filename);
+				  }
 					//console.log("the result is :"+data);
 					//$('#GDrive_content').html(data);
 				});
@@ -666,22 +667,24 @@ $(document).ready(function(e) {
 			console.log(word[1]);
 			var tmpFolderID=1;
 			var tmpOwnerID=1;
-      console.log(blogs_set_under_currDir);
-      if(typeof blogs_set_under_currDir[word[1]]== "undefined"){
-          log("Client", "["+ word[1] +"] is not a file or no such file.");
-      }else{
-			     $(location).attr('href', 'edit.html?FileID='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID);
-      }
-      break;
+			  console.log(blogs_set_under_currDir);
+			  if(typeof blogs_set_under_currDir[word[1]]== "undefined"){
+				  log("Client", "["+ word[1] +"] is not a file or no such file.");
+			  }else{
+						 $(location).attr('href', 'edit.html?FileID='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID);
+			  }
+			  break;
 		case "touch":
     console.log("folderID:"+currFolderID);
 			$.get("https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec", {
 							"filename": word[1],
               "FolderID":currFolderID,
-              "command":"new"
+              "command":"blog_new"
 
 						},
 						function (data) {
+							console.log(data);
+							log("Client", "["+data+"]"+word[1]+ " created.");
 							$('#feedback').html(data)
 						}
 				);
