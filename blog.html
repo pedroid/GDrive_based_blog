@@ -25,32 +25,78 @@
  <link type="text/css" rel="stylesheet" href="css/font-awesome.css"> 
  <!-- Site Universal Style --> 
  <link type="text/css" rel="stylesheet" href="css/lab_site.css"> 
+ <script src="showdown.min.js"></script>
+ <script src="markdown.js"></script>
+ <script src = "html_preprocessing.js"></script>
+    <script>
+
+      function md2html(input_content) {
+
+
+		preview = "";
+		//content = input.value;
+		content = input_content;
+		//console.log(content);
+		[preprocessed_content, parse_result, StringSet] = html_preprocessing(content);
+		for(var i=0;i<StringSet.length;i++){
+			switch(StringSet[i].property){
+				case "markdown_input":{
+					//console.log("markdown_input");
+//					console.log(StringSet[i].data);
+					var html_results = markdown.toHTML(StringSet[i].data);
+					preview += html_results;
+					break;
+				}
+				case "system_cmd":{
+					//console.log("system_cmd");
+					break;
+				}
+				case "html":{
+					//console.log("html");
+//					console.log(StringSet[i].data);
+					preview += StringSet[i].data;
+
+					break;
+				}
+				case "u2b":{
+					preview += StringSet[i].data;
+					break;
+				}
+			}
+		}
+		  return html_results;
+		  }
+      //var $$ = function (id) { return document.getElementById(id); };
+      //new Editor($$("text-input"), $$("preview"));
+    </script>
  <script type="text/javascript"> 
+ var appFiles = "https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec";
+var appBlogs = "https://script.google.com/macros/s/AKfycbwlmoiBY_Ip2lt5QICMmOhOnX_dCrAo4_YMsOLk3hmx5M-kihAT/exec";
+var ListAllBlog = "https://script.google.com/macros/s/AKfycbyKzP6PVt8N7Z0lWbxzUk-DS2z2wtz4xRZGKpRRkOKLmsLWiUPK/exec";
+var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec";
  $(document).ready(function(){
  prettyPrint(); 
  $('#content').html("loading...");
  var number_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1];
 					console.log(number_tmp);
-					$.get("https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec",
+					$.get(appBlogs,
 
 							{
-									number:number_tmp,
-									"command":"edit",
-									tab:"blog"
+									FileID:number_tmp,
+									"command":"read"
 							},
 						function (data) {
 							//console.log("the result is :"+data);
 							title = data.split(':')[0];
-							
-							content = data.split(':');
-							//console.log(content);
-							var mode = content.pop();
-							content.shift();
-							
-							$('#content').html(content.join());
+							content = data.split(':')[1];
+							var html_content = "";
+							html_content = md2html(content,html_content);
+							$('#blog_title').html(title);
+							$('#content').html(html_content);
 						});
  });
  </script> 
+ 
  <meta name="description" content="25sprout Lab Website, we share some useful or interesting tools here.">
 <meta name="keywords" content="CSS, HTML, Lab, Tools, jQuery" /> 
  <meta name="URL" content="http://www.25sprout.com/25lab/">
@@ -73,6 +119,8 @@
  <div class="container"> 
  <div class="clear-both"></div> 
  <div class='content-wrapper'> 
+ <div id="blog_title">
+ </div>
  <div id="content">
 
  </div> </div> 
