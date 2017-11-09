@@ -1,11 +1,20 @@
 // JavaScript Document
+var appFiles = "https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec";
+var appBlogs = "https://script.google.com/macros/s/AKfycbwlmoiBY_Ip2lt5QICMmOhOnX_dCrAo4_YMsOLk3hmx5M-kihAT/exec";
+var ListAllBlog = "https://script.google.com/macros/s/AKfycbyKzP6PVt8N7Z0lWbxzUk-DS2z2wtz4xRZGKpRRkOKLmsLWiUPK/exec";
+var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec";
+function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
 $(document).ready(function(e) {
    /* Todo:
  • Merge this with Node.js, almost done
  • Webpages in a database/more editable version
  • Add cookies to track previous commands? (You can press up and down to browse previous commands this session)
 */
-
+   var folder_stack = [];
+   var folderID_stack = [];
 	var currFolderID = 1;
   var currFolder;
    var faviconnumber = 1;
@@ -55,20 +64,14 @@ $(document).ready(function(e) {
       setInterval(time);
       console.clear();
       //console.log(new Date().getTime());
-      log("Website", "A! _____ _____ __ __ _____ ");
-      log("Website", "A!|  |  |     |  |  |  _  |");
-      log("Website", "A!|    -|  |  |_   _|     |");
-      log("Website", "A!|__|__|_____| |_| |__|__|");
-      log("Website", '[^http://koya.io/](*Koya.io*)');
-      log("Website", "");
-      log("Website", "E!I'm no longer using this at [^http://koya.io/](*Koya.io*)");
-      log("Website", "");
+
+      log("Website", "Hello!");
 	  urlvars();
       log("Client", "For help say '/help'");
 	  $('#test').focus()
 
 
-    $.get("https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec",
+    $.get(appFolders,
 
         {
             command:"read",
@@ -270,7 +273,7 @@ $(document).ready(function(e) {
    var ctrldown = false;
    $(".editline .edit").keydown(function(e) {
       var text = $(".editline .edit").text();
-      console.log(e.which);
+     // console.log(e.which);
 	    if (e.which == 13 && text == ""){
 			output = "";
             log(">", output);
@@ -332,7 +335,7 @@ $(document).ready(function(e) {
             }
             break;
 		 case "rm":
-
+			console.log('rm:'+currFolderID);
              if(word.length == 2 & typeof blogs_set_under_currDir[word[1]]== "undefined"){
                  log("Client", "["+ word[1] +"] is not a file or no such file in this directory.");
              }else{
@@ -341,7 +344,7 @@ $(document).ready(function(e) {
                   log("Client", "(" + word[2] + ") no such directory in this folder.");
                 }else{
 
-                 $.get("https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec",
+                 $.get(appFolders,
 
                      {
                          command:"delete",
@@ -359,23 +362,27 @@ $(document).ready(function(e) {
                              for(var i=0;i<tmp.length;i++){
                                  directories_set_under_currDir[tmp[i].split(":")[0]] = tmp[i].split(":")[1];
                                  ParentID_set_under_currDir[tmp[i].split(":")[0]] = tmp[i].split(":")[2];
+								 console.log('debug2:'+tmp[i].split(":")[0]+':'+tmp[i].split(":")[2]);
                              }
+							 console.log('debug3:'+currFolderID);
+							 //console.log(ParentID_set_under_currDir[""]);
                    });
                 }
 
 
                }else{
-                     $.get("https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec", {
-                     "FileID": word[1],
-                     "tab":"Files",
-                     "command":"delete"
-                             },
-                             function (data) {
+                     $.get(appFiles, {
+						 "FileID": word[1],
+						 "command":"delete"
+                      },function (data) {
 
-                             });
+                      });
                 }
              }
 
+			break;
+		 case "plot":
+			myFunction();
 			break;
 		 case "print":
 			if(typeof variables_set[word[1]] == "undefined"){
@@ -400,7 +407,7 @@ $(document).ready(function(e) {
 			
 			break;
 		 case "chmod":
-            $.get("https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec", {
+            $.get(appFiles, {
 						"number": word[2],
 						"tab":"Files",
 						"command":"chmod",
@@ -416,28 +423,39 @@ $(document).ready(function(e) {
 			$(location).attr('href', 'blog.html?FileID='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID);
 			break;
 		 case "pwd":
-
+			//console.log(folder_stack);
 			//console.log(directories_set_under_currDir);
 //			log("Client", directories_set_under_currDir[currFolderID]+'/');
-      if(currFolderID == 1){
-          log("Client", "/home/");
-      }else{
-            $.get("https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec",
+			  if(currFolderID == 1){
+				  log("Client", "/home/");
+			  }else{
+				  /*
+				  $('.editline').hide()
+					$.get(appFolders,
 
-                {
-                    command:"getFolderName",
-                    FolderID:currFolderID
-                },function (data) {
-                  log("Client", data);
+						{
+							command:"getFolderName",
+							FolderID:currFolderID
+						},function (data) {
+							$('.editline').show()
+							document.getElementById('test').focus();
+							
 
-              });
-  }
-			break;
+					  });
+					  */
+					  var path = "";
+							for(var i=0;i<folder_stack.length;i++){
+								path+= folder_stack[i]+'/';
+							}
+						    log("Client", '('+currFolderID+') '+path);
+				}
+				
+					break;
      case "mkdir":
      if(typeof word[1] == "undefined"){
       log("Client", "usage: mkdir directory");
      }else{
-     $.get("https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec",
+     $.get(appFolders,
 
          {
              command:"write",
@@ -465,45 +483,43 @@ $(document).ready(function(e) {
    }
      break;
      case "cd":
+		//console.log('cd:'+currFolderID);
       $('.editline').hide()
       if(typeof word[1] == "undefined"){
-        currFolderID = 1;
-        currFolder = "home";
+			currFolderID = 1;
+			currFolder = "home";
       }else if (word[1] == "~"){
-        currFolderID = 1;
-        currFolder = "home";
-        $.get("https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec",
+			folder_stack = [];
+			currFolderID = 1;
+			currFolder = "home";
+			$.get(appFolders,
 
             {
                 command:"read",
                 ParentID:currFolderID
-            },
-          function (data) {
-            console.log(data);
-            $('.editline').show()
-            document.getElementById('test').focus();
-            var tmp = data.split('||');
-            tmp.pop();
+            },function (data) {
+					console.log(data);
+					$('.editline').show()
+					document.getElementById('test').focus();
+					var tmp = data.split('||');
+					tmp.pop();
 
-            directories_set_under_currDir = {};
-            ParentID_set_under_currDir = {};
-            for(var i=0;i<tmp.length;i++){
-                //log("Client", tmp[i]);
-                directories_set_under_currDir[tmp[i].split(":")[0]] = tmp[i].split(":")[1];
-                ParentID_set_under_currDir[tmp[i].split(":")[0]] = tmp[i].split(":")[2];
-            }
-            console.log(directories_set_under_currDir);
-            //log("Client", "get directories under /home/ [done]");
+					directories_set_under_currDir = {};
+					ParentID_set_under_currDir = {};
+					for(var i=0;i<tmp.length;i++){
+						//log("Client", tmp[i]);
+						directories_set_under_currDir[tmp[i].split(":")[0]] = tmp[i].split(":")[1];
+						ParentID_set_under_currDir[tmp[i].split(":")[0]] = tmp[i].split(":")[2];
+					}
+					console.log(directories_set_under_currDir);
+					//log("Client", "get directories under /home/ [done]");
 
-        });
-        blogs_set_under_currDir = {};
-        $.get("https://script.google.com/macros/s/AKfycbyKzP6PVt8N7Z0lWbxzUk-DS2z2wtz4xRZGKpRRkOKLmsLWiUPK/exec",
-
-					{
-							tab:"Files",
-							FolderID:currFolderID
-					},
-				function (data) {
+			});
+			blogs_set_under_currDir = {};
+			$.get(ListAllBlog,{
+					tab:"Files",
+					FolderID:currFolderID
+				},function (data) {
 					$('.editline').show()
 					document.getElementById('test').focus();
 					var tmp = data.split('||');
@@ -529,16 +545,19 @@ $(document).ready(function(e) {
 					//$('#GDrive_content').html(data);
 				});
       }else if(word[1] == ".." || word[1] == "../"){
+		
+		
         console.log('before:'+currFolderID);
         if(currFolderID == 1){
 
         }else{
-          currFolderID = ParentID_set_under_currDir[currFolderID];
-          console.log(currFolderID);
+          //currFolderID = ParentID_set_under_currDir[currFolderID];
+		  folder_stack.pop();
+		  currFolderID = folderID_stack.pop();
         }
-        console.log(ParentID_set_under_currDir);
+        //console.log(ParentID_set_under_currDir);
         console.log('after:'+currFolderID);
-        $.get("https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec",
+        $.get(appFolders,
 
             {
                 command:"read",
@@ -561,15 +580,20 @@ $(document).ready(function(e) {
 
         });
       }else{
-        console.log(directories_set_under_currDir);
+        console.log('directories_set_under_currDir'+directories_set_under_currDir);
         if(typeof directories_set_under_currDir[word[1]]== "undefined"){
           log("Client", "no such directory in this folder");
           $('.editline').show()
         }else{
-            currFolderID = word[1];
-            console.log(currFolderID);
 
-            $.get("https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec",
+			//console.log('debug:'+ParentID_set_under_currDir);
+			folder_stack.push(directories_set_under_currDir[word[1]]);
+			folderID_stack.push(currFolderID);
+			currFolderID = word[1];
+            console.log('currFolderID:'+currFolderID);
+			console.log('folder_stack:'+folder_stack);
+			console.log('folderID_stack:'+folderID_stack);
+            $.get(appFolders,
 
                 {
                     command:"read",
@@ -587,7 +611,7 @@ $(document).ready(function(e) {
                     directories_set_under_currDir[tmp[i].split(":")[0]] = tmp[i].split(":")[1];
                     ParentID_set_under_currDir[tmp[i].split(":")[0]] = tmp[i].split(":")[2];
                 }
-                console.log(directories_set_under_currDir);
+                //console.log(directories_set_under_currDir);
                 //log("Client", "get directories under /home/ [done]");
 
                 });
@@ -606,42 +630,41 @@ $(document).ready(function(e) {
 					FileIDInput = word[1];
 				}
         //console.log(directories_set_under_currDir);
-				$.get("https://script.google.com/macros/s/AKfycbyKzP6PVt8N7Z0lWbxzUk-DS2z2wtz4xRZGKpRRkOKLmsLWiUPK/exec",
+				$.get(ListAllBlog,
 
 					{
 							tab:"Files",
 							FolderID:FileIDInput
-					},
-				function (data) {
-					$('.editline').show()
-					document.getElementById('test').focus();
-					var tmp = data.split('||');
-					tmp.pop();
+					},function (data) {
+							$('.editline').show()
+							document.getElementById('test').focus();
+							var tmp = data.split('||');
+							tmp.pop();
 
-				//console.log(directories_set_under_currDir);
-				  if(typeof word[1] == "undefined"){
+						//console.log(directories_set_under_currDir);
+						  if(typeof word[1] == "undefined"){
 
-					for(var i=0;i<Object.keys(directories_set_under_currDir).length;i++){
-						log("Client", '('+ Object.keys(directories_set_under_currDir)[i] +') '+directories_set_under_currDir[Object.keys(directories_set_under_currDir)[i]]+'/');
+							for(var i=0;i<Object.keys(directories_set_under_currDir).length;i++){
+								log("Client", '('+ Object.keys(directories_set_under_currDir)[i] +') '+directories_set_under_currDir[Object.keys(directories_set_under_currDir)[i]]+'/');
 
-					 }
-				  }
-					blogs_set_under_currDir = {};
-				  for(var i=0;i<tmp.length;i++){
-					  var FileID = tmp[i].split(':')[0];
-					  var Authen = tmp[i].split(':')[1];
-					  var Filename = tmp[i].split(':')[2];
-					  blogs_set_under_currDir[FileID] = Filename;
-					  log("Client", '['+FileID+'] '+Authen+' '+Filename);
-				  }
-					//console.log("the result is :"+data);
-					//$('#GDrive_content').html(data);
-				});
+							 }
+						  }
+							blogs_set_under_currDir = {};
+						  for(var i=0;i<tmp.length;i++){
+							  var FileID = tmp[i].split(':')[0];
+							  var Authen = tmp[i].split(':')[1];
+							  var Filename = tmp[i].split(':')[2];
+							  blogs_set_under_currDir[FileID] = Filename;
+							  log("Client", '['+FileID+'] '+Authen+' '+Filename);
+						  }
+							//console.log("the result is :"+data);
+							//$('#GDrive_content').html(data);
+					});
 
             break;
 		 case "cat":
 					$('.editline').hide()
-					$.get("https://script.google.com/macros/s/AKfycbwlmoiBY_Ip2lt5QICMmOhOnX_dCrAo4_YMsOLk3hmx5M-kihAT/exec",
+					$.get(appBlogs,
 
 							{
 									FileID:word[1],
@@ -653,11 +676,20 @@ $(document).ready(function(e) {
 							document.getElementById('test').focus();
 							title = data.split(':')[0];
 
-							content = data.split(':');
+							content = data.split(':')[1];
 							//var mode = content.pop();
-							content.shift();
-							console.log(content.join());
-							log("Client", content.join());
+							//content.shift();
+							//console.log(content.join());
+							//log("Client", content.join());
+							var content_set = content.split('\n');
+							for(var i=0;i<content_set.length;i++){
+								if(i==0){
+									log("Client", content_set[i]);
+								}else{
+									log("", content_set[i]);
+								}
+							}
+							
 							//$('#text-input').val(content.join());
 							//$('#text-input')[0].editor.update()
 							//$('#titleInput').val(title);
@@ -675,16 +707,19 @@ $(document).ready(function(e) {
 			  }
 			  break;
 		case "touch":
-    console.log("folderID:"+currFolderID);
-			$.get("https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec", {
+			$('.editline').hide()
+			console.log("folderID:"+currFolderID);
+			$.get(appFiles, {
 							"filename": word[1],
               "FolderID":currFolderID,
               "command":"blog_new"
 
 						},
 						function (data) {
-							console.log(data);
-							log("Client", "["+data+"]"+word[1]+ " created.");
+							$('.editline').show()
+							document.getElementById('test').focus();
+							//console.log(data);
+							log("Client", "["+data+"] "+word[1]+ " created.");
 							$('#feedback').html(data)
 						}
 				);
