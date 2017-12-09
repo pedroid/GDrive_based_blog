@@ -1,0 +1,30 @@
+<html>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <a href="http://blog.jim60105.com/2015/06/google-database.html">reference</a></br>
+    title: <input type="text" id="titleInput"><br><br>
+
+    <input type="checkbox" id="is_publicInput"> Public </br>
+content:
+    <textarea id="contentInput"></textarea>
+    <input type="button" value="send" onclick="SendScore()">
+    <script type="text/javascript">
+        function SendScore(){
+            $.get("https://script.google.com/macros/s/AKfycbwBJv96vJClyQMJbktpy8ZuMuPateF-OWrOmuY7GkS33AFxUFVT/exec", {
+                        "title": document.getElementById("titleInput").value,
+                        "content": document.getElementById("contentInput").value,
+						"is_public":$("#is_publicInput").prop("checked")
+                    },
+                    function (data) {
+						$('#feedback').html(data)
+                    //    document.write("--------------------------");
+                    //   document.write("Result = "+data);
+                    //   document.write("--------------------------");
+                    });
+        }
+    </script>
+	</br>
+system feedback
+	<div id="feedback">test</div>
+	</body>
+</html>
