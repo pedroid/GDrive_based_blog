@@ -38,6 +38,7 @@
 		content = input_content;
 		//console.log(content);
 		[preprocessed_content, parse_result, StringSet] = html_preprocessing(content);
+		debug = StringSet;
 		for(var i=0;i<StringSet.length;i++){
 			switch(StringSet[i].property){
 				case "markdown_input":{
@@ -64,7 +65,7 @@
 				}
 			}
 		}
-		  return html_results;
+		  return preview;
 		  }
       //var $$ = function (id) { return document.getElementById(id); };
       //new Editor($$("text-input"), $$("preview"));
@@ -86,11 +87,11 @@ var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-
 									"command":"read"
 							},
 						function (data) {
-							//console.log("the result is :"+data);
-							title = data.split(':')[0];
-							content = data.split(':')[1];
-							var html_content = "";
-							html_content = md2html(content,html_content);
+							console.log("the result is :"+data);
+							title = data.split('|')[0];
+							content = data.split('|')[1];
+							var html_content = md2html(content,html_content);
+							console.log(html_content);
 							$('#blog_title').html(title);
 							$('#content').html(html_content);
 						});

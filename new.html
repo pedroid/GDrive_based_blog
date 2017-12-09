@@ -3,6 +3,11 @@
 	<head>
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript">
+		var appFiles = "https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec";
+		var appBlogs = "https://script.google.com/macros/s/AKfycbwlmoiBY_Ip2lt5QICMmOhOnX_dCrAo4_YMsOLk3hmx5M-kihAT/exec";
+		var ListAllBlog = "https://script.google.com/macros/s/AKfycbyKzP6PVt8N7Z0lWbxzUk-DS2z2wtz4xRZGKpRRkOKLmsLWiUPK/exec";
+		var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec";
+		
 			var has_submitted = false;
 			$(document).ready(function(e) {
 				var filename_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1];
@@ -30,10 +35,11 @@
 					mode = "000"
 				}
 				var FolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];
-				$.get("https://script.google.com/macros/s/AKfycbwlmoiBY_Ip2lt5QICMmOhOnX_dCrAo4_YMsOLk3hmx5M-kihAT/exec", {
-							"title": document.getElementById("titleInput").value,
+				//console.log(FolderID);
+				$.get(appFiles, {
+							"filename": document.getElementById("titleInput").value,
 							"content": document.getElementById("text-input").value,
-							"is_public":mode,
+							
 							"FolderID": FolderID,
 							"command":"blog_new"
 							/*
@@ -45,7 +51,7 @@
 							*/
 						},
 						function (data) {
-							console.log(data);
+							//console.log(data);
 							$('#feedback').html(data)
 						//    document.write("--------------------------");
 						//   document.write("Result = "+data);

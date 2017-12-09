@@ -336,6 +336,7 @@ $(document).ready(function(e) {
             break;
 		 case "rm":
 			console.log('rm:'+currFolderID);
+			//$('.editline').hide()
              if(word.length == 2 & typeof blogs_set_under_currDir[word[1]]== "undefined"){
                  log("Client", "["+ word[1] +"] is not a file or no such file in this directory.");
              }else{
@@ -674,9 +675,9 @@ $(document).ready(function(e) {
 							console.log("the result is :"+data);
 							$('.editline').show()
 							document.getElementById('test').focus();
-							title = data.split(':')[0];
+							title = data.split('|')[0];
 
-							content = data.split(':')[1];
+							content = data.split('|')[1];
 							//var mode = content.pop();
 							//content.shift();
 							//console.log(content.join());
@@ -745,17 +746,8 @@ $(document).ready(function(e) {
             }
             break;
          default:
-	     try{
-		var tmp = eval(words);	
-		if(typeof tmp == "undefined"){
-		}else{
-			log("Client", tmp);
-		}
-	     }catch(e){
-		log("Client", e);
-	     }	
-            //output = "Unrecognised command '" + word[0] + "'.";
-            //log("Client", output);
+            output = "Unrecognised command '" + word[0] + "'.";
+            log("Client", output);
       }
    }
 

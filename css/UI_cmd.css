@@ -139,17 +139,20 @@ body .editline .time {
 .popup .popuptext {
     visibility: hidden;
     color: #111;
+	background: #fff;
     text-align: center;
-    position: relative;
+    position: absolute;
     z-index: 1;
-    bottom: 125%;
-    left: -50%;
+    width:500px;
+	
+	
+    left: -40%;
     margin: 70px auto;
-    padding: 20px;
-    background: #fff;
     border-radius: 3px;
-    height:500;
+	padding: 20px;
+    height:300px;
 }
+
 
 /* Popup arrow */
 .popup .popuptext::after {
