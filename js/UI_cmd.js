@@ -762,7 +762,8 @@ $(document).ready(function(e) {
 			//console.log(word[1]);
 			var tmpFolderID=1;
 			var tmpOwnerID=1;
-			window.open('new.html?FileName='+word[1]+'&FolderID='+currFolderID+'&OwnerID='+tmpOwnerID, '_blank');
+			window.open('new.html?FileName='+word[1]+'&FolderID='+currFolderID, '_blank');
+			//window.open('new.html?FileName='+word[1]+'&FolderID='+currFolderID+'&OwnerID='+tmpOwnerID, '_blank');
 			//$(location).attr('href', 'new.html?FileName='+word[1]+'&FolderID='+currFolderID+'&OwnerID='+tmpOwnerID);
 			break;
          case "/login":

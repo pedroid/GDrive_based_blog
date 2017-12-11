@@ -10,8 +10,12 @@
 		
 			var has_submitted = false;
 			$(document).ready(function(e) {
-				var filename_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1];
-				$('#titleInput').val(filename_tmp);
+				if(window.location.search!=""){
+					var filename_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1];
+					var FolderID = parseInt(window.location.search.split("?")[1].split('&')[1].split("=")[1]);
+					$('#folder_selection select').val(FolderID);
+					$('#titleInput').val(filename_tmp);
+				}	
 			});
 			$('#text-input').focus()
 
@@ -34,7 +38,8 @@
 				}else{
 					mode = "000"
 				}
-				var FolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];
+				//var FolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];
+				var FolderID = parseInt($('#folder_selection select').val());
 				//console.log(FolderID);
 				$.get(appFiles, {
 							"filename": document.getElementById("titleInput").value,
@@ -68,22 +73,23 @@
   <body>
 <div class="container">
 <div class="row">
-	<div class="col-lg-12 bg-warning">
-		<ul>
-			<li><a href="../ui_cmd.html">Home</a></li>
-			<li><a href="../blog/" target="_blank">Blog</a></li>
-			<li><a href="../gallery/" target="_blank">Gallery</a></li>
-			<li><a href="https://svg-edit.github.io/svgedit/releases/svg-edit-2.8.1/svg-editor.html" target="_blank">SVG Editor</a></li>
-		</ul>
-	</div>
 	<div class="col-lg-12 bg-info">
 		<div id="div_photo_list"></div>
 	</div>
 	<div class="col-lg-12" id="preview_link" style="overflow:auto"></div>
-	<div class="col-lg-12" id="title">[Filename]</div>
 	<div class="col-lg-12">
     		title: <input type="text" id="titleInput"><br><br>
 	</div>
+	<div class="col-lg-12" id="folder_selection">
+		<select>
+			<option value=4>recipe</option>
+			<option value=2>computer_science</option>
+			<option value=3>woodwork</option>
+			<option value=22>teaching_plan</option>
+			<option value=21>uxdata.tw</option>
+		</select>
+	</div>
+	
 	<div class="col-lg-12">
 		<input type="checkbox" id="is_publicInput"> Public </br>
 	</div>
@@ -95,17 +101,8 @@
     	<div class="col-lg-6" id="preview"> </div>
 	<div class="col-lg-12">
     		<input id="submit_button" type="button" value="submit" onclick="SendScore()">
-		<p>cmd</p>
-		<div id='path'>~/$</div>
 
-    		<textarea id="text" rows="1" style="width:100%"></textarea>
 	</div>
-	<div class="col-lg-12 bg-info">
-		<p>client response:</p>
-		<div id='client_response'></div>
-		    <p>server response:</p>
-	    <div id="div_response"></div>
-</div>
 
 	</div>
 </div>

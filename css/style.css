@@ -1,5 +1,18 @@
 /* -- ?????
 ----------------------------------------*/
+#admin_nav{
+	position:fixed;
+	top:5px;
+	right: 5px;
+}
+#admin_nav ul{
+	list-style-type:none;
+}
+#admin_nav li{
+	display:inline;
+	font-size:40px;
+	padding-right:5px;
+}
 
 .sort-wrapper{
 	/*height: 48px;*/
