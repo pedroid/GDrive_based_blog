@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head> 
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+ <meta name="author" content="Lab X yushengc">
+ <meta name="copyright" content="yushengc 2017 all rights Reserved."> 
+ <link rel="shortcut icon" href="../images/favi-icon.png" > 
+ <!-- jQuery --> 
+ <script type="text/javascript" src="../library/jquery/jquery-1.9.0.min.js"></script> 
+ <!-- jQuery UI--> 
+<link type="text/css" rel="stylesheet" href="../library/jquery-ui/css/ui-lightness/jquery-ui-1.10.0.custom.css"> 
+ <script type="text/javascript" src="../library/jquery-ui/js/jquery-ui-1.10.0.custom.min.js"></script> 
+ <!-- Bootstrap --> 
+ <link type="text/css" rel="stylesheet" href="../library/bootstrap/css/bootstrap.min.css"> 
+ <script type="text/javascript" src="../library/bootstrap/js/bootstrap.min.js"></script> 
+ <!-- prettify --> 
+<link type="text/css" rel="stylesheet" href="../library/prettify/prettify.css"> 
+ <script type="text/javascript" src="../library/prettify/prettify.js"></script> 
+ <!-- Font --> 
+<link type="text/css" rel="stylesheet" href="../css/font-face.css"> 
+ <link href='http://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
+ <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'> 
+ <!-- Font Awsome--> 
+ <link type="text/css" rel="stylesheet" href="../css/font-awesome.css"> 
+ <!-- Site Universal Style --> 
+ <link type="text/css" rel="stylesheet" href="../css/lab_site.css"> 
+ <script type="text/javascript"> 
+ $(document).ready(function(){
+ prettyPrint(); 
+ });
+ </script> 
+ <meta name="description" content="25sprout Lab Website, we share some useful or interesting tools here.">
+<meta name="keywords" content="CSS, HTML, Lab, Tools, jQuery" /> 
+ <meta name="URL" content="http://www.25sprout.com/25lab/">
+ <meta name="image" content="http://lab.25sprout.com/images/share-image.jpg" /> 
+ <meta name="og:image" content="http://lab.25sprout.com/images/share-image.jpg"> 
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0"> 
+ <meta name="apple-mobile-web-app-capable" content="yes"> 
+ <title>Yu-Sheng X Blog</title>
+ <link type="text/css" rel="stylesheet" href="../css/style.css"> 
+<link type="text/css" rel="stylesheet" href="../css/style_responsive.css"> 
+ <script type="text/javascript" src="../js/lab-main.js"></script> 
+ </head> 
+<body> 
+ <header> 
+ <a id="title" href="http://yushengc.twbbs.org:9090\blog\"><img src="../images/logo.png"></a> 
+ <div class="links"> 
+ <a href="http://yushengc.twbbs.org:9090\blog\" class="links-1"></a> 
+ </div> 
+ </header> 
+ <div class="container"> 
+ <div class="clear-both"></div> 
+ <div class='content-wrapper'> 
+<h1>A modified markdown WYSIWYG interface</h1>
+
+<h2><a href="http://yushengc.twbbs.org:9090/blog/markdown/markdown_demo.html">demo</a></h2>
+
+<h2>Introduction</h2>
+
+<p>筆者想要實現一個系統，我想要更有彈性的產生HTML。傳統的Markdown使用上是字串與HTML之間的轉換，字串與HTML之間有著固定的轉換關係，而且已經發展的相當成熟。但筆者想要實現一個功能，是字串中不只包含文章的內容，而是有包含了該篇文章的屬性，比如說是否要設為公開，是否有包含tags。此外，筆者也想要自含一些自己定義的markdown語法，比如說我想要把@u2b 與@u2bee之間的連結轉換成iframe 的型式嵌入youtube影片，或是說我想要自己調整文字或圖片的大小，這時候就需要一個彈性更高的系統了。</p>
+
+<p>Markdown</p>
+
+<pre><code>[markdown]</code></pre>
+
+<p>轉換成HTML</p>
+
+<pre><code>[HTML]</code></pre>
+
+<p>最初的實作內含了
+- 非markdown語法但系統可以辨識的語法，如內嵌youtube iframe
+- 系統指令，比如說想要內嵌HTML code，以"@"，或"!"開頭</p>
+
+<p>範例</p>
+
+<pre><code> @html 
+ &lt;svg&gt;
+ &lt;/svg&gt;
+ @htmll</code></pre>
+
+<p>使用者輸入字串會經過一個前處理器，把系統指令抽取出來，再將剩下的字串餵給markdown engine，最後再將目前的html 其中沒有被辨識出來的字串置換成指定的html，最後再疊加上外加的html</p>
+
+<h3>流程圖</h3>
+
+<ol><li>string -&gt;pre-processor-&gt;string' + system_command (publish, tag, html cascade) </li><li>string' -&gt; markdown engine -&gt; html</li><li>html -&gt; post-processor -&gt; html' (ex: u2b)</li><li>存檔的時候server再根據system_command 處理</li></ol>
+
+<h3>可以改進的地方</h3>
+
+<p>程式邏輯過於複雜，可以把新加的功能統一在preprocessor中處理</p>
+
+<h3>新版的流程圖</h3>
+
+<ol><li>string -&gt; pre-processor -&gt; string Object array</li><li>再依序處理string object</li></ol><svg width="640" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"> <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ --> <g>  <title>Layer 1</title>  <line stroke="#000000" id="svg_1" y2="291.33333" x2="235.66667" y1="291.33333" x1="158.66667" stroke-width="5" fill="none"></line>  <line id="svg_3" y2="291.33333" x2="234.66667" y1="277.33333" x1="223.66667" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <line transform="rotate(-98.90171813964844 229.66665649414065,297.33334350585943) " id="svg_4" y2="304.33333" x2="235.16667" y1="290.33333" x1="224.16667" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_5" y="317.33333" x="129.33334" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">whole string</text>  <rect id="svg_9" height="101.33333" width="177.33333" y="242.66667" x="238.66667" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="#ffffff"></rect>  <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_10" y="296" x="328.00001" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">preprocessor</text>  <line id="svg_11" stroke="#000000" y2="291.4082" x2="494.4677" y1="291.4082" x1="417.46769" stroke-width="5" fill="none"></line>  <line id="svg_12" y2="291.4082" x2="493.46769" y1="277.4082" x1="482.46769" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <line id="svg_13" transform="rotate(-98.90171813964844 488.46771240234375,297.40820312499994) " y2="304.4082" x2="493.96769" y1="290.4082" x1="482.96769" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <text id="svg_14" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="321.34375" x="522.68751" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">StringObject Array</text>  <line id="svg_16" stroke="#000000" y2="100.66666" x2="126.09896" y1="100.66666" x1="49.09896" stroke-width="5" fill="none"></line>  <line id="svg_17" y2="100.66666" x2="125.09896" y1="86.66666" x1="114.09896" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <line id="svg_18" transform="rotate(-98.90171813964844 120.09895324707031,106.66664886474608) " y2="113.66666" x2="125.59896" y1="99.66666" x1="114.59896" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <text id="svg_19" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="129.33333" x="82.43229" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">string</text>  <rect id="svg_20" height="101.33333" width="177.33333" y="52" x="129.09896" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="#ffffff"></rect>  <text id="svg_21" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="105.33333" x="218.4323" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">preprocessor</text>  <line id="svg_22" stroke="#000000" y2="96.40819" x2="384.56665" y1="96.40819" x1="307.56665" stroke-width="5" fill="none"></line>  <line id="svg_23" y2="96.40819" x2="383.56665" y1="82.40819" x1="372.56665" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <line id="svg_24" transform="rotate(-98.90171813964844 378.566650390625,102.40817260742188) " y2="109.40819" x2="384.06665" y1="95.40819" x1="373.06665" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <text id="svg_25" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="78.34375" x="343.45314" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">string</text>  <polygon strokewidth="5" strokecolor="#000000" fill="#000000" edge="0" orient="x" sides="5" shape="regularPoly" id="svg_28" cy="181.33333" cx="-365.33333"></polygon>  <text style="cursor: move;" id="svg_33" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="369.34375" x="123.35419" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">StringObject Array</text>  <text id="svg_34" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="398.66668" x="128.67971" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">string</text>  <line id="svg_36" stroke="#000000" y2="392.74153" x2="237.13434" y1="392.74153" x1="160.13434" stroke-width="5" fill="none"></line>  <line id="svg_37" y2="392.74153" x2="236.13434" y1="378.74153" x1="225.13434" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <line id="svg_38" transform="rotate(-98.90171813964844 231.1343536376953,398.7415466308594) " y2="405.74153" x2="236.63434" y1="391.74153" x1="225.63434" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <rect id="svg_39" height="101.33333" width="177.33333" y="354.66665" x="239.33333" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="#ffffff"></rect>  <text stroke="#000000" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_40" y="408" x="329.33333" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" fill="#000000">markdown engine</text>  <line id="svg_41" stroke="#000000" y2="395.40821" x2="491.80101" y1="395.40821" x1="414.80101" stroke-width="5" fill="none"></line>  <line id="svg_42" y2="395.40821" x2="490.80101" y1="381.40821" x1="479.80101" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <line id="svg_43" transform="rotate(-98.90171813964844 485.80102539062494,401.4082336425781) " y2="408.40821" x2="491.30101" y1="394.40821" x1="480.30101" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <text id="svg_44" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="401.33856" x="532.01826" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">HTML</text>  <line id="svg_46" transform="rotate(-98.90171813964844 378.566650390625,102.40817260742188) " y2="109.40819" x2="384.06665" y1="95.40819" x1="373.06665" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <line id="svg_47" y2="96.40819" x2="383.56665" y1="82.40819" x1="372.56665" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <line stroke="#000000" transform="rotate(89.46014404296875 254.43980407714838,173.26220703125003) " id="svg_48" y2="173.2622" x2="272.29291" y1="173.2622" x1="236.58672" stroke-width="5" fill="none"></line>  <line id="svg_52" transform="rotate(-11.205945014953613 249.21768188476526,182.57487487792983) " y2="189.57488" x2="254.71768" y1="175.57488" x1="243.71768" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <line transform="rotate(85.30094909667969 262.2176818847656,182.32487487792972) " id="svg_53" y2="189.32488" x2="267.71768" y1="175.32488" x1="256.71768" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <text id="svg_54" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="193.43228" x="362.76043" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">system command</text>  <rect id="svg_55" height="101.33333" width="177.33333" y="49.33334" x="388.43284" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="#ffffff"></rect>  <text id="svg_56" stroke="#000000" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="102.66669" x="478.43284" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" fill="#000000">markdown engine</text>  <line stroke="#000000" id="svg_57" y2="96.0749" x2="610.90051" y1="96.0749" x1="563.90051" stroke-width="5" fill="none"></line>  <line id="svg_59" y2="96.74155" x2="613.46768" y1="82.74155" x1="602.46768" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <line id="svg_60" transform="rotate(-98.90171813964844 608.4676513671876,102.74151611328128) " y2="109.74155" x2="613.96768" y1="95.74155" x1="602.96768" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <line id="svg_61" transform="rotate(-98.90171813964844 608.4676513671876,102.74151611328128) " y2="109.74155" x2="613.96768" y1="95.74155" x1="602.96768" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <line id="svg_62" y2="96.74155" x2="613.46768" y1="82.74155" x1="602.46768" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"></line>  <text id="svg_63" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="130.01044" x="604.51045" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">HTML</text>  <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_64" y="30" x="65" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">舊版流程</text>  <text style="cursor: move;" id="svg_65" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="253" x="75" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">修改後的流程</text> </g></svg><p>String Constructor</p>
+
+<pre><code>var StringNode = function(data, property){
+    this.data = data;
+    this.property = property;
+}</code></pre>
+
+<p>Object</p>
+
+<pre><code>var StringObjectSet = [];
+StringObjectSet.push(StringNode("string", "system_cmd"));
+StringObjectSet.push(StringNode("string", "markdown_input"));
+StringObjectSet.push(StringNode("string", "html"));
+StringObjectSet.push(StringNode("string", "markdown_input", null));</code></pre>
+
+<h2>discussion</h2>
+
+<h3>system_cmd</h3>
+
+<ol><li>若system_cmd 重覆，只以第一個為主</li></ol>
+
+<h3>系統的安全性</h3>
+
+<p>要內嵌一個html script，就會有風險，換句話說當有人輸入一個&lt;script&gt;包起來的無窮迴圈，則產生的網頁就是一個大麻煩了。</p>
+
+<pre><code>@html
+&lt;script&gt;
+while(1){console.log('hahahaaa');}
+&lt;/script&gt;
+@htmll</code></pre>
+
+<p>因此需要一個guard來過濾javascript才行，或是更進一步，過濾javascript其中的迴圈。這部份的處理放在preprocessor中處理</p> </div> 
+ </div> 
+ </body> 
+ </html> 

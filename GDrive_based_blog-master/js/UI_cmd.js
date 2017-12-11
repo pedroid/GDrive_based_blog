@@ -3,21 +3,6 @@ var appFiles = "https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJi
 var appBlogs = "https://script.google.com/macros/s/AKfycbwlmoiBY_Ip2lt5QICMmOhOnX_dCrAo4_YMsOLk3hmx5M-kihAT/exec";
 var ListAllBlog = "https://script.google.com/macros/s/AKfycbyKzP6PVt8N7Z0lWbxzUk-DS2z2wtz4xRZGKpRRkOKLmsLWiUPK/exec";
 var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec";
-
-var apps_set = {};
-apps_set = {
-	"scrum":{
-		"name":"Scrum",
-		"website":"http://pedroid.github.com/Scrum/index.html",
-	},
-	"MapsNetwork":{
-		"name":"MapsNetwork",
-		"website":"http://pedroid.github.com/MapsNetwork"
-		
-	}
-	
-}
-
 function myFunction() {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
@@ -89,7 +74,7 @@ $(document).ready(function(e) {
     $.get(appFolders,
 
         {
-            command:"commandGetFolders",
+            command:"read",
             ParentID:1
         },
       function (data) {
@@ -363,7 +348,7 @@ $(document).ready(function(e) {
                  $.get(appFolders,
 
                      {
-                         command:"commandDeleteFolder",
+                         command:"delete",
                          FolderID:word[2],
                          ParentID:currFolderID,
 						 
@@ -389,7 +374,7 @@ $(document).ready(function(e) {
                }else{
                      $.get(appFiles, {
 						 "FileID": word[1],
-						 "command":"commandDeleteFile"
+						 "command":"delete"
                       },function (data) {
 
                       });
@@ -511,7 +496,7 @@ $(document).ready(function(e) {
 			$.get(appFolders,
 
             {
-                command:"commandGetFolders",
+                command:"read",
                 ParentID:currFolderID
             },function (data) {
 					console.log(data);
@@ -576,7 +561,7 @@ $(document).ready(function(e) {
         $.get(appFolders,
 
             {
-                command:"commandGetFolders",
+                command:"read",
                 ParentID:currFolderID
             },
           function (data) {
@@ -612,7 +597,7 @@ $(document).ready(function(e) {
             $.get(appFolders,
 
                 {
-                    command:"commandGetFolders",
+                    command:"read",
                     ParentID:currFolderID
                 },
               function (data) {
@@ -667,9 +652,9 @@ $(document).ready(function(e) {
 						  }
 							blogs_set_under_currDir = {};
 						  for(var i=0;i<tmp.length;i++){
-							  var FileID = tmp[i].split('$$')[0];
-							  var Authen = tmp[i].split('$$')[1];
-							  var Filename = tmp[i].split('$$')[2];
+							  var FileID = tmp[i].split(':')[0];
+							  var Authen = tmp[i].split(':')[1];
+							  var Filename = tmp[i].split(':')[2];
 							  blogs_set_under_currDir[FileID] = Filename;
 							  log("Client", '['+FileID+'] '+Authen+' '+Filename);
 						  }
@@ -727,8 +712,8 @@ $(document).ready(function(e) {
 			console.log("folderID:"+currFolderID);
 			$.get(appFiles, {
 							"filename": word[1],
-							  "FolderID":currFolderID,
-							  "command":"blog_new"
+              "FolderID":currFolderID,
+              "command":"blog_new"
 
 						},
 						function (data) {
@@ -744,26 +729,11 @@ $(document).ready(function(e) {
 		case "test":
 
 		break;
-		//app
-		case "apps":{
-			for(iapp in apps_set){
-					log("Client", apps_set[iapp].name);
-			}
-			break;
-		}
-		case "Scrum":
-			$(location).attr('href', apps_set["scrum"].website);
-			break;
-		case "MapsNetwork":
-			$(location).attr('href', apps_set["MapsNetwork"].website);
-			break;
-		//end of app
 		case "new":
 			//console.log(word[1]);
 			var tmpFolderID=1;
 			var tmpOwnerID=1;
-			window.open('new.html?FileName='+word[1]+'&FolderID='+currFolderID+'&OwnerID='+tmpOwnerID, '_blank');
-			//$(location).attr('href', 'new.html?FileName='+word[1]+'&FolderID='+currFolderID+'&OwnerID='+tmpOwnerID);
+			$(location).attr('href', 'new.html?FileName='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID);
 			break;
          case "/login":
             if (word.length >= 3) {

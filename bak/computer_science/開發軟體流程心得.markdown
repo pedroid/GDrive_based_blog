@@ -1,0 +1,17 @@
+#開發軟體流程心得 
+2017/4
+
+1. 先處理溝通的介面(TCP/IP)，定義package的格式。建立一個virtual TCP/IP Server
+2. 套用Design Pattern建立程式基本的Controller以及控制流程
+3. 測試實體TCP/IP Server
+4. 影像儲存功能
+5. ICON更新
+6. 切換不同的部位
+7. 馬達韌體
+8. 相容不同資料格式
+9. image processing (interpolation)
+10. layer segmentation
+11. 因為使用者行為修改，所以修改Controller中的FSM
+12. multi-thread
+
+

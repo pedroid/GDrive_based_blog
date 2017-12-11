@@ -88,8 +88,8 @@ var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-
 							},
 						function (data) {
 							console.log("the result is :"+data);
-							title = data.split('$$')[0];
-							content = data.split('$$')[1];
+							title = data.split('|')[0];
+							content = data.split('|')[1];
 							var html_content = md2html(content,html_content);
 							console.log(html_content);
 							$('#blog_title').html(title);
@@ -112,7 +112,7 @@ var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-
  </head> 
 <body> 
  <header> 
- <a id="title" href="index.html"><img src="assets/logo.png"></a>
+ <a id="title" href=""><img src="images/logo.png"></a> 
  <div class="links"> 
  <a href="" class="links-1"></a> 
  </div> 

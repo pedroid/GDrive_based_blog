@@ -1,0 +1,27 @@
+<!DOCTYPE html><html>
+<head>
+<script src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>
+</head>
+<body>
+<div class='container'>
+<div class='row'>
+<div class='col-lg-12 bg-warning'>
+<h1 id="arduinoasinterpreter">Arduino as interpreter</h1>
+<p>開發firmware的演進
+在arduino IDE上寫好，然後upload 到uC上面</p>
+<p>最終我想要實現一個系統，在uC上面內建了一個interpreter，使用者透過Serial傳遞程式碼，uC可以即時解析並執行。而任何的輸出入都被視為一個物件</p>
+<p>程式碼的範例：設定uC的輸出入介面都被虛擬化為一個物件</p>
+<pre><code>r.setValue(true);
+r.setValue(false);
+system.sleep(10);
+r.setValue(false);
+g.setValue(true);
+</code></pre>
+<p>End product有點像google Blocks 所呈現的概念，目的是要縮短人類日常生活與微控制器之類的距離，讓寫程式這件事的入門門檻再度下降，讓我們的生活更加的容易。</p>
+<p>Google Blocks相關的研究相當的有趣，另外進行<a href="../blog/computer_science/GoogleBlocks.html">整理</a></p></div>
+</div>
+</div>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js'></script>
+</body>
+</html>

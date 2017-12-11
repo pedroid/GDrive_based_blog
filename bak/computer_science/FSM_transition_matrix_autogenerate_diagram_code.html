@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head> 
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+ <meta name="author" content="Lab X yushengc">
+ <meta name="copyright" content="yushengc 2017 all rights Reserved."> 
+ <link rel="shortcut icon" href="../images/favi-icon.png" > 
+ <!-- jQuery --> 
+ <script type="text/javascript" src="../library/jquery/jquery-1.9.0.min.js"></script> 
+ <!-- jQuery UI--> 
+<link type="text/css" rel="stylesheet" href="../library/jquery-ui/css/ui-lightness/jquery-ui-1.10.0.custom.css"> 
+ <script type="text/javascript" src="../library/jquery-ui/js/jquery-ui-1.10.0.custom.min.js"></script> 
+ <!-- Bootstrap --> 
+ <link type="text/css" rel="stylesheet" href="../library/bootstrap/css/bootstrap.min.css"> 
+ <script type="text/javascript" src="../library/bootstrap/js/bootstrap.min.js"></script> 
+ <!-- prettify --> 
+<link type="text/css" rel="stylesheet" href="../library/prettify/prettify.css"> 
+ <script type="text/javascript" src="../library/prettify/prettify.js"></script> 
+ <!-- Font --> 
+<link type="text/css" rel="stylesheet" href="../css/font-face.css"> 
+ <link href='http://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
+ <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'> 
+ <!-- Font Awsome--> 
+ <link type="text/css" rel="stylesheet" href="../css/font-awesome.css"> 
+ <!-- Site Universal Style --> 
+ <link type="text/css" rel="stylesheet" href="../css/lab_site.css"> 
+ <script type="text/javascript"> 
+ $(document).ready(function(){
+ prettyPrint(); 
+ });
+ </script> 
+ <meta name="description" content="25sprout Lab Website, we share some useful or interesting tools here.">
+<meta name="keywords" content="CSS, HTML, Lab, Tools, jQuery" /> 
+ <meta name="URL" content="http://www.25sprout.com/25lab/">
+ <meta name="image" content="http://lab.25sprout.com/images/share-image.jpg" /> 
+ <meta name="og:image" content="http://lab.25sprout.com/images/share-image.jpg"> 
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0"> 
+ <meta name="apple-mobile-web-app-capable" content="yes"> 
+ <title>Yu-Sheng X Blog</title>
+ <link type="text/css" rel="stylesheet" href="../css/style.css"> 
+<link type="text/css" rel="stylesheet" href="../css/style_responsive.css"> 
+ <script type="text/javascript" src="../js/lab-main.js"></script> 
+ </head> 
+<body> 
+ <header> 
+ <a id="title" href="http://yushengc.twbbs.org:9090\blog\"><img src="../images/logo.png"></a> 
+ <div class="links"> 
+ <a href="http://yushengc.twbbs.org:9090\blog\" class="links-1"></a> 
+ </div> 
+ </header> 
+ <div class="container"> 
+ <div class="clear-both"></div> 
+ <div class='content-wrapper'> 
+<h1>Auto Generate FSM object with Transition Matrix Input</h1>
+
+<h2>Overview</h2>
+
+<p>這個專案是一個自動產生程式語言實作、描述的平台。狀態機(FSM)對程式設計師而言是非常常用的一種設計模式，筆者在撰寫軟體、韌體時，已經非常習慣使用狀態機來控制程式的流程，因為這種設計模式讓程式非常的容易除錯，程式的邏輯因為狀態機控制變得比較單純。但是對筆者而言，要在不同的語言下去實作狀態機，記憶不同程式語言的語法就是一件大量重覆的工作，因為工作需要常常在不同的語言下切換(Javascript, Verilog, C++等)，常常要回去翻過去專案的原始碼，才會記起相關的實作細節。因此使用自動化產生程式碼的目的，就是要減少程式設計師的工作量，系統化一些重覆的工作，藉此減低撰寫程式上的負擔。這篇文章介紹如何建構一個自動產生FSM物件的工具，有了這個工具，程式設計師可以專心在程式的架構上，而實作細節不再需要粍掉程式設計師大量的時間以及心力。我希望能將這部份的工作標準化，同樣且重要的工作認真的作一次，往後就可以安心的在框架下作業，如此增加工作完成的效率以及準確度，是這個專案的核心目的。</p>
+
+<h2>output language</h2>
+
+<p>因為筆者工作主要的語言是C++, Verilog次之，所以會先產生C++的版本，再來是Verilog</p>
+
+<h2>transition matrix described by FSM Markup Language</h2>
+
+<p>作為使用者輸入的方式，我選用了Transition Matrix，讓使用者描述狀態機，而格式則是採用Markdown。用Markdown的優點是有利於筆者文件化，以及文件的可讀性。用Markdown可以讓使用者(人類)容易理解，也可以透過相關的library解析後為電腦所處理。</p>
+
+<p>以紅緣燈為例 
+| STATE/event()        | 30seconds()         |5seconds()|  60seconds()  |
+|: -------------------: |:------------------- :| :------------:|  :---------------:|
+| GREEN                  | YELLOW             | X               |    X
+| YELLOW                | X                         |  RED         |    X
+|RED                        | X                         |   X             |     GREEN</p>
+
+<h2>轉換流程</h2>
+
+<p>介紹轉換流程的同時，也是介紹技術上的細節。筆者希望程式設計師能夠將時間節省在設計這一個步驟。所以在這個平台使用者的輸入介面就是狀態轉換的列表，除此之外沒有了！而平台的輸出呢就是自動化產生的C++ object class。</p>
+
+<p>我們已經知道最終我們要的輸出是什麼，以及使用者輸入，剩下的就是我們應該自動化的部份了。條列一下逐步需要做的事情。</p>
+
+<ol><li>使用者輸入Transition Matrix，用Markdown的格式</li><li>Markdown 格式的表格經由特定的[函式庫]轉換成HTML(參考<a href="https://github.com/showdownjs/showdown">showdown</a>)</li><li>自定一個函式庫，將HTML格式的table 解析出有多少state, event等資訊</li><li>有了state, event這些資料就足以產一一個FSM的框架了。</li></ol>
+
+<h2>C++ class architecture</h2>
+
+<h3>state abstract class</h3>
+
+<ol><li>命名：[project name]StateAbstract.[cpp|h]</li><li>定義各個event()的行為，預設在各state不作工作</li></ol>
+
+<h3>state class</h3>
+
+<ol><li>命名：[project name]State[state name].[cpp|h]
+example: f</li><li>繼承自state abstract class，有幾個state就有幾個class</li><li>若event()在該state有觸發行為，則該event()在該state要實作。 </li></ol>
+
+<h3>controller abstract class</h3>
+
+<h3>controller class</h3>
+
+<h4>"event" member function</h4>
+
+<h2>references</h2>
+
+<ol><li><a href="https://en.wikipedia.org/wiki/State_transition_table">State Transition Table Wiki</a></li><li><a href="http://gojs.net/latest/index.html">GoJS</a></li><li><a href="https://github.com/showdownjs/showdown">Markdown to HTML javascript library</a></li></ol> </div> 
+ </div> 
+ </body> 
+ </html> 

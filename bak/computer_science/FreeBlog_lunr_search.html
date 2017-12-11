@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head> 
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+ <meta name="author" content="Lab X yushengc">
+ <meta name="copyright" content="yushengc 2017 all rights Reserved."> 
+ <link rel="shortcut icon" href="http://yushengc.twbbs.org:9090/blog/images/favi-icon.png" > 
+ <!-- jQuery --> 
+ <script type="text/javascript" src="http://yushengc.twbbs.org:9090/blog/library/jquery/jquery-1.9.0.min.js"></script> 
+ <!-- jQuery UI--> 
+<link type="text/css" rel="stylesheet" href="http://yushengc.twbbs.org:9090/blog/library/jquery-ui/css/ui-lightness/jquery-ui-1.10.0.custom.css"> 
+ <script type="text/javascript" src="http://yushengc.twbbs.org:9090/blog/library/jquery-ui/js/jquery-ui-1.10.0.custom.min.js"></script> 
+ <!-- Bootstrap --> 
+ <link type="text/css" rel="stylesheet" href="http://yushengc.twbbs.org:9090/blog/library/bootstrap/css/bootstrap.min.css"> 
+ <script type="text/javascript" src="http://yushengc.twbbs.org:9090/blog/library/bootstrap/js/bootstrap.min.js"></script> 
+ <!-- prettify --> 
+<link type="text/css" rel="stylesheet" href="http://yushengc.twbbs.org:9090/blog/library/prettify/prettify.css"> 
+ <script type="text/javascript" src="http://yushengc.twbbs.org:9090/blog/library/prettify/prettify.js"></script> 
+ <!-- Font --> 
+<link type="text/css" rel="stylesheet" href="http://yushengc.twbbs.org:9090/blog/css/font-face.css"> 
+ <link href='http://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
+ <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'> 
+ <!-- Font Awsome--> 
+ <link type="text/css" rel="stylesheet" href="http://yushengc.twbbs.org:9090/blog/css/font-awesome.css"> 
+ <!-- Site Universal Style --> 
+ <link type="text/css" rel="stylesheet" href="http://yushengc.twbbs.org:9090/blog/css/lab_site.css"> 
+ <script type="text/javascript"> 
+ $(document).ready(function(){
+ prettyPrint(); 
+ });
+ </script> 
+ <meta name="description" content="25sprout Lab Website, we share some useful or interesting tools here.">
+<meta name="keywords" content="CSS, HTML, Lab, Tools, jQuery" /> 
+ <meta name="URL" content="http://www.25sprout.com/25lab/">
+ <meta name="image" content="http://lab.25sprout.com/images/share-image.jpg" /> 
+ <meta name="og:image" content="http://lab.25sprout.com/images/share-image.jpg"> 
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0"> 
+ <meta name="apple-mobile-web-app-capable" content="yes"> 
+ <title>Yu-Sheng X Blog</title>
+ <link type="text/css" rel="stylesheet" href="http://yushengc.twbbs.org:9090/blog/css/style.css"> 
+<link type="text/css" rel="stylesheet" href="http://yushengc.twbbs.org:9090/blog/css/style_responsive.css"> 
+ <script type="text/javascript" src="http://yushengc.twbbs.org:9090/blog/js/lab-main.js"></script> 
+ </head> 
+<body> 
+ <header> 
+ <a id="title" href="http://yushengc.twbbs.org:9090\blog\"><img src="http://yushengc.twbbs.org:9090/blog/images/logo.png"></a> 
+ <div class="links"> 
+ <a href="http://yushengc.twbbs.org:9090\blog\" class="links-1"></a> 
+ </div> 
+ </header> 
+ <div class="container"> 
+ <div class="clear-both"></div> 
+ <div class='content-wrapper'> 
+<h1>@free Blog lunr search</h1>
+
+<pre><code>@lunr
+    @@database: scripts
+    1. Lunr, Like Solr, but much smaller, and not as bright.
+    2. React, A JavaScript library for building user interfaces. 
+    3. Lodash, A modern JavaScript utility library delivering modularity, performance &amp; extras.
+    @@end
+    @@search
+    "bright" in scripts
+    @@end
+@end</code></pre>
+
+<p>在後端就會被轉換成這樣</p>
+
+<pre><code>documents = [{
+  "name": "Lunr",
+  "text": "Like Solr, but much smaller, and not as bright."
+}, {
+  "name": "React",
+  "text": "A JavaScript library for building user interfaces."
+}, {
+  "name": "Lodash",
+  "text": "A modern JavaScript utility library delivering modularity, performance &amp; 
+extras."
+}]
+
+var idx = lunr(function () {
+  this.ref('name')
+  this.field('text')
+
+  documents.forEach(function (doc) {
+    this.add(doc)
+  }, this)
+})
+
+idx.search("bright")</code></pre>
+
+<p>這個的應用是什麼呢？想像當你想要寫一個blog來介紹某個演算法時，我們就可以用以下的方式來寫這個blog</p>
+
+<pre><code>今天要介紹的這個演算法，叫作lunr，他的主要功能是搜尋文章中的關鍵字，以下是使用範例，我們首先建立資料庫
+1. Lunr, Like Solr, but much smaller, and not as bright.
+2. React, A JavaScript library for building user interfaces. 
+3. Lodash, A modern JavaScript utility library delivering modularity, performance &amp; extras.
+
+@lunr
+@@database: scripts
+1. Lunr, Like Solr, but much smaller, and not as bright.
+2. React, A JavaScript library for building user interfaces. 
+3. Lodash, A modern JavaScript utility library delivering modularity, performance &amp; extras.
+@end
+
+我們在資料庫中使用lunr這個函式庫搜尋"library"，就會得到以下結果：
+@@search: 1
+"library" in scripts
+@@end
+
+@textarea:testinput
+
+@@search: 1
+@textarea:testinput, scripts
+@@end</code></pre>
+
+<p>然後產生的結果就會如下</p>
+
+<pre><code>今天要介紹的這個演算法，叫作lunr，他的主要功能是搜尋文章中的關鍵字，以下是使用範例，我們首先建立資料庫
+1. Lunr, Like Solr, but much smaller, and not as bright.
+2. React, A JavaScript library for building user interfaces. 
+3. Lodash, A modern JavaScript utility library delivering modularity, performance &amp; extras.
+
+我們在資料庫中使用lunr這個函式庫搜尋"library"，就會得到以下結果：
+ React
+
+[textarea]
+[search results]</code></pre> </div> 
+ </div> 
+ </body> 
+ </html> 

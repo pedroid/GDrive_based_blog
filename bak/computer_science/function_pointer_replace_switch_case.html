@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head> 
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+ <meta name="author" content="Lab X yushengc">
+ <meta name="copyright" content="yushengc 2017 all rights Reserved."> 
+ <link rel="shortcut icon" href="../images/favi-icon.png" > 
+ <!-- jQuery --> 
+ <script type="text/javascript" src="../library/jquery/jquery-1.9.0.min.js"></script> 
+ <!-- jQuery UI--> 
+<link type="text/css" rel="stylesheet" href="../library/jquery-ui/css/ui-lightness/jquery-ui-1.10.0.custom.css"> 
+ <script type="text/javascript" src="../library/jquery-ui/js/jquery-ui-1.10.0.custom.min.js"></script> 
+ <!-- Bootstrap --> 
+ <link type="text/css" rel="stylesheet" href="../library/bootstrap/css/bootstrap.min.css"> 
+ <script type="text/javascript" src="../library/bootstrap/js/bootstrap.min.js"></script> 
+ <!-- prettify --> 
+<link type="text/css" rel="stylesheet" href="../library/prettify/prettify.css"> 
+ <script type="text/javascript" src="../library/prettify/prettify.js"></script> 
+ <!-- Font --> 
+<link type="text/css" rel="stylesheet" href="../css/font-face.css"> 
+ <link href='http://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
+ <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'> 
+ <!-- Font Awsome--> 
+ <link type="text/css" rel="stylesheet" href="../css/font-awesome.css"> 
+ <!-- Site Universal Style --> 
+ <link type="text/css" rel="stylesheet" href="../css/lab_site.css"> 
+ <script type="text/javascript"> 
+ $(document).ready(function(){
+ prettyPrint(); 
+ });
+ </script> 
+ <meta name="description" content="25sprout Lab Website, we share some useful or interesting tools here.">
+<meta name="keywords" content="CSS, HTML, Lab, Tools, jQuery" /> 
+ <meta name="URL" content="http://www.25sprout.com/25lab/">
+ <meta name="image" content="http://lab.25sprout.com/images/share-image.jpg" /> 
+ <meta name="og:image" content="http://lab.25sprout.com/images/share-image.jpg"> 
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0"> 
+ <meta name="apple-mobile-web-app-capable" content="yes"> 
+ <title>Yu-Sheng X Blog</title>
+ <link type="text/css" rel="stylesheet" href="../css/style.css"> 
+<link type="text/css" rel="stylesheet" href="../css/style_responsive.css"> 
+ <script type="text/javascript" src="../js/lab-main.js"></script> 
+ </head> 
+<body> 
+ <header> 
+ <a id="title" href="http://yushengc.twbbs.org:9090\blog\"><img src="../images/logo.png"></a> 
+ <div class="links"> 
+ <a href="http://yushengc.twbbs.org:9090\blog\" class="links-1"></a> 
+ </div> 
+ </header> 
+ <div class="container"> 
+ <div class="clear-both"></div> 
+ <div class='content-wrapper'> 
+<h1>[C++]用function pointer 來取代switch case pattern</h1>
+
+<h2>引入設計模式的目的是要將程式中變動的部份抽離，這裡的例子用以說明。</h2>
+
+<p>應用情境是當我們對一支程式下指令時，這個程式會依照當下的狀態，去執行該狀態下接收到特定指令之後的行為。比較直觀的寫法是在執行command 的function中(ExecCommandMapFunction member function)，寫一個switch-case 去區別接收到的指令有哪些。而這樣的寫法雖然直觀又快速，但潛在一個問題，就是程式邏輯跟處理事件的程式是混雜在一起的，如果我們希望日後增加/修改事件時，可以專注於處理事件上，而不用再被程式邏輯給分心，就可以採用以下的模式來改寫我們原有的程式。</p>
+
+<p>原有的程式如下</p>
+
+<pre><code>int ExampleClass::ExecCommandMapFunction(const ControlCommandPack kcmd_pack){ 
+ switch (kcmd_pack.command){
+     case(KeepInspecting) : // Map Command to Controller Member function
+          pcurrent_state_-&gt;keep_Inspecting();
+          break;
+     case(StartScan) :
+          pcurrent_state_-&gt;start_Scan();
+          break;
+     case(StopScan) :
+          pcurrent_state_-&gt;stop_Scan();
+          break;
+   }
+
+}</code></pre>
+
+<p>我們改寫的摘要如下</p>
+
+<ol><li>用物件的方式將處理事件的程式包裝裡一個member function</li><li>用function pointer 的方式去編列一個處理事件程式的array，有了這個array，我們就可以用index的方式去調用這些被編列的member function</li><li>我們假設程式的邏輯在日後被修改的機會很少，而這部分也在這次改用中改用function pointer 的方式去實作，ExecCommandMapFunction這個member function是程式邏輯的部份，日後也不太會被變動了。</li><li>當我們有新增一個command 時，更新CommandMapMethod array大小以及列表內容，然後新增一個member function，專門處理這個command 對應的member function (i.e. CMD2XXX member function)</li></ol>
+
+<p>改用function pointer 的pattern去改寫後：</p>
+
+<pre><code>class itriUltherapyController;
+    typedef int(ExampleClass::*CommandMapMethod)(ControlCommandPack* control_cmd_pack);
+// 定義一個新的型別，這個型別是ExampleClass裡面的member function指標
+
+    CommandMapMethod ptable_cmd_map_method_[g_kcommand_map_method_num];
+//建立一個CommandMapMethod的array
+
+int ExampleClass::Initialize(...){
+        // 略
+    ptable_cmd_map_method_[ControlCommand::KeepInspecting] = &amp;ExampleClass::CMD2Kcting;
+    ptable_cmd_map_method_[ControlCommand::StartScan] = &amp;ExampleClass::CMD2StartScan;
+    ptable_cmd_map_method_[ControlCommand::StopScan] = &amp;ExampleClass::CMD2StopScan;
+}
+//初始化array 的內容
+
+int ExampleClass::ExecCommandMapFunction(const ControlCommandPack kcmd_pack){
+
+ /*
+ use function pointer to member function to rewrite the switch-case pattern
+ */
+ fptr = ptable_cmd_map_method_[kcmd_pack.command];  
+ (this-&gt;*(this-&gt;fptr))(&amp;kcmd_pack);
+
+ return 0;
+}
+
+int ExampleClass::CMD2KeepInspecting(ControlCommandPack* kpabus_control_cmd_pack){
+ pcurrent_state_-&gt;keep_Inspecting();
+ return 0;
+}
+
+int ExampleClass::CMD2StartScan(ControlCommandPack* kpabus_control_cmd_pack){
+ pcurrent_state_-&gt;start_Scan();
+ return 0;
+}
+
+int ExampleClass::CMD2StopScan(const ControlCommandPack* pabus_control_cmd_pack){
+ pcurrent_state_-&gt;stop_Scan();
+ return 0;
+}</code></pre> </div> 
+ </div> 
+ </body> 
+ </html> 

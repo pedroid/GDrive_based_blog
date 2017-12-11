@@ -1,0 +1,69 @@
+<!DOCTYPE html><html>
+<head>
+<script src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>
+</head>
+<body>
+<div class='container'>
+<div class='row'>
+<div class='col-lg-12 bg-warning'>
+<h1 id="compiler">Compiler</h1>
+<h2 id="syntaxsyntaticanalysisparsing">Syntax(Syntatic) Analysis (Parsing)</h2>
+<p>parsing 是是由一連串已知的tokens解析得其中使用的結構。結構可以用parse tree來代表。</p>
+<h3 id="topdown">Top-down</h3>
+<p>problem is what to use.</p>
+<h3 id="bottomup">Bottom-up</h3>
+<p>problem if what to reduce.</p>
+<h3 id="contextfreegrammercfg">Context-Free Grammer (CFG)</h3>
+<p>用以說明一個語言的工具。</p>
+<h2 id="lexicalanalysisorscanning">Lexical Analysis (or Scanning)</h2>
+<p><a href="http://xiaoxia.org/2011/10/24/writing-a-compiler-learning-gnu-flex-write-a-lexical-analyzer/">Flex 工具的使用說明</a> LEX, FLEX, YACC, and bison <a href="http://web.stanford.edu/class/cs143/lectures/lecture03.pdf">reference to CS143 lecture03 handout</a>. <a href="http://web.stanford.edu/class/cs143/lectures/lecture04.pdf">reference to CS143 lecture04 handout</a>.</p>
+<p>How to build a Lexical Analyzer?</p>
+<ol>
+<li>Specify the valid tokens of a given language in terms of "REGULAR EXPRESSION"</li>
+<li>Create a NDFA from the regular expression</li>
+<li>convert the NFA to DFA</li>
+</ol>
+<p>Implementation</p>
+<p><a href="https://www.youtube.com/watch?v=KnCrHIjP3jM">an explanation to coding Leximal Analyzer on Youtube</a></p>
+<p>將字串解離出不同種類的字串。使用Regular Language是一個最廣為使用的工具。Lexical Analyzer 的工作可以說是作pattern matching 以產生有效的Token.</p>
+<h3 id="dfaandnfa">DFA and NFA</h3>
+<h4 id="dfadeterministicfiniteautomata">DFA: Deterministic Finite Automata</h4>
+<ul>
+<li>每個state收到一個input 只會有一次轉態,</li>
+<li>沒有epison move (epison move: machine can move from state A to state B without any input),</li>
+<li>faster to execute</li>
+</ul>
+<h4 id="nfanondeterministicfiniteautomata">NFA: Nondeterministic Finite Automata</h4>
+<ul>
+<li>DFA can be exponentially larger than NFA</li>
+</ul>
+<h2 id="compiler-1">學習Compiler的初衷</h2>
+<p>Compiler這一個課題如同這個世界上絕大多數成熟的領域一樣，是一個結構嚴謹的課程。但是其中可能只有某一個小部份符合讀者在一個特定的時期，具有特定的知識背景，讓這個學問的其中一個子集是符合他想要追求的知識。筆者在寫下這些文字的時期，是最想要了解我們要如何一個電腦，可以更聰明的辨別他所得到的指令，而不只是查指令表，而是能用什麼方式來解析使用者的輸入。筆者的目的就是這樣的簡單。</p>
+<h2 id="whysomanylanguages">Why so many languages</h2>
+<p>因為各種不同的應用，所以產生了許多有不同特色的語言存在。這世上並不存在一個適用於各種不同狀況的語言，從另一個角度來說，只要有人使用的語言，就是一個好的語言。</p>
+<h2 id="leximalanalysis">Leximal Analysis</h2>
+<p><a href="http://web.stanford.edu/class/cs143/lectures/lecture01.pdf">reference to CS143 lecture01 handout</a>.</p>
+<p>ist his ase nte nce ===should be===&gt; This is a sentence.</p>
+<h3 id="tokens">Tokens</h3>
+<p>classify substrings according to role</p>
+<ol>
+<li>Identifier: strings of letters or digits, starting with a letter.</li>
+<li>Integer: a non-empty string of digits.</li>
+<li>Keyword: "else", "if", "begin", ...etc</li>
+<li>Whitespace: non-empty sequence of blanks</li>
+</ol>
+<h2 id="parsingdiagrammingsentences">Parsing = Diagramming Sentences</h2>
+<p>The diagram is a tree
+for example: 將一個句子結構化，分析出主詞、受詞等等的元件。
+[note]任何東西都可以被結構化分析，比如一篇文章可以結構出起、承、轉，合，Compiler課程可以被結構出Leximal Analysis, Semantic Analysis,...等。</p>
+<h3 id="parsercomparewithlexer">Parser Compare with Lexer</h3>
+<p>String of characters ===Lexer===&gt; String of tokens <br>
+example: if x=y then 1 else 2 fi ===Lexer===&gt; IF ID = ID THEN INT ELSE INT FI
+String of tokens ===Parser===&gt;Parse Tree 
+[note]有建立Parse TREE的差別是電腦是否能"理解"使用者的輸入。在沒有建立Parse Tree之前，電腦只能夠用"查表"的方式來檢視使用者的輸入是否存在於記憶體中，而可以理解輸入產生的很大一個差別是，電腦從此知道怎麼用"變數"，去套用在一個相同的規則下的任何情形。</p></div>
+</div>
+</div>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js'></script>
+</body>
+</html>
