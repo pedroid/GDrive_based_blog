@@ -125,6 +125,8 @@
 .content-wrapper .grid-item-white{ background: #FFFFFF;}
 .content-wrapper .grid-item-sky{ background: #87CEFA;}
 .content-wrapper .grid-item-dodger{ background: #1E90FF;}
+.content-wrapper .grid-item-safe{ background: #d7afaf;}
+
 
 .content-wrapper .grid-item .thumb-title{
 	color: #ffffff;

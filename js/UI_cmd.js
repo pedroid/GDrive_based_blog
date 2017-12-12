@@ -436,7 +436,12 @@ $(document).ready(function(e) {
 		 case "blog":
 			var tmpFolderID=1;
 			var tmpOwnerID=1;
-			$(location).attr('href', 'blog.html?FileID='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID);
+			if(word.length == 1){
+				window.open('admin.html', '_blank');
+			}else{
+				window.open('blog.html?FileID='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID, '_blank');
+				//$(location).attr('href', 'blog.html?FileID='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID);
+			}
 			break;
 		 case "pwd":
 			//console.log(folder_stack);
@@ -752,10 +757,13 @@ $(document).ready(function(e) {
 			break;
 		}
 		case "Scrum":
-			$(location).attr('href', apps_set["scrum"].website);
+		case "scrum":
+			//$(location).attr('href', apps_set["scrum"].website);
+			window.open(apps_set["scrum"].website, '_blank');
 			break;
 		case "MapsNetwork":
-			$(location).attr('href', apps_set["MapsNetwork"].website);
+			window.open(apps_set["MapsNetwork"].website, '_blank');
+			//$(location).attr('href', apps_set["MapsNetwork"].website);
 			break;
 		//end of app
 		case "new":

@@ -29,6 +29,7 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script type="text/javascript">
+	var currFileID;
         function SendScore(){
 			if(!has_submitted){
 				console.log('submit!');
@@ -47,17 +48,12 @@
 							
 							"FolderID": FolderID,
 							"command":"blog_new"
-							/*
-							"title": "testing9",
-							"content": "test content9",
-							"is_public":"777",
-							"FolderID":1,
-							"command":"new"
-							*/
+	
 						},
 						function (data) {
+							currFileID = parseInt(data);
 							//console.log(data);
-							$('#feedback').html(data)
+							//$('#feedback').html(data)
 						//    document.write("--------------------------");
 						//   document.write("Result = "+data);
 						//   document.write("--------------------------");
@@ -65,7 +61,22 @@
 				$('#submit_button').val('update')
 				has_submitted = true;
 			}else{
-				console.log('update');
+				$.get(appFiles, {
+
+						  "command":"blog_update",
+						  "FileID":currFileID,
+						  "FolderID": parseInt($('#folder_selection select').val()),
+						  "filename":  document.getElementById("titleInput").value,
+						  "content":document.getElementById("text-input").value
+						},
+						function (data) {
+							//console.log(data);
+							
+							//$('#feedback').html(data)
+						//    document.write("--------------------------");
+						//   document.write("Result = "+data);
+						//   document.write("--------------------------");
+				});
 			}
         }
     </script>

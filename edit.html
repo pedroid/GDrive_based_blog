@@ -7,8 +7,10 @@
 		var appBlogs = "https://script.google.com/macros/s/AKfycbwlmoiBY_Ip2lt5QICMmOhOnX_dCrAo4_YMsOLk3hmx5M-kihAT/exec";
 		var ListAllBlog = "https://script.google.com/macros/s/AKfycbyKzP6PVt8N7Z0lWbxzUk-DS2z2wtz4xRZGKpRRkOKLmsLWiUPK/exec";
 		var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec";
+		var currFileID;
 		$(document).ready(function(e) {
 					var number_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1];
+					currFileID = parseInt(number_tmp);
 					console.log(number_tmp);
 					$.get(appBlogs,
 
@@ -19,9 +21,9 @@
 						function (data) {
 							//console.log("the result is :"+data);
 							console.log(data);
-							title = data.split('|')[0];
+							title = data.split('$$')[0];
 
-							content = data.split('|')[1];
+							content = data.split('$$')[1];
 							/*
 							var mode = content.pop();
 							if(mode=="777"){
@@ -62,33 +64,23 @@
 					}else{
 						mode = "000"
 					}
-            $.get(appBlogs, {
-                        "title": document.getElementById("titleInput").value,
-                        "content": document.getElementById("text-input").value,
-						//"is_public":mode,
-						"FileID":number_tmp,
-						"command":"edit"
-                    },
-                    function (data) {
-						$('#feedback').html(data)
-                    //    document.write("--------------------------");
-                    //   document.write("Result = "+data);
-                    //   document.write("--------------------------");
-                    });
+				$.get(appFiles, {
+
+						  "command":"blog_update",
+						  "FileID":currFileID,
+						  "FolderID": parseInt($('#folder_selection select').val()),
+						  "filename":  document.getElementById("titleInput").value,
+						  "content":document.getElementById("text-input").value
+						},
+						function (data) {
+				});
         }
     </script>
 	</head>
   <body>
 <div class="container">
 <div class="row">
-	<div class="col-lg-12 bg-warning">
-		<ul>
-			<li><a href="../ui_cmd.html">Home</a></li>
-			<li><a href="../blog/" target="_blank">Blog</a></li>
-			<li><a href="../gallery/" target="_blank">Gallery</a></li>
-			<li><a href="https://svg-edit.github.io/svgedit/releases/svg-edit-2.8.1/svg-editor.html" target="_blank">SVG Editor</a></li>
-		</ul>
-	</div>
+
 	<div class="col-lg-12 bg-info">
 		<div id="div_photo_list"></div>
 	</div>
