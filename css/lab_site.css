@@ -1,24 +1,12 @@
 /* -- Universal Setting
 --------------------------------------------------*/
 body {
-	font-family:'Open Sans',"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple LiGothic","微�??����???","Microsoft JhengHei";
-	font-weight: 300;
+
 	margin: 0;
 	padding: 0;
 	background: #f5faf1;
 }
 
-h1,h2,h3,h4,h5,h6{
-	font-weight: normal;
-	font-family:'Open Sans',"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple LiGothic","微�??����???","Microsoft JhengHei";
-}
-
-h2{
-	color: #90ae22;
-	margin-bottom: 10px;
-	font-size: 24px;
-	text-transform: uppercase;
-}
 
 h6{
 	font-weight: normal;
@@ -116,7 +104,6 @@ header{
 	margin: 0px 5px;
 	width: 36px;
 	height: 36px;
-	background-image: url(../images/navi-icon.png);
 	display: inline-block;
 	vertical-align: top;
 }
@@ -246,4 +233,9 @@ header{
 	#title{
 		width: 100%;
 	}
+}
+
+#blog_title{
+		font-size: 32px;
+		text-align:center;
 }

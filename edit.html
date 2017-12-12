@@ -8,14 +8,17 @@
 		var ListAllBlog = "https://script.google.com/macros/s/AKfycbyKzP6PVt8N7Z0lWbxzUk-DS2z2wtz4xRZGKpRRkOKLmsLWiUPK/exec";
 		var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec";
 		var currFileID;
+		var currFolderID;
 		$(document).ready(function(e) {
-					var number_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1];
-					currFileID = parseInt(number_tmp);
-					console.log(number_tmp);
+					currFileID = window.location.search.split("?")[1].split('&')[0].split("=")[1];
+					currFolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];
+
+					$('#folder_selection select').val(currFolderID);
+					console.log(currFileID);
 					$.get(appBlogs,
 
 							{
-									FileID:number_tmp,
+									FileID:currFileID,
 									"command":"read"
 							},
 						function (data) {
@@ -32,7 +35,7 @@
 								$('#is_publicInput').attr('checked', false);
 							}
 							content.shift();
-							
+
 							$('#text-input').val(content.join());
 							*/
 							$('#text-input').val(content);
@@ -55,9 +58,21 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script type="text/javascript">
+				function Delete(){
+					console.log(currFileID);
+					$.get(appFiles, {
+
+								"command":"commandDeleteFile",
+								"FileID":currFileID
+							},
+							function (data) {
+								$(location).attr('href', 'admin.html');
+					});
+
+				}
         function SendScore(){
-					var number_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1];
-					console.log(number_tmp);
+					var currFileID = window.location.search.split("?")[1].split('&')[0].split("=")[1];
+					console.log(currFileID);
 					var mode;
 					if($("#is_publicInput").prop("checked")){
 						mode = "777"
@@ -70,7 +85,9 @@
 						  "FileID":currFileID,
 						  "FolderID": parseInt($('#folder_selection select').val()),
 						  "filename":  document.getElementById("titleInput").value,
-						  "content":document.getElementById("text-input").value
+						  "content":document.getElementById("text-input").value,
+							"is_public":parseInt($('#is_public_id').val()),
+							"is_draft":parseInt($('#is_draft_id').val())
 						},
 						function (data) {
 				});
@@ -86,11 +103,28 @@
 	</div>
 	<div class="col-lg-12" id="preview_link" style="overflow:auto"></div>
 
-	<div class="col-lg-12">
+	<div class="col-lg-12 bg-info">
     		title: <input type="text" id="titleInput"><br><br>
 	</div>
-		<div class="col-lg-12">
-		<input type="checkbox" id="is_publicInput"> Public(not available) </br>
+	<div class="col-lg-12 bg-info" id="folder_selection">
+		<select>
+			<option value=4>recipe</option>
+			<option value=2>computer_science</option>
+			<option value=3>woodwork</option>
+			<option value=22>teaching_plan</option>
+			<option value=21>uxdata.tw</option>
+		</select>
+	</div>
+		<div class="col-lg-12 bg-info">
+		<select id="is_public_id">
+				   <option value=0>Private</option>
+					 <option value=1>Public</option>
+
+		</select>
+		<select id="is_draft_id">
+		       <option value=0>Publish</option>
+		       <option value=1>Draft</option>
+		</select>
 	</div>
 	<div class="col-lg-6" id="title">
 	    <textarea class="AutoHeight" id="text-input" oninput=this.editor.update()
@@ -100,17 +134,10 @@
     	<div class="col-lg-6" id="preview"> </div>
 	<div class="col-lg-12">
     		<input type="button" value="Update" onclick="SendScore()">
-		<p>cmd</p>
-		<div id='path'>~/$</div>
+				<input type="button" value="Delete" onclick="Delete()">
 
-    		<textarea id="text" rows="1" style="width:100%"></textarea>
 	</div>
-	<div class="col-lg-12 bg-info">
-		<p>client response:</p>
-		<div id='client_response'></div>
-		    <p>server response:</p>
-	    <div id="div_response"></div>
-</div>
+
 
 	</div>
 </div>
@@ -128,13 +155,7 @@
 		$('#text').val("");
 	});
 	$('#text').val("input your command here\n");
-/*
-	socket.emit('markdown',{
-		'type':'cmd',
-		'command':'ls_photo',
-		'path':current_dir
-	});
-*/
+
         $('#text').keypress(function(e){
           //socket.emit('client_data', {
           //  'letter': String.fromCharCode(e.charCode)
@@ -149,183 +170,6 @@
 		}else{
 			cmd = $('#text').val().split('\n')[1];
 
-		}
-		switch(cmd.split(' ')[0]){
-			case('save'):{
-				console.log('save');
-//				console.log($('#text-input').html());
-				if(filename){
-					console.log(parse_result.tag_content_array);
-					//console.log($('#preview').html());
-					socket.emit('markdown',{
-						'type':'cmd',
-						'command':'save',
-						'markdown_content':$('#text-input').val(),
-						'html_content':$('#preview').html(),
-						'path':current_dir,
-						'filename':filename,
-						'publish':parse_result.publish,
-						'tag':parse_result.tag_content_array
-					});
-					//console.log('markdown content:'+$('#text-input').val());
-					console.log('file saved');
-					$('#client_response').html('file saved');
-				}else{
-					console.log('please select a file to edit');
-					$('#client_response').html('please select a file to edit');
-					break;
-				}
-				break;
-			}
-			case('ls'):{
-//				console.log('ls');
-				console.log('ls:'+current_dir);
-				socket.emit('markdown',{
-					'type':'cmd',
-					'command':'ls',
-					'path':current_dir
-				});
-				break;
-			}
-			case('ls_photo'):{
-//				console.log('ls');
-				console.log('ls:'+current_dir);
-				socket.emit('markdown',{
-					'type':'cmd',
-					'command':'ls_photo',
-					'path':current_dir
-				});
-				break;
-			}
-			case('edit'):{
-				if(cmd.split(' ')[1]){
-					argv = cmd.split(' ')[1];
-					filename = argv;
-					socket.emit(
-						'markdown',
-						{
-							'type':'cmd',
-							'command':'edit',
-							'filename':filename
-						}
-					);
-					$('#title').html(current_dir+filename+'.markdown');
-				}else{
-
-					$('#client_response').html('please enter the filename as argument[1]');
-				}
-				break;
-			}
-			case('mkdir'):{
-				if(cmd.split(' ')[1]){
-					argv = cmd.split(' ')[1];
-					socket.emit('markdown',{
-						'type':'cmd',
-						'command':'mkdir',
-						'path':argv
-					});
-
-				}else{
-					$('#client_response').html('please enter the directory name as argument[1]');
-
-				}
-				break;
-
-			}
-			case('cd'):{
-				console.log('cmd:'+cmd);
-				if(cmd.split(' ')[1]){
-					argv = cmd.split(' ')[1];
-					socket.emit('markdown',{
-						'type':'cmd',
-						'command':'cd',
-						'path':argv
-					});
-					$('#form_dir_name').val(argv);
-				}else{
-
-					$('#client_response').html('please enter the filepath as argument[1]');
-				}
-				/*
-				if(cmd.split(' ')[1]){
-					argv = cmd.split(' ')[1];
-					if(argv=='..'){
-						var new_path='';
-						var path_tmp = current_dir.split('/');
-						switch(path_tmp.length){
-							case 2: console.log('you are alrealy in root');
-								break;
-							case 3: path_tmp.splice(1,1);break;
-							case 4: path_tmp.splice(2,1);break;
-						}
-						for(var i=0;i<path_tmp.length;i++){
-							new_path+=path_tmp[i];
-							if(path_tmp[i]=='')break;
-							new_path+='/';
-						}
-						console.log('2:'+new_path);
-						current_dir = new_path;
-					}else{
-						current_dir += argv+'/';
-					}
-					$('#title').html('/'+current_dir+filename+'.markdown');
-
-				}else{
-					$('#client_response').html('please enter the filepath as argument[1]');
-
-				}
-				*/
-				break;
-			}
-
-			case('rm'):{
-				if(cmd.split(' ')[1]){
-					argv = cmd.split(' ')[1];
-					filename = argv;
-					socket.emit('markdown',{
-						'type':'cmd',
-						'command':'rm',
-						'filename':argv
-					});
-				}else{
-					$('#client_response').html('please enter the filename as argument[1]');
-
-				}
-				break;
-			}
-			case('new'):{
-				if(cmd.split(' ')[1]){
-					argv = cmd.split(' ')[1];
-					filename = argv;
-					$('#title').html(current_dir+filename+'.markdown');
-
-				}else{
-					console.log('please enter the filename as argument[1]');
-					$('#client_response').html('please enter the filename as argument[1]');
-				}
-				break;
-
-//				console.log('argv:'+argv);
-			}
-			case('clear'):{
-				filename='';
-				$('#title').html('[filename]');
-				break;
-			}
-			/*
-			case('pwd'):{
-
-				socket.emit('markdown',{
-					'type':'cmd',
-					'command':'pwd'
-				});
-
-				break;
-			}
-			*/
-			default:{
-				$('#client_response').html('command not support.');
-			}
 		}
 
 		$('#text').val('');

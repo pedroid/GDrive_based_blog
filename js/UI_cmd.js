@@ -13,9 +13,9 @@ apps_set = {
 	"MapsNetwork":{
 		"name":"MapsNetwork",
 		"website":"http://pedroid.github.com/MapsNetwork"
-		
+
 	}
-	
+
 }
 
 function myFunction() {
@@ -366,7 +366,7 @@ $(document).ready(function(e) {
                          command:"commandDeleteFolder",
                          FolderID:word[2],
                          ParentID:currFolderID,
-						 
+
                      },function (data) {
                              console.log(data);
                              $('.editline').show()
@@ -402,7 +402,7 @@ $(document).ready(function(e) {
 			break;
 		 case "print":
 			if(typeof variables_set[word[1]] == "undefined"){
-				
+
 				log("Client",word[1]+" is not defined.");
 			}else{
 				log("Client", variables_set[word[1]]);
@@ -412,15 +412,15 @@ $(document).ready(function(e) {
 			console.log(word[1]);
 			if(typeof word[1] == "undefined"){
 				//console.log("w/o arguments");
-				
+
 			}else{
 				//console.log("with argument");
 				var value_variable = word[1].split("=")[1].split(';')[0];
-				variables_set[word[1].split("=")[0]] = value_variable;	
+				variables_set[word[1].split("=")[0]] = value_variable;
 				//console.log(variables_set);
-				
+
 			}
-			
+
 			break;
 		 case "chmod":
             $.get(appFiles, {
@@ -460,7 +460,7 @@ $(document).ready(function(e) {
 						},function (data) {
 							$('.editline').show()
 							document.getElementById('test').focus();
-							
+
 
 					  });
 					  */
@@ -470,7 +470,7 @@ $(document).ready(function(e) {
 							}
 						    log("Client", '('+currFolderID+') '+path);
 				}
-				
+
 					break;
      case "mkdir":
      if(typeof word[1] == "undefined"){
@@ -566,8 +566,8 @@ $(document).ready(function(e) {
 					//$('#GDrive_content').html(data);
 				});
       }else if(word[1] == ".." || word[1] == "../"){
-		
-		
+
+
         console.log('before:'+currFolderID);
         if(currFolderID == 1){
 
@@ -695,9 +695,11 @@ $(document).ready(function(e) {
 							console.log("the result is :"+data);
 							$('.editline').show()
 							document.getElementById('test').focus();
-							title = data.split('|')[0];
+							title = data.split('$$')[0];
 
-							content = data.split('|')[1];
+							content = data.split('$$')[1];
+							console.log(title);
+							console.log(content);
 							//var mode = content.pop();
 							//content.shift();
 							//console.log(content.join());
@@ -710,7 +712,7 @@ $(document).ready(function(e) {
 									log("", content_set[i]);
 								}
 							}
-							
+
 							//$('#text-input').val(content.join());
 							//$('#text-input')[0].editor.update()
 							//$('#titleInput').val(title);

@@ -7,7 +7,7 @@
 		var appBlogs = "https://script.google.com/macros/s/AKfycbwlmoiBY_Ip2lt5QICMmOhOnX_dCrAo4_YMsOLk3hmx5M-kihAT/exec";
 		var ListAllBlog = "https://script.google.com/macros/s/AKfycbyKzP6PVt8N7Z0lWbxzUk-DS2z2wtz4xRZGKpRRkOKLmsLWiUPK/exec";
 		var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec";
-		
+
 			var has_submitted = false;
 			$(document).ready(function(e) {
 				if(window.location.search!=""){
@@ -15,7 +15,7 @@
 					var FolderID = parseInt(window.location.search.split("?")[1].split('&')[1].split("=")[1]);
 					$('#folder_selection select').val(FolderID);
 					$('#titleInput').val(filename_tmp);
-				}	
+				}
 			});
 			$('#text-input').focus()
 
@@ -43,12 +43,13 @@
 				var FolderID = parseInt($('#folder_selection select').val());
 				//console.log(FolderID);
 				$.get(appFiles, {
+						  "command":"blog_new",
 							"filename": document.getElementById("titleInput").value,
 							"content": document.getElementById("text-input").value,
-							
 							"FolderID": FolderID,
-							"command":"blog_new"
-	
+							"is_public":parseInt($('#is_public_id').val()),
+							"is_draft":parseInt($('#is_draft_id').val())
+
 						},
 						function (data) {
 							currFileID = parseInt(data);
@@ -67,11 +68,13 @@
 						  "FileID":currFileID,
 						  "FolderID": parseInt($('#folder_selection select').val()),
 						  "filename":  document.getElementById("titleInput").value,
-						  "content":document.getElementById("text-input").value
+						  "content":document.getElementById("text-input").value,
+							"is_public":parseInt($('#is_public_id').val()),
+							"is_draft":parseInt($('#is_draft_id').val())
 						},
 						function (data) {
 							//console.log(data);
-							
+
 							//$('#feedback').html(data)
 						//    document.write("--------------------------");
 						//   document.write("Result = "+data);
@@ -100,10 +103,18 @@
 			<option value=21>uxdata.tw</option>
 		</select>
 	</div>
-	
+
 	<div class="col-lg-12">
-		<input type="checkbox" id="is_publicInput"> Public </br>
-	</div>
+	<select id="is_public_id">
+				 <option value=0>Private</option>
+				 <option value=1>Public</option>
+
+	</select>
+	<select id="is_draft_id">
+				 <option value=0>Publish</option>
+				 <option value=1>Draft</option>
+	</select>
+</div>
 	<div class="col-lg-6" id="title">
 	    <textarea class="AutoHeight" id="text-input" oninput=this.editor.update()
                style="width:100%" rows="30">Type **Markdown** here.test
@@ -315,7 +326,7 @@
 				$('#title').html('[filename]');
 				break;
 			}
-			
+
 			default:{
 				$('#client_response').html('command not support.');
 			}

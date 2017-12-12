@@ -5,7 +5,7 @@ $(document).ready(function(){
 		type: "GET",
 		dataType: "json",
 		success: function(data) {
-			console.log(data['staffs']);
+			//console.log(data['staffs']);
 			$.each(data['staffs'],function(key,val){
 				$newSortIcon = $('<div class="sort" rel=""></div>');
 				$newSortIcon.addClass(key.toLowerCase());
