@@ -134,6 +134,11 @@
 
 }
 
+#blog_title{
+	padding-left:10%;
+	padding-right:10%;
+}
+
 .content-wrapper .grid-item .thumb-title{
 	color: #ffffff;
 	width: 100%;
