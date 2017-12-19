@@ -127,6 +127,12 @@
 .content-wrapper .grid-item-dodger{ background: #1E90FF;}
 .content-wrapper .grid-item-safe{ background: #d7afaf;}
 
+#content{
+  padding-left: 10%;
+  padding-right:10%;
+  line-height:200%;
+
+}
 
 .content-wrapper .grid-item .thumb-title{
 	color: #ffffff;
