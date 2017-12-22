@@ -24,20 +24,25 @@ var html_preprocessing = function(content){
 	//
 	var patt_u2b = new RegExp("^@u2b{[ ]*$");
 	var patt_u2bee = new RegExp("^@u2bee[ ]*$");
-	
+
+	var patt_flowchart = new RegExp("^@flowchart{[ ]*$");
+	var patt_flowchard_end = new RegExp("^@flowchart[ ]*$");
+
 	var patt_script = new RegExp("tag");
 
 	var flag_code = false;
 	var flag_u2b = false;
+	var flag_flowchart = false;
 	var tmp_html_content = "";
 	var tmp_u2b_content = "";
+	var tmp_flowchart_content = "";
 	var tmp_content = "";
         var StringSet = [];
 	//parse_result.code.push("");
 	//console.log('1:', StringSet);
 	for(id_content_array in content_array){
 		each_content = content_array[id_content_array];
-		//console.log(each_content);		
+		//console.log(each_content);
 		if(patt_tag.test(each_content)){
 			var tag_content = each_content.split('!tag')[1];
 			console.log('tag_content'+tag_content);
@@ -47,8 +52,8 @@ var html_preprocessing = function(content){
 			StringSet.push(StringNode(tag_content_array, "system_cmd", "tag"));
 			console.log(StringSet);
 			continue;
-		}else if(patt_publish.test(each_content)){ 
-			parse_result.publish = true;	
+		}else if(patt_publish.test(each_content)){
+			parse_result.publish = true;
 			var tmp = new StringNode(true, "system_cmd", "publish");
 			//console.log(tmp);
 			StringSet.push(tmp);
@@ -56,7 +61,7 @@ var html_preprocessing = function(content){
 			continue;
 		}else if(patt_html.test(each_content)){
 			tmp_html_content = "";
-			flag_code = true;			
+			flag_code = true;
 			var tmp = new StringNode(tmp_content, "markdown_input", "");
 			if(tmp_content!=""){
 				StringSet.push(tmp);
@@ -72,12 +77,22 @@ var html_preprocessing = function(content){
 			}
 			tmp_content = "";
 			continue;
-		
+
+		}else if(patt_flowchart.test(each_content)){
+			tmp_flowchart_content = "";
+			flag_flowchart = true;
+			var tmp = new StringNode("tmp_content", "markdown_input", "");
+			if(tmp_content!=""){
+				StringSet.push(tmp);
+			}
+			tmp_content = "";
+			continue;
+
 		}else if(patt_end.test(each_content)){
 			if(flag_code == true){
 				parse_result.code.push(tmp_content);
 				if(patt_script.test(tmp_html_content)){
-					console.log('script included');		
+					console.log('script included');
 				}else{
 					var tmp = new StringNode(tmp_html_content, "html", "");
 					StringSet.push(tmp);
@@ -85,7 +100,7 @@ var html_preprocessing = function(content){
 				flag_code = false;
 				tmp_content = "";
 			}
-			if(flag_u2b == true){				
+			if(flag_u2b == true){
 				var forfun = "<iframe width='600' height='450' src='";
 				forfun += tmp_u2b_content;
 				forfun += "'></iframe>";
@@ -95,9 +110,15 @@ var html_preprocessing = function(content){
 				flag_u2b = false;
 
 			}
+			if(flag_flowchart == true){
+				var tmp = new StringNode("", "flowchart", "");
+				StringSet.push(tmp);
+				flag_flowchart = false;
+
+			}
 			continue;
 		}
-		
+
 		if(flag_code){
 			tmp_html_content += each_content;
 			console.log('save code:'+tmp_html_content);
@@ -109,10 +130,10 @@ var html_preprocessing = function(content){
 			output+= each_content + '\n';
 			tmp_content += each_content + '\n';
 	//		console.log(tmp_content);
-		
+
 		}
-	
-		
+
+
 	}
 	if(tmp_content!=""){
 		//console.log(tmp_content);
