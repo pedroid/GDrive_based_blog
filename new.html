@@ -20,6 +20,9 @@
 			$('#text-input').focus()
 
 		</script>
+		<script src="js/raphael.min.js"></script>
+		<script src="js/flowchart.min.js"></script>
+
 		<script src="markdown.js"></script>
 	<script src = "html_preprocessing.js"></script>
 
@@ -125,6 +128,7 @@
     		<input id="submit_button" type="button" value="submit" onclick="SendScore()">
 
 	</div>
+<div id="diagram"></div>
 
 	</div>
 </div>
@@ -371,6 +375,16 @@
 				}
 				case "u2b":{
 					preview.innerHTML += StringSet[i].data;
+					break;
+				}
+				case "flowchart":{
+					console.log(StringSet[i].data);
+					tmp = StringSet[i].data;
+					var diagram = flowchart.parse(tmp);
+					$('#diagram').html('');
+		  		diagram.drawSVG('diagram');
+
+					preview.innerHTML += $('#diagram').html();
 					break;
 				}
 			}

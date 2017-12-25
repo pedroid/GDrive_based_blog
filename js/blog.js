@@ -38,12 +38,23 @@ function md2html(input_content) {
           preview += StringSet[i].data;
           break;
         }
+        case "flowchart":{
+					console.log(StringSet[i].data);
+					tmp = StringSet[i].data;
+					var diagram = flowchart.parse(tmp);
+					$('#diagram').html('');
+					diagram.drawSVG('diagram');
+
+					preview += $('#diagram').html();
+					break;
+				}
       }
       }
       return preview;
 }
 
 $(document).ready(function(){
+$('#diagram').hide();
 $('#content').html("loading...");
 var number_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1];
         // console.log(number_tmp);

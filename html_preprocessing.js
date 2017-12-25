@@ -81,7 +81,7 @@ var html_preprocessing = function(content){
 		}else if(patt_flowchart.test(each_content)){
 			tmp_flowchart_content = "";
 			flag_flowchart = true;
-			var tmp = new StringNode("tmp_content", "markdown_input", "");
+			var tmp = new StringNode(tmp_content, "markdown_input", "");
 			if(tmp_content!=""){
 				StringSet.push(tmp);
 			}
@@ -111,7 +111,9 @@ var html_preprocessing = function(content){
 
 			}
 			if(flag_flowchart == true){
-				var tmp = new StringNode("", "flowchart", "");
+				var flowchart_content = "";
+				flowchart_content+= tmp_flowchart_content;
+				var tmp = new StringNode(flowchart_content, "flowchart", "");
 				StringSet.push(tmp);
 				flag_flowchart = false;
 
@@ -126,6 +128,8 @@ var html_preprocessing = function(content){
 			tmp_u2b_content += each_content;
 			console.log('save u2b code:'+tmp_u2b_content);
 
+		}else if(flag_flowchart){
+			tmp_flowchart_content += each_content +'\n';
 		}else{
 			output+= each_content + '\n';
 			tmp_content += each_content + '\n';
