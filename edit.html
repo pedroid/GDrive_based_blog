@@ -2,6 +2,7 @@
 <html>
 	<head>
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
 		<script type="text/javascript">
 		var appFiles = "https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec";
 		var appBlogs = "https://script.google.com/macros/s/AKfycbwlmoiBY_Ip2lt5QICMmOhOnX_dCrAo4_YMsOLk3hmx5M-kihAT/exec";
@@ -9,6 +10,10 @@
 		var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec";
 		var currFileID;
 		var currFolderID;
+		var logout = function(){
+			firebase.auth().signOut();
+		}
+
 		$(document).ready(function(e) {
 					$('#diagram').hide()
 					currFileID = window.location.search.split("?")[1].split('&')[0].split("=")[1];
@@ -76,6 +81,10 @@
 					});
 
 				}
+				function View(){
+					var search = window.location.search;
+					window.open('blog.html'+search, '_blank');
+				}
         function SendScore(){
 					var currFileID = window.location.search.split("?")[1].split('&')[0].split("=")[1];
 					console.log(currFileID);
@@ -85,6 +94,7 @@
 					}else{
 						mode = "000"
 					}
+					
 				$.post(appFiles, {
 
 						  "command":"blog_update",
@@ -93,7 +103,8 @@
 						  "filename":  document.getElementById("titleInput").value,
 						  "content":document.getElementById("text-input").value,
 							"is_public":parseInt($('#is_public_id').val()),
-							"is_draft":parseInt($('#is_draft_id').val())
+							"is_draft":parseInt($('#is_draft_id').val()),
+							"uid":uid
 						},
 						function (data) {
 				});
@@ -101,6 +112,11 @@
     </script>
 	</head>
   <body>
+		<div id="admin_nav">
+			<ul>
+			<li><a href="javascript:logout()">logout</a></li>
+			</ul>
+		</div>
 <div class="container">
 <div class="row">
 
@@ -119,6 +135,7 @@
 			<option value=3>woodwork</option>
 			<option value=22>teaching_plan</option>
 			<option value=21>uxdata.tw</option>
+			<option value=23>course</option>
 		</select>
 	</div>
 		<div class="col-lg-12 bg-info">
@@ -141,7 +158,7 @@
 	<div class="col-lg-12">
     		<input type="button" value="Update" onclick="SendScore()">
 				<input type="button" value="Delete" onclick="Delete()">
-
+				<input type="button" value="View" onclick="View()">
 	</div>
 
 <div id="diagram"></div>
@@ -155,8 +172,31 @@
       var filename;
       //var socket = io.connect();
       var current_dir = '';
-
+			var uid;
       $(document).ready(function(){
+//firebase
+			var config = {
+			apiKey: "AIzaSyAtI63y6oM7PO4p0U2AEMsXrhScPYeC3GA",
+			authDomain: "uxapi-74e8b.firebaseapp.com",
+			databaseURL: "https://uxapi-74e8b.firebaseio.com",
+			projectId: "uxapi-74e8b",
+			storageBucket: "",
+			messagingSenderId: "1051481601400"
+			};
+			firebase.initializeApp(config);
+
+			firebase.auth().onAuthStateChanged(firebaseUser=>{
+				if(firebaseUser){
+						console.log('hi,'+firebaseUser.email);
+						uid = firebaseUser.uid;
+
+				}else{
+						console.log('not logged in');
+						window.location = "login.html";
+				}
+			});
+
+//end of firebase
 	$('#text').focus(function(){
 		$('#text').val("");
 	});

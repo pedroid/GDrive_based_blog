@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+		<script src="js/login_admin.js"></script>
 	<!-- - - - - - - - - - - - - - - - - -
 
 	注意 ！！
@@ -98,12 +100,13 @@
 				<div class="sort woodwork" rel="woodwork">woodwork</div>
 				<div class="sort recipe" rel="recipe">recipe</div>
 				<div class="sort teaching_plan" rel="teaching_plan">teaching plan</div>
-
+				<div class="sort course" rel="course">course</div>
 				<div class="sort" rel="all">All</div>
 			</div>
 			<div id="admin_nav">
 				<ul>
 				<li><a href="new.html">+</a></li>
+				<li><a href="javascript:logout()">logout</a></li>
 				</ul>
 			</div>
 		</div>
@@ -116,29 +119,7 @@
 
 
 <div class='content-wrapper'>
-	<h2>網站的架設</h2>
-	<p>這是一個實驗性質的網站，建設在amazon ec2，在其中自行建設網站伺服器，保有了較大的彈性，可以基於node.js Server上實驗一些後端的功能，也將blog架設在底下。blog儲存在github上，同步於Dropbox，因此blog底下的所有文件任何人都可以access 到，而任何一台電腦可以開啟Dropbox中的網頁檔進行編輯並自動同步，當完成變更後再push到github上。而在github上的網站則是為了確保不用為了有一天因為某些原因網站掛掉時的備份。 </p>
-	<p>目前網站的內容與呈現採疊代的方式進行更新，一邊增加內容，以html的格式存檔，一邊開發美觀(CSS)、以及編輯模式。
-	<h3>是否使用現行的CMS</h3>
-	<p>
-	從筆者開始有在網路上寫文章的時候就一直在現有的Blog系統以及自己架設網站之間拔河。筆者最終是希望自己能夠掌握住技術的，所以自己架設網站是最終的目的，但是要自己架設所需要的技術各方面需要時間熟成，所以目前也在不同的平台上零散地留下文字記錄，比如說Wordpress, blogspot等等。然而隨著技術能量的累積，自己架設網站的魔力始終還是讓人無法忘懷，因而有了現在這個解決方案。
-	<h4>自己架設網站的魔力</h4>
-	<ul>
-	    <li>目標是借由架設網站掌握更多實作細節</li>
-	    <li>只有自己才知道自己要什麼，而一旦知道自己要什麼(從網站的外觀，到網站的行為模式)，最好自己仍保有製造的條件以及能力。當選擇商用的CMS，也少了某些自造的自由。</li>
-	    <li>雖然技術債很多，但是值得花時間學習</li>
-	</ul>
-	<h4>需要克服的地方</h4>
-	<ul>
-		<li>硬體的託管</li>
-		<p>筆者曾經在唸書的時候自己架設過網站，當時因為學校提供固定IP，且剛好管理實驗室網站，所以有機會學習在Ubuntu環境下架設網站，並有自己的一個空間可以架設，但隨著畢業失去這部份的資源後，雖然可以架設在自己家中，但是維護的成本也隨之增加，而且當下也沒有心力維設，在這樣的時空背景下，筆者回到了現成CMS的擁抱。</p>
-		<p>近年由於Amazon EC2的成熟，收費也算可以負擔的情況下，又開始了自行架站，而伺服器就架在EC2上面</p>
-		<li>系統的穩定性</li>
-		<p>自己架設系統的煩惱之一是要擔心會不會某一天因為某種原因(跳電、系統當機等)而在不知情的時候Server掛掉服務中斷而不知情，這也是筆者一直沒辦法長久的使用自己架設的網站的最大原因筆者目前的</p>
-	</ul>
-	<h4>文章的主題</h4>
-	<p>電腦科學與自己打造生活用品是我最喜愛的兩個領域，越是接觸這兩個領域，越覺得他們的關連之大超乎預期，而且是相輔相成的。電腦科學與自造的樂趣在於其中藏了許多人類的智慧在其中，電腦科學幫助我們以更有效率的方法解決當下的問題 並預期未來遇到類似的問題也能以最小的出力來解決他。而自造某方面來看也是幫助我們以生活中最基本的元素開始打造生活中會用到的事務 不只解決當下的需求，也準備好未來遇到問題時，有能力去解析並找出解決方案。</p>
-	</p>
+
 </div>
 	</div>
 </body>
