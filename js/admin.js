@@ -11,7 +11,7 @@ $(function(){
 			messagingSenderId: "1051481601400"
 		  };
 		  firebase.initializeApp(config);
-
+			console.log(firebase);
 		  const btnLogin = document.getElementById('btnLogin');
 		  const btnLogout = document.getElementById('btnLogout');
 
