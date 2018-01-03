@@ -1,5 +1,7 @@
 /* -- Universal Setting
 --------------------------------------------------*/
+
+
 body {
 
 	margin: 0;
@@ -79,13 +81,15 @@ hr{
 header{
 	overflow: hidden;
 	padding: 25px 10px 25px 30px;
-	background-color: #c2dfea;
+	background-color: #f5faf1;
 }
 
 #title{
 	float: left;
 	display: block;
-	width: 300px;
+	width: 100%;
+	font-size:50px;
+	margin-top:20px;
 }
 
 #title img{
@@ -237,5 +241,6 @@ header{
 
 #blog_title{
 		font-size: 32px;
-		text-align:center;
+		text-align:left;
+		width:70%
 }

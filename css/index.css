@@ -13,6 +13,9 @@
 	font-size:40px;
 	padding-right:5px;
 }
+#container{
+	width:100%;
+}
 
 .sort-wrapper{
 	/*height: 48px;*/
@@ -45,7 +48,7 @@
 	float: left;
 	margin: 3px 2px;
 	cursor: pointer;
-	border-radius: 5px;
+	border-radius: 0px;
 	border: #f5faf1 2px solid;
 	transition: border .5s;
 	-moz-transition: -moz-border .5s;
