@@ -1,0 +1,10 @@
+#blog_title{
+	font-size:20px;
+	width:80%;
+	line-height: 150%;
+	font-weight: bold;
+}
+#content{
+	width:90%;
+	line-height: 150%;
+}

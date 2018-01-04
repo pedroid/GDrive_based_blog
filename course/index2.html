@@ -1,0 +1,1113 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href='https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:32,height:32/https://teachable.com/images/favicons/favicon.ico' rel='icon' type='image/png'>
+<link href='https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:72,height:72/https://teachable.com/images/favicons/apple-touch-icon-180x180.png' rel='apple-touch-icon' type='image/png'>
+<link href='https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:144,height:144/https://teachable.com/images/favicons/apple-touch-icon-180x180.png' rel='apple-touch-icon' type='image/png'>
+<link href='https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:320,height:345/https://www.filepicker.io/api/file/vaUu9fNQa2qVhk0nw73U' rel='apple-touch-startup-image' type='image/png'>
+<link href='https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:640,height:690/https://www.filepicker.io/api/file/vaUu9fNQa2qVhk0nw73U' rel='apple-touch-startup-image' type='image/png'>
+<meta name='apple-mobile-web-app-capable' content='yes' />
+<link href='http://d3gvvapon6fqzo.cloudfront.net/bootstrap/bootstrap.min.css' rel='stylesheet'>
+
+      <meta http-content='IE=Edge' http-equiv='X-UA-Compatible'>
+      <meta content='width=device-width,initial-scale=1.0,user-scalable=no' name='viewport'>
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="qrTM9TPyKwJjR1FWSvIMCcoI+xZqPNsH6lnpJPApI8Q1OQ4Ws8gcoRZT+FrdhfMGu7+HJNGeC7ysAjYi0GzV3g==" />
+<title>安裝 Passenger | Growth School</title>
+<link rel="canonical" href="https://courses.growthschool.com/courses/61983/lectures/917419" />
+<meta property="og:title" content="安裝 Passenger" />
+<meta property="og:url" content="http://courses.growthschool.com/courses/61983/lectures/917419" />
+<meta property="og:image" content="https://d2vvqscadf4c1f.cloudfront.net/4cmbVUQkXsQC1Np1kgwO_12668402_m.jpg" />
+<meta name="twitter:title" content="安裝 Passenger" />
+<meta name="twitter:image" content="https://d2vvqscadf4c1f.cloudfront.net/4cmbVUQkXsQC1Np1kgwO_12668402_m.jpg" />
+<meta name="brand_video_player_color" content="#09A59A" />
+<meta name="site_title" content="Growth School" />
+<link href="css/school-css-1512661280-12030-452fd73e90eeb551000b56b2bc345076.css" rel="stylesheet" data-turbolinks-track="true"></link>
+<script src='js/E-v1.js'></script>
+<script src="https://d2oz8i5n9se8ej.cloudfront.net/assets/application-da707125e46a32f4371e4184b7027797e8726ae099c0f9fff38b81f1c962cfa9.js" data-turbolinks-track="true"></script><script src="https://d2oz8i5n9se8ej.cloudfront.net/packs/student-51ce284252c927fc38fc.js"></script>
+
+
+<meta name="google-site-verification" content="2km_kubELAo30yndP1szgZcSeC0vVhabsCp-2UGgTiE" />
+
+
+
+  </head>
+
+  <body data-no-turbolink="true">
+          <meta http-content='IE=Edge' http-equiv='X-UA-Compatible'>
+      <meta content='width=device-width,initial-scale=1.0,user-scalable=no' name='viewport'>
+    
+    <!-- Lecture Header -->
+<header class='full-width half-height is-signed-in'>
+  <div class='lecture-left'>
+    <a class='nav-icon-back' data-no-turbolink="true" href='/courses/61983'>
+      <i class='fa fa-angle-left'></i>
+    </a>
+    <div class="dropdown settings-dropdown">
+      <a href='#' class='nav-icon-settings dropdown-toggle' id='settings_menu' data-toggle='dropdown'>
+        <i class='fa fa-cog'></i>
+      </a>
+      <ul class="dropdown-menu left-caret" role="menu" aria-labelledby="settings_menu">
+  <!-- AUTOPLAY -->
+  <li>
+    <div class="switch" id="switch-autoplay-lectures">
+      <input id="custom-toggle-autoplay" class="custom-toggle custom-toggle-round" type="checkbox" aria-label="Autoplay">
+      <label for="custom-toggle-autoplay"></label>
+    </div>
+    Autoplay
+  </li>
+  <!-- AUTOCOMPLETE -->
+  <li>
+    <div class="switch" id="switch-autocomplete-lectures">
+      <input id="custom-toggle-autocomplete" class="custom-toggle custom-toggle-round" type="checkbox" aria-label="Autocomplete">
+      <label for="custom-toggle-autocomplete"></label>
+    </div>
+    Autocomplete
+  </li>
+  <!-- PLAYER TYPE -->
+  <li>
+    <div class="pull-right">
+      <div class="switch-toggle well">
+        <input id="toggle_html5" name="custom-toggle-player" type="radio">
+        <label for="toggle_html5" onclick="">HTML5</label>
+        <input id="toggle_flash" name="custom-toggle-player" type="radio">
+        <label for="toggle_flash" onclick="">Flash</label>
+        <a class="btn btn-primary"></a>
+      </div>
+    </div>
+    Player
+  </li>
+  <!-- PLAYBACK SPEED -->
+  <li>
+    <div class="pull-right">
+      <div class='playback-speed'>
+      </div>
+    </div>
+    Speed
+  </li>
+  <!-- QUALITY: not working yet -->
+ <!--  <li>
+    <div class="pull-right">
+      <div class="switch-toggle switch-3 well">
+        <input id="auto" name="quality" type="radio" checked>
+        <label for="auto" onclick="">Auto</label>
+        <input id="hd" name="quality" type="radio">
+        <label for="hd" onclick="">HD</label>
+        <input id="sd" name="quality" type="radio">
+        <label for="sd" onclick="">SD</label>
+        <a class="btn btn-primary"></a>
+      </div>
+    </div>
+    Quality
+  </li> -->
+</ul>
+
+    </div>
+    <a class="nav-icon-list show-xs hidden-sm hidden-md hidden-lg collapsed" role="button" data-toggle="collapse" href="#courseSidebar" aria-expanded="false" aria-controls="courseSidebar">
+        <i class='fa fa-list'></i>
+      </a>
+  </div>
+  
+  <div class='lecture-nav'>
+    <a class='nav-btn' href='/courses/61983/lectures/917418' id='lecture_previous_button'>
+      <i class='fa fa-arrow-left'></i>
+      &nbsp;
+      <span class='nav-text'>Previous Lecture</span>
+    </a>
+    <a class='nav-btn complete' href='/courses/61983/lectures/917421' id='lecture_complete_button'>
+      <span class='nav-text'>Complete and continue</span>
+      &nbsp;
+      <i class='fa fa-arrow-right'></i>
+    </a>
+  </div>
+  
+</header>
+
+    <div class='course-sidebar lecture-page collapse navbar-collapse navbar-sidebar-collapse' id='courseSidebar'>
+  <h2>(Mini Course) Deploy Rails Project to Linux Server</h2>
+  <!-- Course Progress -->
+  
+  <div class='course-progress lecture-page is-at-top'>
+    <div class='progressbar'>
+      <div class='progressbar-fill' style='min-width: 93%;'></div>
+    </div>
+    <div class='small course-progress-percentage'>
+      <span class='percentage'>
+        93%
+      </span>
+      COMPLETE
+    </div>
+  </div>
+  
+  <!-- Lecture list on courses page (enrolled user) -->
+
+  <div class='row lecture-sidebar'>
+    
+    <div class='col-sm-12 course-section'>
+      <div class='section-title' data-days-until-dripped="0" data-is-dripped-by-date="false" data-course-id="61983">
+        <span class="section-lock">
+          <i class="fa fa-lock"></i>&nbsp;
+        </span>
+        註冊 Linode
+      </div>
+      <ul class='section-list'>
+        
+        <li data-lecture-id="917405" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917405' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917405' id='sidebar_link_917405'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                本節大綱
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917395" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917395' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917395' id='sidebar_link_917395'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                建立一台 Linode Sever
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917403" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917403' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917403' id='sidebar_link_917403'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                將機器設定成 Ubuntu
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917404" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917404' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917404' id='sidebar_link_917404'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                ssh 進機器
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+    
+    <div class='col-sm-12 course-section'>
+      <div class='section-title' data-days-until-dripped="0" data-is-dripped-by-date="false" data-course-id="61983">
+        <span class="section-lock">
+          <i class="fa fa-lock"></i>&nbsp;
+        </span>
+        Ubuntu 機器設定
+      </div>
+      <ul class='section-list'>
+        
+        <li data-lecture-id="917407" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917407' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917407' id='sidebar_link_917407'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                本節大綱
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917408" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917408' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917408' id='sidebar_link_917408'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                系統更新
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917410" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917410' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917410' id='sidebar_link_917410'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                設定時區
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917411" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917411' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917411' id='sidebar_link_917411'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                安裝 utf-8 的語系
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917413" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917413' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917413' id='sidebar_link_917413'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                安裝 MySQL
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917415" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917415' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917415' id='sidebar_link_917415'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                安裝需要的套件 ( 含 git )
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917416" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917416' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917416' id='sidebar_link_917416'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                安裝 rvm
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917417" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917417' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917417' id='sidebar_link_917417'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                用 rvm 安裝 ruby 2.2.0
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917418" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917418' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917418' id='sidebar_link_917418'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                安裝 ImageMagick
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917419" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917419' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917419' id='sidebar_link_917419'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                安裝 Passenger
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917421" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917421' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='' id='sidebar_link_917421'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                用 Passenger 安裝 Nginx
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917422" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917422' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917422' id='sidebar_link_917422'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                安裝 Nginx init script
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917423" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917423' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917423' id='sidebar_link_917423'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                設定 Nginx conf
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917424" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917424' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917424' id='sidebar_link_917424'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                檢查 nginx 設定有無異常
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917425" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917425' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917425' id='sidebar_link_917425'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                將 nginx server 重開機
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917426" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917426' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917426' id='sidebar_link_917426'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                用瀏覽器連到該 server 的 ip
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917427" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917427' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917427' id='sidebar_link_917427'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                測試 nginx 的機制 ( 可跳過 )
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917428" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917428' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917428' id='sidebar_link_917428'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                ubuntu 設定完成
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+    
+    <div class='col-sm-12 course-section'>
+      <div class='section-title' data-days-until-dripped="0" data-is-dripped-by-date="false" data-course-id="61983">
+        <span class="section-lock">
+          <i class="fa fa-lock"></i>&nbsp;
+        </span>
+        Deploy 設定 ( Ubuntu )
+      </div>
+      <ul class='section-list'>
+        
+        <li data-lecture-id="917430" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917430' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917430' id='sidebar_link_917430'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                本節大綱
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917432" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917432' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917432' id='sidebar_link_917432'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                裝必要的gem
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917433" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917433' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917433' id='sidebar_link_917433'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                ubuntu 機器建一個 apps 的帳號
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917435" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917435' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917435' id='sidebar_link_917435'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                用 apps 這個帳號 ssh 進入 ubuntu 不用再輸入密碼
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917436" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917436' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917436' id='sidebar_link_917436'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                ubuntu 機器建一個 ssh-key
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917437" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917437' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917437' id='sidebar_link_917437'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                將 ssh-key 放到你的 github 上
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+    
+    <div class='col-sm-12 course-section'>
+      <div class='section-title' data-days-until-dripped="0" data-is-dripped-by-date="false" data-course-id="61983">
+        <span class="section-lock">
+          <i class="fa fa-lock"></i>&nbsp;
+        </span>
+        Deploy 設定 ( Rails )
+      </div>
+      <ul class='section-list'>
+        
+        <li data-lecture-id="917438" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917438' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917438' id='sidebar_link_917438'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                本節大綱
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917439" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917439' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917439' id='sidebar_link_917439'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                檢查你的 Rails 專案, 並且 push 到 github 上
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917440" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917440' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917440' id='sidebar_link_917440'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                Gemfile 調整
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917441" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917441' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917441' id='sidebar_link_917441'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                從 ubuntu 的機器 git clone 你的專案
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917442" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917442' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917442' id='sidebar_link_917442'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                檢查是否 deploy 成功
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+    
+    <div class='col-sm-12 course-section'>
+      <div class='section-title' data-days-until-dripped="0" data-is-dripped-by-date="false" data-course-id="61983">
+        <span class="section-lock">
+          <i class="fa fa-lock"></i>&nbsp;
+        </span>
+        用 capristrano 自動化 deploy
+      </div>
+      <ul class='section-list'>
+        
+        <li data-lecture-id="917443" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917443' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917443' id='sidebar_link_917443'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                本節大綱
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917444" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917444' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917444' id='sidebar_link_917444'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                在 ubuntu 端的專案建立 shared/config 資料夾
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917445" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917445' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917445' id='sidebar_link_917445'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                Gemfile 安裝 capristrano 3.4
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917446" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917446' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917446' id='sidebar_link_917446'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                執行 cap install
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917447" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917447' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917447' id='sidebar_link_917447'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                設定 config/deploy.rb
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="932064" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/932064' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/932064' id='sidebar_link_932064'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                設定 Capfile
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917448" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917448' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917448' id='sidebar_link_917448'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                設定 config/deploy/production.rb
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917449" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917449' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917449' id='sidebar_link_917449'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                執行 deploy:check
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917450" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917450' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917450' id='sidebar_link_917450'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                執行 deploy 程序
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917451" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917451' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917451' id='sidebar_link_917451'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                修改 nginx.conf
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+        <li data-lecture-id="917452" data-lecture-url='/courses/deploy-rails-project-to-linux-server/lectures/917452' class='section-item incomplete'>
+          <a class='item' data-no-turbolink='true' href='/courses/deploy-rails-project-to-linux-server/lectures/917452' id='sidebar_link_917452'>
+            <span class='status-container'>
+              <span class='status-icon'>
+                &nbsp;
+              </span>
+            </span>
+            <div class='title-container'>
+              <span class='lecture-icon'>
+                <i class='fa fa-file-text'></i>
+              </span>
+              <span class='lecture-name'>
+                重開 nginx, 看看是否 deploy 成功
+                
+              </span>
+            </div>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+</div>
+<script data-cfasync='false' >
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.id = 'disqus-src';
+          dsq.data = {turbo: {links: {track: false}}};
+          dsq.src = '//growth-school-course.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      </script>
+      
+
+    <!-- Lecture Content -->
+<div class="course-mainbar lecture-content">
+  <h2 id="lecture_heading" class="section-title" data-lecture-id="917419" data-next-lecture-id="917421" data-lecture-url="/courses/61983/lectures/917419" data-next-lecture-url="/courses/61983/lectures/917421", data-previous-lecture-url="/courses/61983/lectures/917418" data-previous-lecture-id="917418" >
+    <i class="fa fa-file-text"></i>
+    &nbsp;
+    安裝 Passenger
+</h2>
+
+  <!-- Attachment Blocks -->
+
+  <div class='lecture-attachment'>
+    <div class="attachment-data"></div>
+    
+      <div class="attachment-data"></div>
+<div class="lecture-text-container">
+<p><h3>安裝 Passenger</h3>
+<p><code>gem install passenger</code>
+</p></p>
+</div>
+
+    
+  </div>
+
+  <div class='lecture-attachment'>
+    <div class="attachment-data"></div>
+    
+  </div>
+
+
+<!-- Comments -->
+
+
+
+  <div class='lecture-attachment'>
+    <!-- lecture comments -->
+
+
+<div id='disqus_thread'></div>
+
+        <div id='disqus_data' data-url="http://courses.growthschool.com/courses/deploy-rails-project-to-linux-server/lectures/917419" data-identifier="">
+        </div>
+        <script>setTimeout(function() { updateDisqus()},1000)</script>
+      
+
+
+
+  </div>
+
+<div id='empty_box'></div>
+<!-- Scroll to current lecture link position in sidebar -->
+
+</div>
+
+    <!-- No lecture footer in the new redesign -->
+
+    
+  </body>
+</html>
