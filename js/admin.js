@@ -60,7 +60,7 @@ var load = function(uid){
 			if( (files_draft=="0")&(files_public=="0") ) {grid_item_text = "grid-item-red";}
 			if( (files_draft=="1")&(files_public=="1") ) {grid_item_text = "grid-item-sky";}
 			if( (files_draft=="1")&(files_public=="0") ) {grid_item_text = "grid-item-safe";}
-			$('#LatestArticle').prepend("<div class=\"grid-item "+folders_name+"\ "+grid_item_text+"\"><div class=\"description\"><div class=\"item-title\"><a target=\"_blank\"href=\"blog.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\">"+files_filename+text_draft+text_public+"</a><a target=\"_blank\"href=\"edit.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\">"+"(Edit)"+"</a></div><div class=\"item-tags\"><div class=\"tag\">"+folders_name+"</div><div class=\"thumb-title\"><img src=\""+files_smallimg+"\"/></div></div></div></div>")
+			$('#LatestArticle').prepend("<a target=\"_blank\"href=\"blog.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\"><div class=\"grid-item "+folders_name+"\ "+grid_item_text+"\"><div class=\"thumb-title\"><img src=\""+files_smallimg+"\"/></div><div class=\"description\"><div class=\"item-tags\"><div class=\"tag\">"+folders_name+"</div></div><div class=\"item-title\">"+files_filename+"<a target=\"_blank\"href=\"edit.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\">"+"(Edit)"+"</a></div></div></div></a>")
 			//$('.content-wrapper').prepend("<div class=\"grid-item teaching_plan\"><div class=\"description\"><div class=\"item-title\"><a href="">"+blogs_set[i].split('$$')[0]+"</div><div class=\"item-tags\"><div class=\"tag\">"+blogs_set[i].split('$$')[1]+"</div></div></div></div>")
 
 		}

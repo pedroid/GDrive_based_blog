@@ -67,6 +67,7 @@ $(document).ready(function(e) {
       window.open('blog.html'+search, '_blank');
     }
     function SendScore(){
+		$('#feedback').html('')
       var currFileID = window.location.search.split("?")[1].split('&')[0].split("=")[1];
       console.log(currFileID);
       var mode;
@@ -88,5 +89,8 @@ $(document).ready(function(e) {
           "uid":uid
         },
         function (data) {
+			if(data=="true"){
+				$('#feedback').html('done')
+			}
     });
     }

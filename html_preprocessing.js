@@ -27,15 +27,19 @@ var html_preprocessing = function(content){
 
 	var patt_flowchart = new RegExp("^@flowchart{[ ]*$");
 	var patt_flowchard_end = new RegExp("^@flowchart[ ]*$");
+	
+	var patt_sequence = new RegExp("^@sequence{[ ]*$");
 
 	var patt_script = new RegExp("tag");
 
 	var flag_code = false;
 	var flag_u2b = false;
 	var flag_flowchart = false;
+	var flag_sequence = false;
 	var tmp_html_content = "";
 	var tmp_u2b_content = "";
 	var tmp_flowchart_content = "";
+	var tmp_sequence_content = "";
 	var tmp_content = "";
         var StringSet = [];
 	//parse_result.code.push("");
@@ -88,6 +92,16 @@ var html_preprocessing = function(content){
 			tmp_content = "";
 			continue;
 
+		}else if(patt_sequence.test(each_content)){
+			tmp_sequence_content = "";
+			flag_sequence = true;
+			var tmp = new StringNode(tmp_content, "markdown_input", "");
+			if(tmp_content!=""){
+				StringSet.push(tmp);
+			}
+			tmp_content = "";
+			continue;
+
 		}else if(patt_end.test(each_content)){
 			if(flag_code == true){
 				parse_result.code.push(tmp_content);
@@ -118,6 +132,14 @@ var html_preprocessing = function(content){
 				flag_flowchart = false;
 
 			}
+			if(flag_sequence == true){
+				var sequence_content = "";
+				sequence_content+= tmp_sequence_content;
+				var tmp = new StringNode(sequence_content, "sequence", "");
+				StringSet.push(tmp);
+				flag_sequence = false;
+
+			}
 			continue;
 		}
 
@@ -130,6 +152,8 @@ var html_preprocessing = function(content){
 
 		}else if(flag_flowchart){
 			tmp_flowchart_content += each_content +'\n';
+		}else if(flag_sequence){
+			tmp_sequence_content += each_content +'\n';
 		}else{
 			output+= each_content + '\n';
 			tmp_content += each_content + '\n';

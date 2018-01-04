@@ -66,12 +66,15 @@ function SendScore(){
         function (data) {
           currFileID = parseInt(data);
           //console.log(data);
-          //$('#feedback').html(data)
+          if(currFileID>0){
+			$('#feedback').html('done');
+		  }
         //    document.write("--------------------------");
         //   document.write("Result = "+data);
         //   document.write("--------------------------");
     });
     $('#submit_button').val('update')
+	$('#submit_button2').val('update')
     has_submitted = true;
   }else{
     $.post(appFiles, {
@@ -86,6 +89,9 @@ function SendScore(){
           "uid":uid
         },
         function (data) {
+			if(data=="true"){
+				$('#feedback').html('done')
+			}
           //console.log(data);
 
           //$('#feedback').html(data)
