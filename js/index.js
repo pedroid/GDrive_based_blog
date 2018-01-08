@@ -21,8 +21,12 @@ $(function(){
 			//$('.content-wrapper').prepend("<div>test</div>")
 			//console.log(blogs_set[i].split("$$")[4]);
 			var grid_item_text= "grid-item-blue";
-			$('#LatestArticle').prepend("<a target=\"_blank\"href=\"blog.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\"><div class=\"grid-item "+folders_name+"\ "+grid_item_text+"\"><div class=\"thumb-title\"><img src=\""+files_smallimg+"\"/></div><div class=\"description\"><div class=\"item-tags\"><div class=\"tag\">"+folders_name+"</div></div><div class=\"item-title\">"+files_filename+"</div></div></div></a>")
-			//$('.content-wrapper').prepend("<div class=\"grid-item teaching_plan\"><div class=\"description\"><div class=\"item-title\"><a href="">"+blogs_set[i].split('$$')[0]+"</div><div class=\"item-tags\"><div class=\"tag\">"+blogs_set[i].split('$$')[1]+"</div></div></div></div>")
+			var grid_item_course= "grid-item-red";
+			if(files_folderid == 24){
+				$('#LatestArticle').prepend("<a target=\"_blank\"href=\"course/course.html?FileID="+files_fileid+"\"><div class=\"grid-item "+folders_name+"\ "+grid_item_course+"\"><div class=\"thumb-title\"><img src=\""+files_smallimg+"\"/></div><div class=\"description\"><div class=\"item-tags\"><div class=\"tag\">"+folders_name+"</div></div><div class=\"item-title\">"+files_filename+"</div></div></div></a>")
+			}else{
+				$('#LatestArticle').prepend("<a target=\"_blank\"href=\"blog.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\"><div class=\"grid-item "+folders_name+"\ "+grid_item_text+"\"><div class=\"thumb-title\"><img src=\""+files_smallimg+"\"/></div><div class=\"description\"><div class=\"item-tags\"><div class=\"tag\">"+folders_name+"</div></div><div class=\"item-title\">"+files_filename+"</div></div></div></a>")
+			}
 
 		}
 	});
@@ -34,7 +38,7 @@ var pwd = function(input){
 	
 	hh.push(input);	
 	if(hh.length < 5){
-		console.log(hh);
+		//console.log(hh);
 	}else{
 		
 		console.log(hh);

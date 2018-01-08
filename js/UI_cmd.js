@@ -726,7 +726,7 @@ $(document).ready(function(e) {
 			  if(typeof blogs_set_under_currDir[word[1]]== "undefined"){
 				  log("Client", "["+ word[1] +"] is not a file or no such file.");
 			  }else{
-						 $(location).attr('href', 'edit.html?FileID='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID);
+						 $(location).attr('href', 'edit.html?FileID='+word[1]+'&FolderID='+currFolderID+'&OwnerID='+tmpOwnerID);
 			  }
 			  break;
 		case "touch":

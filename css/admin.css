@@ -1,7 +1,6 @@
 /* -- Universal Setting
 --------------------------------------------------*/
 
-
 body {
 
 	margin: 0;
@@ -39,6 +38,11 @@ a{
 	-moz-transition: color .2s;
 	-webkit-transition: color .2s;
 	-o-transition: color .2s;
+}
+#author_nav a{
+	position:fixed;
+	right:5px;
+	top:5px;
 }
 
 a:hover{
