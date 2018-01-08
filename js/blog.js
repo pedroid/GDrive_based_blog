@@ -5,53 +5,7 @@ var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-
 function edit(){
     $(location).attr('href', 'edit.html'+window.location.search);
 };
-function md2html(input_content) {
 
-
-      preview = "";
-      //content = input.value;
-      content = input_content;
-      //console.log(content);
-      [preprocessed_content, parse_result, StringSet] = html_preprocessing(content);
-      debug = StringSet;
-      for(var i=0;i<StringSet.length;i++){
-      switch(StringSet[i].property){
-        case "markdown_input":{
-          //console.log("markdown_input");
-      //					console.log(StringSet[i].data);
-          var html_results = markdown.toHTML(StringSet[i].data);
-          preview += html_results;
-          break;
-        }
-        case "system_cmd":{
-          //console.log("system_cmd");
-          break;
-        }
-        case "html":{
-          //console.log("html");
-      //					console.log(StringSet[i].data);
-          preview += StringSet[i].data;
-
-          break;
-        }
-        case "u2b":{
-          preview += StringSet[i].data;
-          break;
-        }
-        case "flowchart":{
-					console.log(StringSet[i].data);
-					tmp = StringSet[i].data;
-					var diagram = flowchart.parse(tmp);
-					$('#diagram').html('');
-					diagram.drawSVG('diagram');
-
-					preview += $('#diagram').html();
-					break;
-				}
-      }
-      }
-      return preview;
-}
 
 $(document).ready(function(){
 $('#diagram').hide();
@@ -68,7 +22,7 @@ var number_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1
           //   console.log("the result is :"+data);
              title = data.split('$$')[0];
              content = data.split('$$')[1];
-             var html_content = md2html(content,html_content);
+             var html_content = md2html(content);
           //   console.log(html_content);
              $('#blog_title').html(title);
              $('#content').html(html_content);

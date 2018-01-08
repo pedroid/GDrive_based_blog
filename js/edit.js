@@ -9,7 +9,32 @@ var logout = function(){
   firebase.auth().signOut();
 }
 
+	  
+	  
 $(document).ready(function(e) {
+	
+	var converter = new showdown.Converter();
+	converter.setOption('tables',true);
+	converter.setOption('tasklists',true);
+      function Editor(input, preview) {
+        this.update = function () {
+		preview.innerHTML = "";
+		content = input.value;
+		var html_content = md2html(content);
+          $('#preview').html(html_content);
+		  var preview_height = $('#preview').height();
+		  if(preview_height < 500) preview_height = 500;
+
+		  $('.AutoHeight').height(preview_height);
+        };
+        input.editor = this;
+//	$("#text-input").height($("#preview").height());
+//	input.height(preview.height());
+        this.update();
+      }
+      var $$ = function (id) { return document.getElementById(id); };
+      new Editor($$("text-input"), $$("preview"));
+	
       $('#diagram').hide()
       currFileID = window.location.search.split("?")[1].split('&')[0].split("=")[1];
       currFolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];
@@ -57,9 +82,9 @@ $(document).ready(function(e) {
             "command":"commandDeleteFile",
             "FileID":currFileID
           },
-          function (data) {
-            $(location).attr('href', 'admin.html');
-      });
+        function (data) {
+			$(location).attr('href', 'admin.html');
+		});
 
     }
     function View(){

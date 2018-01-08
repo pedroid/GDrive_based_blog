@@ -4,6 +4,9 @@ var appBlogs = "https://script.google.com/macros/s/AKfycbwlmoiBY_Ip2lt5QICMmOhOn
 var ListAllBlog = "https://script.google.com/macros/s/AKfycbyKzP6PVt8N7Z0lWbxzUk-DS2z2wtz4xRZGKpRRkOKLmsLWiUPK/exec";
 var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-nQKvDkH_RLv_8JNbd9aL5Rxh3FBg/exec";
 
+
+
+
   var has_submitted = false;
   var uid;
   $(document).ready(function(e) {
@@ -32,6 +35,31 @@ var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-
 
     //end of firebase
 
+var converter = new showdown.Converter();
+	converter.setOption('tables',true);
+	converter.setOption('tasklists',true);
+      function Editor(input, preview) {
+        this.update = function () {
+		preview.innerHTML = "";
+		content = input.value;
+		//console.log(content);
+		
+		  var html_content = md2html(content);
+          $('#preview').html(html_content);
+		
+		  var preview_height = $('#preview').height();
+		  if(preview_height < 500) preview_height = 500;
+
+		  $('.AutoHeight').height(preview_height);
+        };
+        input.editor = this;
+//	$("#text-input").height($("#preview").height());
+//	input.height(preview.height());
+        this.update();
+      }
+      var $$ = function (id) { return document.getElementById(id); };
+      new Editor($$("text-input"), $$("preview"));	
+	
     if(window.location.search!=""){
       var filename_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1];
       var FolderID = parseInt(window.location.search.split("?")[1].split('&')[1].split("=")[1]);

@@ -3,7 +3,7 @@ var appFiles = "https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJi
 $(function(){
 	prettyPrint();
 	$.get(appFiles, {
-		"command":"commandGetUxApps"
+		"command":"commandGetPublicBlogs"
 
 	},function(data){
 		//console.log(data);
