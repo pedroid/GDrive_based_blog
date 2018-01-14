@@ -16,7 +16,7 @@ var course_id = window.location.search.split("?")[1].split("=")[1];
               "command":"read",
               "FileID":course_id,
            },function(data){
-             console.log(data);
+             //console.log(data);
              var CourseName = data.split('$$')[0];
              $('#courseSidebar h2').html(CourseName);
              var item_set = data.split('$$')[1].split('\n');
@@ -46,16 +46,21 @@ var course_id = window.location.search.split("?")[1].split("=")[1];
                       lecture_name = lecture_name_set;
                     }
                     //console.log(lecture_link);
-                    $('.col-sm-12').append(lecture2html(lecture_name, lecture_fileid));
+                    //$('.col-sm-12').append(lecture2html(lecture_name, lecture_fileid));
+                    $('#menu').append(lecture2html_v3(lecture_name, lecture_fileid));
                     break;
                   case 2://section
                     var section_name = item.split('#')[1];
-                    $('.col-sm-12').append(section2html(section_name));
+                    //$('.col-sm-12').append(section2html(section_name));
+                    $('#menu').append(section2html_v3(section_name));
                     break;
                   default:
                 }
 
              }
+
+
+
            });
            /*
            $.get(appCourses,
@@ -99,6 +104,38 @@ var course_id = window.location.search.split("?")[1].split("=")[1];
              });
              */
 });
+var section2html_v3 = function(section_name){
+  var content = "";
+  content+="<a>";
+  content+=section_name;
+  content+="</a>"
+return content;
+}
+var lecture2html_v3 = function(lecture_name, lecture_id){
+  var content = "";
+  content+="<a  class=\"w3-bar-item w3-button\" href=\'javascript:load_content(";
+  content+=lecture_id;
+  content+=")\'>";
+  content+=lecture_name;
+  content+="</a>"
+return content;
+}
+var section2html_v2 = function(section_name){
+  var content = "";
+  content+="<li><i><b>";
+  content+=section_name;
+  content+="</b></i></li>"
+return content;
+}
+var lecture2html_v2 = function(lecture_name, lecture_id){
+  var content = "";
+  content+="<li><a href=\'javascript:load_content(";
+  content+=lecture_id;
+  content+=")\'>";
+  content+=lecture_name;
+  content+="</a></li>"
+return content;
+}
 var section2html = function(section_name){
   var content = "";
   content+="<div class=\'section-title'>\
@@ -144,12 +181,12 @@ var load_content = function(fileid){
                  "command":"read"
              },
            function (data) {
-			   console.log(data);
+			   //console.log(data);
              title = data.split('$$')[0];
              content = data.split('$$')[1];
-             var html_content = md2html(content,html_content);
+             var html_content = md2html(content,html_content,0);
              $('#blog_title').html(title);
-             $('#content').html(html_content);
+             $('.content').html(html_content);
            });
   }
 }

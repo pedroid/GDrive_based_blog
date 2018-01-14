@@ -26,13 +26,33 @@ $(document).ready(function(){
                 var course_name = course.split('$$')[1];
                  var course_icon = course.split('$$')[2];
                  console.log(course_icon);
-                 $('#course_div').prepend(var2content(course_name, course_id, course_icon));
+
+                 $('.posts').prepend(var2content2(course_name, course_id, course_icon));
+                 $('.posts').prepend(var2content2(course_name, course_id, course_icon));
+                 $('.posts').prepend(var2content2(course_name, course_id, course_icon));
+                 $('.posts').prepend(var2content2(course_name, course_id, course_icon));
                }
            }
              );
 
 });
-
+var var2content2 = function(course_name, course_id, course_icon){
+  var tmp_text = "\
+      <article>\
+        <a href=\"";
+        tmp_text+="course.html?CourseID="+course_id;
+        tmp_text+="\" class=\"image\"><img src=\"a";
+        tmp_text+= course_icon;
+        tmp_text+="\"  /></a>\
+        <h3>";
+        tmp_text+=course_name;
+        tmp_text+="</h3>\
+        <ul class=\"actions\">\
+          <li><a href=\"#\" class=\"button\">More</a></li>\
+        </ul>\
+      </article>";
+  return tmp_text;
+}
 var var2content = function(course_name, course_id, course_icon){
 	var tmp_text = "<div class=\'col-xs-12 col-sm-6 col-md-4\'>\
 	<a href=\"";

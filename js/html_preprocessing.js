@@ -31,16 +31,21 @@ function md2html(input_content) {
           preview += StringSet[i].data;
           break;
         }
+
         case "flowchart":{
 					console.log(StringSet[i].data);
 					tmp = StringSet[i].data;
+
 					var diagram = flowchart.parse(tmp);
-					$('#diagram').html('');
+
+          $('#diagram').html('');
 					diagram.drawSVG('diagram');
 
 					preview += $('#diagram').html();
+
 					break;
 				}
+
       }
       }
       return preview;
@@ -73,7 +78,7 @@ var html_preprocessing = function(content){
 
 	var patt_flowchart = new RegExp("^@flowchart{[ ]*$");
 	var patt_flowchard_end = new RegExp("^@flowchart[ ]*$");
-	
+
 	var patt_sequence = new RegExp("^@sequence{[ ]*$");
 
 	var patt_script = new RegExp("tag");
