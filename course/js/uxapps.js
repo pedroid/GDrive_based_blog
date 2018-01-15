@@ -27,15 +27,24 @@ $(document).ready(function(){
                  var course_icon = course.split('$$')[2];
                  console.log(course_icon);
 
-                 $('.posts').prepend(var2content2(course_name, course_id, course_icon));
-                 $('.posts').prepend(var2content2(course_name, course_id, course_icon));
-                 $('.posts').prepend(var2content2(course_name, course_id, course_icon));
-                 $('.posts').prepend(var2content2(course_name, course_id, course_icon));
+                 $('.posts').append(var2content3(course_name, course_id, course_icon));
                }
            }
              );
 
 });
+var var2content3 = function(course_name, course_id, course_icon){
+  var tmp_text = "<div class=\"w3-third w3-container w3-margin-bottom\">";
+  tmp_text+="\
+	<div class=\"w3-container w3-white\"><p><b>";
+	tmp_text+="<a href=\"";
+        tmp_text+="course.html?CourseID="+course_id;
+        tmp_text+="\" class=\"image\">";
+	tmp_text+=course_name;
+	tmp_text+="</a></b></p></div></div>";
+  return tmp_text;
+      
+}
 var var2content2 = function(course_name, course_id, course_icon){
   var tmp_text = "\
       <article>\

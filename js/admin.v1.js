@@ -19,6 +19,7 @@ $(function(){
 		  firebase.auth().onAuthStateChanged(firebaseUser=>{
 				if(firebaseUser){
 						console.log('hi,'+firebaseUser.email);
+
 						load(firebaseUser.uid);
 						//console.log('hi,'+firebaseUser.getDisplayName());
 				}else{
@@ -30,16 +31,14 @@ $(function(){
 });
 
 var load = function(uid){
-	
-	
-	//console.log(uid);
-	//prettyPrint();
+	//console.log('test');
+	prettyPrint();
 	$.get(appFiles, {
 		"command":"commandGetBlogs",
 		"uid":uid
 
 	},function(data){
-		console.log(data);
+		//console.log(data);
 		var blogs_set = data.split('||');
 		blogs_set.pop();
 		//console.log(blogs_set);
@@ -61,33 +60,10 @@ var load = function(uid){
 			if( (files_draft=="0")&(files_public=="0") ) {grid_item_text = "grid-item-red";}
 			if( (files_draft=="1")&(files_public=="1") ) {grid_item_text = "grid-item-sky";}
 			if( (files_draft=="1")&(files_public=="0") ) {grid_item_text = "grid-item-safe";}
-			$('.posts').prepend(var2content3(files_filename, files_fileid, files_folderid, files_smallimg, files_draft, files_public));
-			//$('#LatestArticle').prepend("<a target=\"_blank\"href=\"blog.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\"><div class=\"grid-item "+folders_name+"\ "+grid_item_text+"\"><div class=\"thumb-title\"><img src=\""+files_smallimg+"\"/></div><div class=\"description\"><div class=\"item-tags\"><div class=\"tag\">"+folders_name+"</div></div><div class=\"item-title\">"+files_filename+"<a target=\"_blank\"href=\"edit.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\">"+"(Edit)"+"</a></div></div></div></a>")
+			$('#LatestArticle').prepend("<a target=\"_blank\"href=\"blog.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\"><div class=\"grid-item "+folders_name+"\ "+grid_item_text+"\"><div class=\"thumb-title\"><img src=\""+files_smallimg+"\"/></div><div class=\"description\"><div class=\"item-tags\"><div class=\"tag\">"+folders_name+"</div></div><div class=\"item-title\">"+files_filename+"<a target=\"_blank\"href=\"edit.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\">"+"(Edit)"+"</a></div></div></div></a>")
 			//$('.content-wrapper').prepend("<div class=\"grid-item teaching_plan\"><div class=\"description\"><div class=\"item-title\"><a href="">"+blogs_set[i].split('$$')[0]+"</div><div class=\"item-tags\"><div class=\"tag\">"+blogs_set[i].split('$$')[1]+"</div></div></div></div>")
 
 		}
 	});
 
-}
-var var2content3 = function(course_name, files_fileid,files_folderid, course_icon, files_draft, files_public){
-  var grid_item_text;
-	if( (files_draft=="0")&(files_public=="1") ) {grid_item_text = "(publish, public)";}
-	if( (files_draft=="0")&(files_public=="0") ) {grid_item_text = "(publish, private)";}
-	if( (files_draft=="1")&(files_public=="1") ) {grid_item_text = "(private, public)";}
-	if( (files_draft=="1")&(files_public=="0") ) {grid_item_text = "(private, private)";}
-  var tmp_text = "<div class=\"w3-third w3-container w3-margin-bottom\">";
-  tmp_text+="<img src=\"";
-  tmp_text+=course_icon;
-  tmp_text+="\
-   \" alt=\"";
-   tmp_text+=course_name;
-   tmp_text+="\" style=\"width:100%\" class=\"w3-hover-opacity\">\
-	<div class=\"w3-container w3-white\"><p><b>";
-	tmp_text+="<a href=\"";
-        tmp_text+="blog.html?CourseID="+files_fileid;
-        tmp_text+="\" class=\"image\">";
-	tmp_text+=course_name;
-	tmp_text+="</a><a target=\"_blank\"href=\"edit.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\">"+"(Edit)"+grid_item_text+"</a></b></p></div></div>";
-  return tmp_text;
-      
 }

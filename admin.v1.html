@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+		<script src="js/login_admin.js"></script>
+
+<!-- jQuery -->
+<script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="js/admin.js"></script>
+<!-- jQuery UI -->
+<link type="text/css" rel="stylesheet" href="css/jquery-ui-1.10.0.custom.css">
+<script type="text/javascript" src="js/jquery-ui-1.10.0.custom.min.js"></script>
+
+<!-- Bootstrap -->
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<!-- prettify -->
+<script type="text/javascript" src="js/prettify.js"></script>
+
+
+<!-- Site Universal Style -->
+<link type="text/css" rel="stylesheet" href="css/admin.css">
+
+<!-- Google Analytics ***** 務必更新 GA Account No# *****-->
+<script type="text/javascript">
+/*
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-39154623-1']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	*/
+</script>
+
+<!-- <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script> -->
+
+
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+
+	<!-- 手機版 要加這兩行 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<!-- 網站標題 -->
+	<title>uxdata.tw admin</title>
+
+	<!-- My Style -->
+	<link type="text/css" rel="stylesheet" href="css/blog.css">
+	<link type="text/css" rel="stylesheet" href="css/style_responsive.css">
+
+	<script type="text/javascript" src="js/filtArticle.js"></script>
+</head>
+
+<body>
+	<header>
+	<a id="title" href="index.html">blog.uxapps.tw/admin</a>
+	<div class="links">
+		<a href="" class="links-1"></a>
+	</div>
+</header>
+	<div class="container">
+		<div class="top-area">
+
+			<div class="sort-wrapper sort-wrapper-tag">
+				<div class="sort-text"></div>
+				<div class="sort uxapps" rel="uxapps">uxapps.tw</div>
+				<div class="sort uxapps_course" rel="uxapps_course">uxapps_course</div>
+				<div class="sort computer_science" rel="computer_science">computer_science</div>
+				<div class="sort woodwork" rel="woodwork">woodwork</div>
+				<div class="sort recipe" rel="recipe">recipe</div>
+				<div class="sort teaching_plan" rel="teaching_plan">teaching plan</div>
+				<div class="sort course" rel="course">course</div>
+				<div class="sort" rel="all">All</div>
+			</div>
+			<div id="admin_nav">
+				<ul>
+				<li><a href="new.html">+</a></li>
+				<li><a href="javascript:logout()">logout</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="clear-both"></div>
+		Articles:
+		<div class="content-wrapper" id="LatestArticle">
+
+
+		</div>
+
+
+<div class='content-wrapper'>
+
+</div>
+	</div>
+</body>
+
+</html>

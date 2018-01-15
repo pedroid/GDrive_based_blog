@@ -18,7 +18,7 @@ var course_id = window.location.search.split("?")[1].split("=")[1];
            },function(data){
              //console.log(data);
              var CourseName = data.split('$$')[0];
-             $('#courseSidebar h2').html(CourseName);
+             $('.w3-text-teal').html(CourseName);
              var item_set = data.split('$$')[1].split('\n');
              for(i in item_set){
                 var item = item_set[i];
@@ -106,9 +106,9 @@ var course_id = window.location.search.split("?")[1].split("=")[1];
 });
 var section2html_v3 = function(section_name){
   var content = "";
-  content+="<a>";
+  content+="<h4 class=\"w3-bar-item\"><b>";
   content+=section_name;
-  content+="</a>"
+  content+="</b></h4>"
 return content;
 }
 var lecture2html_v3 = function(lecture_name, lecture_id){
@@ -181,12 +181,18 @@ var load_content = function(fileid){
                  "command":"read"
              },
            function (data) {
-			   //console.log(data);
+			   console.log(data);
              title = data.split('$$')[0];
              content = data.split('$$')[1];
-             var html_content = md2html(content,html_content,0);
+			 var html_content = "<a href=\"../edit.html?FileID="+ fileid +"&a=1\">(edit)</a>";
+             html_content += md2html(content,html_content,0);
              $('#blog_title').html(title);
              $('.content').html(html_content);
            });
   }
+}
+
+var toEdit = function(){
+	var course_id = window.location.search.split("?")[1].split("=")[1];
+	window.location.replace("../edit.html?fileid="+course_id+"&a=1");
 }
