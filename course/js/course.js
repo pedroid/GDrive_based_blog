@@ -181,7 +181,7 @@ var load_content = function(fileid){
                  "command":"read"
              },
            function (data) {
-			   console.log(data);
+			   //console.log(data);
              title = data.split('$$')[0];
              content = data.split('$$')[1];
 			 var html_content = "<a href=\"../edit.html?FileID="+ fileid +"&a=1\">(edit)</a>";

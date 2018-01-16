@@ -8,7 +8,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
-<script type="text/javascript" src="js/home.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script src="js/raphael.min.js"></script>
+<script type="text/javascript" src="js/flowchart.min.js"></script>
+ <script type="text/javascript" src="js/markdown.js"></script>
+<script type="text/javascript" src="js/html_preprocessing.js"></script>
+
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 </style>
@@ -21,21 +26,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       <i class="fa fa-remove"></i>
     </a>
     
-    <h4><b>[home].blog</b></h4>
+    <h4><b><a href="index.html"> [home].blog</a></b></h4>
     <p class="w3-text-grey"></p>
   </div>
   <div class="w3-bar-block">
-    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>computer science</a> 
-    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>woodwork</a> 
-    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>recipe</a>
-  <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>teaching plan</a>
-  <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>course</a>
-  <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>projects</a>
+    <a href="javascript:load_folder_content(2)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>computer science</a> 
+    <a href="javascript:load_folder_content(3)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>woodwork</a> 
+    <a href="javascript:load_folder_content(4)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>recipe</a>
+  <a href="javascript:load_folder_content(22)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>teaching plan</a>
+  <a href="javascript:load_folder_content(23)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>course</a>
+  <a href="javascript:load_folder_content(25)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>projects</a>
   <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>Contact</a>
   <a href="admin.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding login"><i class="fa fa-user fa-fw w3-margin-right"></i>console</a>
   
   
   </div>
+  <!--
   <div class="w3-panel w3-large">
     <i class="fa fa-facebook-official w3-hover-opacity"></i>
     <i class="fa fa-instagram w3-hover-opacity"></i>
@@ -44,13 +50,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
     <i class="fa fa-twitter w3-hover-opacity"></i>
     <i class="fa fa-linkedin w3-hover-opacity"></i>
   </div>
+  -->
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px">
+<div class="w3-main " style="margin-left:300px">
 
   <!-- Header -->
   <header id="portfolio">
@@ -60,6 +67,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
     <h1><b>welcome to yushengc.blog!</b></h1>
     
     </div>
+	<div id="diagram"></div>
   </header>
   
   <!-- First Photo Grid-->
@@ -83,7 +91,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 -->
 
 
-  <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+  <div class="w3-container w3-padding-large content" style="margin-bottom:32px">
     <h4><b>landing page</b></h4>
     <p>as title
 	</p>
