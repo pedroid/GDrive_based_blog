@@ -2,6 +2,8 @@ var appFiles = "https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJi
 var appBlogs = "https://script.google.com/macros/s/AKfycbwlmoiBY_Ip2lt5QICMmOhOnX_dCrAo4_YMsOLk3hmx5M-kihAT/exec";
 
 $(function(){
+	
+	$('#diagram').hide();
 	$.get(appFiles, {
 		"command":"commandGetPublicBlogs"
 

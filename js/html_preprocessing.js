@@ -31,7 +31,10 @@ function md2html(input_content) {
           preview += StringSet[i].data;
           break;
         }
-
+		case "image":{
+			preview += StringSet[i].data;
+			break;
+		}
         case "flowchart":{
 					console.log(StringSet[i].data);
 					tmp = StringSet[i].data;
@@ -79,6 +82,8 @@ var html_preprocessing = function(content){
 	var patt_flowchart = new RegExp("^@flowchart{[ ]*$");
 	var patt_flowchard_end = new RegExp("^@flowchart[ ]*$");
 
+	var patt_image = new RegExp("^@image{[ ]*$");
+	
 	var patt_sequence = new RegExp("^@sequence{[ ]*$");
 
 	var patt_script = new RegExp("tag");
@@ -87,10 +92,14 @@ var html_preprocessing = function(content){
 	var flag_u2b = false;
 	var flag_flowchart = false;
 	var flag_sequence = false;
+	var flag_image = false;
+	
 	var tmp_html_content = "";
 	var tmp_u2b_content = "";
 	var tmp_flowchart_content = "";
 	var tmp_sequence_content = "";
+	var tmp_image_content = "";
+	
 	var tmp_content = "";
         var StringSet = [];
 	//parse_result.code.push("");
@@ -133,6 +142,15 @@ var html_preprocessing = function(content){
 			tmp_content = "";
 			continue;
 
+		}else if(patt_image.test(each_content)){
+			tmp_image_content = "";
+			flag_image = true;
+			var tmp = new StringNode(tmp_content, "markdown_input", "");
+			if(tmp_content!=""){
+				StringSet.push(tmp);
+			}
+			tmp_content = "";
+			continue;
 		}else if(patt_flowchart.test(each_content)){
 			tmp_flowchart_content = "";
 			flag_flowchart = true;
@@ -191,6 +209,16 @@ var html_preprocessing = function(content){
 				flag_sequence = false;
 
 			}
+			if(flag_image == true){
+				var image_content = "<img src=\"https://drive.google.com/uc?export=view&id=";
+				image_content+= tmp_image_content;
+				image_content+="\"/>"
+				var tmp = new StringNode(image_content, "image", "");
+				StringSet.push(tmp);
+				flag_image = false;
+				
+
+			}
 			continue;
 		}
 
@@ -205,6 +233,8 @@ var html_preprocessing = function(content){
 			tmp_flowchart_content += each_content +'\n';
 		}else if(flag_sequence){
 			tmp_sequence_content += each_content +'\n';
+		}else if(flag_image){
+			tmp_image_content += each_content +'\n';
 		}else{
 			output+= each_content + '\n';
 			tmp_content += each_content + '\n';
