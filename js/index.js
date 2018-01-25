@@ -2,7 +2,7 @@ var appFiles = "https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJi
 var appBlogs = "https://script.google.com/macros/s/AKfycbwlmoiBY_Ip2lt5QICMmOhOnX_dCrAo4_YMsOLk3hmx5M-kihAT/exec";
 
 $(function(){
-	
+
 	$('#diagram').hide();
 	$.get(appFiles, {
 		"command":"commandGetPublicBlogs"
@@ -35,12 +35,12 @@ $(function(){
 });
 var hh=[];
 var pwd = function(input){
-	
-	hh.push(input);	
+
+	hh.push(input);
 	if(hh.length < 5){
 		console.log(hh);
 	}else{
-		
+
 		console.log(hh);
 		if(hh[0]==1 & hh[1]==2 & hh[2]==3 & hh[3] == 4 & hh[4] == 5){
 			window.location = "admin.html";
@@ -65,7 +65,7 @@ var var2content3 = function(course_name, course_id, course_icon){
 	tmp_text+=course_name;
 	tmp_text+="</a></b></p></div></div>";
   return tmp_text;
-      
+
 }
 
 var load_content = function(fileid){
@@ -83,7 +83,7 @@ var load_content = function(fileid){
 			   //console.log(data);
              title = data.split('$$')[0];
              content = data.split('$$')[1];
-			 var html_content = "<a href=\"../edit.html?FileID="+ fileid +"&a=1\">(edit)</a>";
+			 var html_content = "<a target=\"__blank\" href=\"edit.html?FileID="+ fileid +"&a=1\">(edit)</a>";
              html_content += md2html(content,html_content,0);
              $('#blog_title').html(title);
              $('.content').html(html_content);
@@ -100,7 +100,7 @@ var load_folder_content = function(folderid){
 		"FolderID":folderid
 	},function(data){
 		console.log(data);
-		
+
 		var blogs_set = data.split('||');
 		//console.log(blogs_set);
 		blogs_set.pop();
