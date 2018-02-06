@@ -33,8 +33,8 @@ $(function(){
 });
 
 var load = function(uid){
-	
-	
+
+
 	//console.log(uid);
 	//prettyPrint();
 	$.get(appFiles, {
@@ -95,7 +95,7 @@ var var2content3 = function(course_name, files_fileid,files_folderid, course_ico
 	tmp_text+=course_name;
 	tmp_text+="</a><a target=\"_blank\"href=\"edit.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\">"+"(Edit)"+grid_item_text+"</a></b></p></div></div>";
   return tmp_text;
-      
+
 }
 var load_content = function(fileid){
 	$('.posts').html('');
@@ -129,7 +129,7 @@ var load_admin_folder_content = function(folderid){
 		"FolderID":folderid
 	},function(data){
 		//console.log(data);
-		
+
 		var blogs_set = data.split('||');
 		//console.log(blogs_set);
 		blogs_set.pop();

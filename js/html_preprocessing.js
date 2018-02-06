@@ -31,6 +31,11 @@ function md2html(input_content) {
           preview += StringSet[i].data;
           break;
         }
+        case "data2div":{
+          preview += StringSet[i].data;
+          break;
+
+        }
 		case "image":{
 			preview += StringSet[i].data;
 			break;
@@ -67,41 +72,67 @@ var html_preprocessing = function(content){
 	parse_result.code = [];
 	content_array = content.split('\n');
 	//console.log(content_array);
-        //system_cmd
+  //system_cmd
 	var patt_tag = new RegExp("^!tag[ ]*");
 	var patt_publish = new RegExp("^!publish[ ]*");
 	//html
 	var patt_html = new RegExp("^@html{[ ]*$");
-	var patt_htmll = new RegExp("^@htmll[ ]*$");
-	//user defined markdown
 	var patt_end = new RegExp("^}$");
-	//
 	var patt_u2b = new RegExp("^@u2b{[ ]*$");
-	var patt_u2bee = new RegExp("^@u2bee[ ]*$");
-
 	var patt_flowchart = new RegExp("^@flowchart{[ ]*$");
-	var patt_flowchard_end = new RegExp("^@flowchart[ ]*$");
-
 	var patt_image = new RegExp("^@image{[ ]*$");
-	
 	var patt_sequence = new RegExp("^@sequence{[ ]*$");
-
 	var patt_script = new RegExp("tag");
+  var patt_data2div = new RegExp("^@data2div{[ ]*$");
 
 	var flag_code = false;
 	var flag_u2b = false;
 	var flag_flowchart = false;
 	var flag_sequence = false;
 	var flag_image = false;
-	
+  var flag_data2div = false;
+
+//n
+
+  var dict_doc_type = {
+    'markdown':0,
+    'code':1,
+    'u2b':2,
+    'flowchart':3,
+    'sequence':4,
+    'image':5,
+    'data2div':6
+  }
+
+  var doc_type = [];
+  for(i in dict_doc_type){
+    doc_type[dict_doc_type[i]] = i;
+  }
+
+  var patt = [];
+  for(var i=1;i<Object.keys(doc_type).length;i++){
+      patt[i] = new RegExp("^@" + doc_type[i] +"{[ ]*$");;
+  }
+  patt[0] = new RegExp("^}$"); // end pattern
+//nn
+
+
 	var tmp_html_content = "";
 	var tmp_u2b_content = "";
 	var tmp_flowchart_content = "";
 	var tmp_sequence_content = "";
 	var tmp_image_content = "";
-	
-	var tmp_content = "";
-        var StringSet = [];
+  var tmp_data2div_content = "";
+  var tmp_content = "";
+//n
+  var reg_content = [];
+  for(var i=0;i<Object.keys(doc_type).length;i++){
+      tmp_content[i] = "";
+  }
+//nn
+
+
+  var StringSet = [];
 	//parse_result.code.push("");
 	//console.log('1:', StringSet);
 	for(id_content_array in content_array){
@@ -171,6 +202,16 @@ var html_preprocessing = function(content){
 			tmp_content = "";
 			continue;
 
+		}else if(patt_data2div.test(each_content)){
+			tmp_data2div_content = "";
+			flag_data2div = true;
+			var tmp = new StringNode(tmp_content, "markdown_input", "");
+			if(tmp_content!=""){
+				StringSet.push(tmp);
+			}
+			tmp_content = "";
+			continue;
+
 		}else if(patt_end.test(each_content)){
 			if(flag_code == true){
 				parse_result.code.push(tmp_content);
@@ -216,7 +257,16 @@ var html_preprocessing = function(content){
 				var tmp = new StringNode(image_content, "image", "");
 				StringSet.push(tmp);
 				flag_image = false;
-				
+
+
+			}
+      if(flag_data2div == true){
+        var data2div_content = "";
+				data2div_content+= tmp_data2div_content;
+				var tmp = new StringNode(data2div_content, "data2div", "");
+				StringSet.push(tmp);
+				flag_data2div = false;
+
 
 			}
 			continue;
@@ -224,17 +274,16 @@ var html_preprocessing = function(content){
 
 		if(flag_code){
 			tmp_html_content += each_content;
-			console.log('save code:'+tmp_html_content);
 		}else if(flag_u2b){
 			tmp_u2b_content += each_content;
-			console.log('save u2b code:'+tmp_u2b_content);
-
 		}else if(flag_flowchart){
-			tmp_flowchart_content += each_content +'\n';
+			tmp_flowchart_content += each_content;
 		}else if(flag_sequence){
-			tmp_sequence_content += each_content +'\n';
+			tmp_sequence_content += each_content;
 		}else if(flag_image){
-			tmp_image_content += each_content +'\n';
+			tmp_image_content += each_content;
+		}else if(flag_data2div){
+			tmp_data2div_content += each_content;
 		}else{
 			output+= each_content + '\n';
 			tmp_content += each_content + '\n';
