@@ -42,7 +42,7 @@
 				//var FolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];
 				var FolderID = parseInt($('#folder_selection select').val());
 				//console.log(FolderID);
-				$.get(appFiles, {
+				$.post(appFiles, {
 						  "command":"blog_new",
 							"filename": document.getElementById("titleInput").value,
 							"content": document.getElementById("text-input").value,
@@ -62,7 +62,7 @@
 				$('#submit_button').val('update')
 				has_submitted = true;
 			}else{
-				$.get(appFiles, {
+				$.post(appFiles, {
 
 						  "command":"blog_update",
 						  "FileID":currFileID,
