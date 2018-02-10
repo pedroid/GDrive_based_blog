@@ -2,10 +2,7 @@
 <html lang="en">
  <head>
        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-       <meta name="author" content="Lab X yushengc">
-       <meta name="copyright" content="yushengc 2017 all rights Reserved.">
-       <link rel="shortcut icon" href="assets/favi-icon.png" >
+       <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
        <!-- jQuery -->
        <script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
        <!-- jQuery UI-->
@@ -26,24 +23,22 @@
        <link type="text/css" rel="stylesheet" href="css/font-awesome.css">
        -->
        <!-- Site Universal Style -->
-       <link type="text/css" rel="stylesheet" href="css/lab_site.css">
        <script src="showdown.min.js"></script>
-       <script src="markdown.js"></script>
-       <script src = "html_preprocessing.js"></script>
+       <script src="js/markdown.js"></script>
+       <script src = "js/html_preprocessing.js"></script>
 
-       <meta name="description" content="">
-      <meta name="keywords" content="CSS, HTML, Lab, Tools, jQuery" />
-       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-       <meta name="apple-mobile-web-app-capable" content="yes">
-       <title>Yu-Sheng X Blog</title>
-       <link type="text/css" rel="stylesheet" href="css/style.css">
+       <script src="js/raphael.min.js"></script>
+       <script src="js/flowchart.min.js"></script>
        <link type="text/css" rel="stylesheet" href="css/blog.css">
-      <link type="text/css" rel="stylesheet" href="css/style_responsive.css">
+<link type="text/css" rel="stylesheet" href="css/prettify.css">
+<link type="text/css" rel="stylesheet" href="css/admin.css">
+
+       <title>blog.uxapps</title>
        <script type="text/javascript" src="js/lab-main.js"></script>
  </head>
 <body>
        <header>
-       <a id="title" href="index.html"><img src="assets/logo.png"></a>
+       <a id="title" href="index.html">blog.uxapps</a>
        <div class="links">
        <a href="" class="links-1"></a>
        </div>
@@ -53,9 +48,38 @@
             <div class="clear-both"></div>
              <div class='content-wrapper'>
                    <div id="blog_title"></div>
-                   <div><a href="javascript:edit();">(Edit)</a></div>
+                   <div class="login_show"><a href="javascript:edit();">(Edit)</a></div>
                    <div id="content"></div>
             </div>
+            <div id="diagram"></div>
        </div>
+	   <script>
+      
+      $(document).ready(function(){
+			$('.login_show').hide();
+//firebase
+			var config = {
+			apiKey: "AIzaSyAtI63y6oM7PO4p0U2AEMsXrhScPYeC3GA",
+			authDomain: "uxapi-74e8b.firebaseapp.com",
+			databaseURL: "https://uxapi-74e8b.firebaseio.com",
+			projectId: "uxapi-74e8b",
+			storageBucket: "",
+			messagingSenderId: "1051481601400"
+			};
+			firebase.initializeApp(config);
+
+			firebase.auth().onAuthStateChanged(firebaseUser=>{
+				if(firebaseUser){
+						$('.login_show').show();
+
+				}else{
+						$('.login_show').hide();
+				}
+			});
+	
+		//end of firebase
+		});
+    </script>
+	   
  </body>
  </html>

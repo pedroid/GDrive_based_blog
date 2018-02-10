@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+
+		<script src="markdown.js"></script>
+	<script src = "html_preprocessing.js"></script>
+	<script src="js/raphael.min.js"></script>
+	<script src="js/flowchart.min.js"></script>
+<script src="js/edit.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- custom theme -->
+<link rel="stylesheet" href="css/edit_new.css">
+	</head>
+
+  <body>
+
+<div class="container" id="container">
+<div class="row">
+
+	<div class="col-lg-12 bg-success">
+    		title: <input type="text" class="form-control" id="titleInput">
+	</div>
+
+	<div class="col-lg-4 bg-success" id="folder_selection">
+		<select class="form-control">
+			<option value=4>recipe</option>
+			<option value=2>computer_science</option>
+			<option value=3>woodwork</option>
+			<option value=22>teaching_plan</option>
+			<option value=21>uxdata.tw</option>
+			<option value=23>course</option>
+		</select>
+	</div>
+		<div class="col-lg-4 bg-success">
+		<select id="is_public_id" class="form-control">
+				   <option value=0>Private</option>
+					 <option value=1>Public</option>
+
+		</select>
+	</div>
+	<div class="col-lg-4 bg-success">
+		<select id="is_draft_id" class="form-control">
+		       <option value=0>Publish</option>
+		       <option value=1>Draft</option>
+		</select>
+	</div>
+	<div class="col-lg-12 bg-success">function bar</div>
+	<div class="col-lg-6" id="title">
+	    <textarea class="AutoHeight form-control" id="text-input" oninput=this.editor.update()
+               style="width:100%" rows="30">Type **Markdown** here.test
+	  </textarea>
+	</div>
+    	<div class="col-lg-6" id="preview"> </div>
+	<div class="col-lg-12">
+    		<input type="button" class="btn btn-success" value="Update" onclick="SendScore()">
+				<input type="button" class="btn btn-success" value="Delete" onclick="Delete()">
+				<input type="button" class="btn btn-success" value="View" onclick="View()">
+	</div>
+
+<div id="diagram"></div>
+	</div>
+</div>
+
+
+
+
+    <script>
+      var filename;
+      //var socket = io.connect();
+      var current_dir = '';
+			var uid;
+      $(document).ready(function(){
+//firebase
+			var config = {
+			apiKey: "AIzaSyAtI63y6oM7PO4p0U2AEMsXrhScPYeC3GA",
+			authDomain: "uxapi-74e8b.firebaseapp.com",
+			databaseURL: "https://uxapi-74e8b.firebaseio.com",
+			projectId: "uxapi-74e8b",
+			storageBucket: "",
+			messagingSenderId: "1051481601400"
+			};
+			firebase.initializeApp(config);
+
+			firebase.auth().onAuthStateChanged(firebaseUser=>{
+				if(firebaseUser){
+						console.log('hi,'+firebaseUser.email);
+						uid = firebaseUser.uid;
+
+				}else{
+						console.log('not logged in');
+						window.location = "login.html";
+				}
+			});
+
+//end of firebase
+	$('#text').focus(function(){
+		$('#text').val("");
+	});
+	$('#text').val("input your command here\n");
+
+        $('#text').keypress(function(e){
+          //socket.emit('client_data', {
+          //  'letter': String.fromCharCode(e.charCode)
+          //}i);
+
+	  if(e.charCode==13){ //enter(i.e. return)
+		num_input_element = $('#text').val().split('\n').length;
+//		console.log($('#text-input').val());
+		var cmd;
+		if(num_input_element==1){
+			cmd = $('#text').val();
+		}else{
+			cmd = $('#text').val().split('\n')[1];
+
+		}
+
+		$('#text').val('');
+	   }
+        });
+      });
+    </script>
+
+    <script src="showdown.min.js"></script>
+    <script>
+	var converter = new showdown.Converter();
+	converter.setOption('tables',true);
+	converter.setOption('tasklists',true);
+      function Editor(input, preview) {
+        this.update = function () {
+		preview.innerHTML = "";
+		content = input.value;
+		//console.log(content);
+		[preprocessed_content, parse_result, StringSet] = html_preprocessing(content);
+		for(var i=0;i<StringSet.length;i++){
+			switch(StringSet[i].property){
+				case "markdown_input":{
+					//console.log("markdown_input");
+//					console.log(StringSet[i].data);
+					var html_results = markdown.toHTML(StringSet[i].data);
+					preview.innerHTML += html_results;
+					break;
+				}
+				case "system_cmd":{
+					//console.log("system_cmd");
+					break;
+				}
+				case "html":{
+					//console.log("html");
+//					console.log(StringSet[i].data);
+					preview.innerHTML += StringSet[i].data;
+
+					break;
+				}
+				case "u2b":{
+					preview.innerHTML += StringSet[i].data;
+					break;
+				}
+				case "flowchart":{
+					console.log(StringSet[i].data);
+					tmp = StringSet[i].data;
+					var diagram = flowchart.parse(tmp);
+					$('#diagram').html('');
+					diagram.drawSVG('diagram');
+
+					preview.innerHTML += $('#diagram').html();
+					break;
+				}
+			}
+		}
+		  var final_html = html_results;
+		  var preview_height = $('#preview').height();
+		  if(preview_height < 100) preview_height = 100;
+
+		  $('.AutoHeight').height(preview_height);
+        };
+        input.editor = this;
+//	$("#text-input").height($("#preview").height());
+//	input.height(preview.height());
+        this.update();
+      }
+      var $$ = function (id) { return document.getElementById(id); };
+      new Editor($$("text-input"), $$("preview"));
+    </script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

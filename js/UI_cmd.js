@@ -437,7 +437,7 @@ $(document).ready(function(e) {
 			var tmpFolderID=1;
 			var tmpOwnerID=1;
 			if(word.length == 1){
-				window.open('admin.html', '_blank');
+				window.open('index.html', '_blank');
 			}else{
 				window.open('blog.html?FileID='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID, '_blank');
 				//$(location).attr('href', 'blog.html?FileID='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID);
@@ -726,7 +726,7 @@ $(document).ready(function(e) {
 			  if(typeof blogs_set_under_currDir[word[1]]== "undefined"){
 				  log("Client", "["+ word[1] +"] is not a file or no such file.");
 			  }else{
-						 $(location).attr('href', 'edit.html?FileID='+word[1]+'&FolderID='+tmpFolderID+'&OwnerID='+tmpOwnerID);
+						 $(location).attr('href', 'edit.html?FileID='+word[1]+'&FolderID='+currFolderID+'&OwnerID='+tmpOwnerID);
 			  }
 			  break;
 		case "touch":

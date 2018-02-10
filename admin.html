@@ -1,146 +1,127 @@
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<!-- - - - - - - - - - - - - - - - - -
-
-	注意 ！！
-	SOURCE HEAD 是所有 Lab 的頁面都共通的 head
-
- - - - - - - - - - - - - - - - - - -->
-
-<!-- HTML meta 設定（必填） -->
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="author" content="Lab X yushengc">
-<meta name="copyright" content="yushengc 2017 all rights Reserved.">
-
-<link rel="shortcut icon" href="assets/icon-sort-language-android.png" >
-
-<!-- jQuery -->
+<html>
+<title>yushengc.blog</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+		<script src="js/login_admin.js"></script>
 <script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
+
+<script src="js/raphael.min.js"></script>
+<script type="text/javascript" src="js/flowchart.min.js"></script>
+ <script type="text/javascript" src="js/markdown.js"></script>
+<script type="text/javascript" src="js/html_preprocessing.js"></script>
 <script type="text/javascript" src="js/admin.js"></script>
-<!-- jQuery UI -->
-<link type="text/css" rel="stylesheet" href="css/jquery-ui-1.10.0.custom.css">
-<script type="text/javascript" src="js/jquery-ui-1.10.0.custom.min.js"></script>
 
-<!-- Bootstrap -->
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey w3-content" style="max-width:1600px">
 
-<!-- prettify -->
-<link type="text/css" rel="stylesheet" href="css/prettify.css">
-<script type="text/javascript" src="js/prettify.js"></script>
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container">
+    <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
+      <i class="fa fa-remove"></i>
+    </a>
 
-<!-- Font -->
-<link type="text/css" rel="stylesheet" href="css/font-face.css">
-<link href='http://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    <h4><b><a href="index.html">yushengc.blog</a></b></h4>
+    <p class="w3-text-grey"></p>
+  </div>
+  <div class="w3-bar-block">
+    <a href="javascript:load_admin_folder_content(2)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>computer science</a>
+    <a href="javascript:load_admin_folder_content(3)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>woodwork</a>
+    <a href="javascript:load_admin_folder_content(4)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>recipe</a>
+  <a href="javascript:load_admin_folder_content(22)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>teaching plan</a>
+  <a href="javascript:load_admin_folder_content(23)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>course</a>
+  <a href="javascript:load_admin_folder_content(24)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>uxapps.course</a>
+  <a href="javascript:load_admin_folder_content(21)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>uxapps.blog</a>
+  <a href="javascript:load_admin_folder_content(25)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>projects</a>
+  <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>Contact</a>
+  <a href="javascript:logout()" onclick="w3_close()" class="w3-bar-item w3-button w3-padding login"><i class="fa fa-user fa-fw w3-margin-right"></i>logout</a>
 
-<!-- Font Awsome -->
-<link type="text/css" rel="stylesheet" href="css/font-awesome.css">
 
-<!-- Site Universal Style -->
-<link type="text/css" rel="stylesheet" href="css/lab_site.css">
 
-<!-- Google Analytics ***** 務必更新 GA Account No# *****-->
-<script type="text/javascript">
-/*
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-39154623-1']);
-	_gaq.push(['_trackPageview']);
+  </div>
+	<!--
+  <div class="w3-panel w3-large">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+  </div>
+-->
+</nav>
 
-	(function() {
-	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	})();
-	*/
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+
+  <!-- Header -->
+  <header id="portfolio">
+		<div id="diagram"></div>
+    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+    <div class="w3-container">
+    <h1><b>operation</b></h1>
+    <ul>
+		<li><a href="new.html">new</a></li>
+	</ul>
+    </div>
+  </header>
+
+  <!-- First Photo Grid-->
+  <div class="w3-row-padding posts">
+
+  </div>
+
+
+
+  <!-- Pagination
+  <div class="w3-center w3-padding-32">
+    <div class="w3-bar">
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
+      <a href="#" class="w3-bar-item w3-black w3-button">1</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
+    </div>
+  </div>
+-->
+
+
+  <div class="w3-container w3-padding-large content" style="margin-bottom:32px">
+    <h4><b>landing page</b></h4>
+    <p>as title
+	</p>
+	<hr>
+
+
+
+
+<!-- End page content -->
+</div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
 </script>
 
-<!-- <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script> -->
-
-
-<!--[if lt IE 9]>
-<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-
-
-
-	<!-- 手機版 要加這兩行 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-
-	<!-- 網站標題 -->
-	<title>uxdata.tw admin</title>
-
-	<!-- My Style -->
-	<link type="text/css" rel="stylesheet" href="css/blog.css">
-	<link type="text/css" rel="stylesheet" href="css/style_responsive.css">
-
-	<script type="text/javascript" src="js/filtArticle.js"></script>
-</head>
-
-<body>
-	<header>
-	<a id="title" href="index.html"><img src="assets/logo.png"></a>
-	<div class="links">
-		<a href="" class="links-1"></a>
-	</div>
-</header>
-	<div class="container">
-		<div class="top-area">
-
-			<div class="sort-wrapper sort-wrapper-tag">
-				<div class="sort-text"></div>
-				<div class="sort uxdata" rel="uxdata">uxdata.tw</div>
-				<div class="sort computer_science" rel="computer_science">computer_science</div>
-				<div class="sort woodwork" rel="woodwork">woodwork</div>
-				<div class="sort recipe" rel="recipe">recipe</div>
-				<div class="sort teaching_plan" rel="teaching_plan">teaching plan</div>
-
-				<div class="sort" rel="all">All</div>
-			</div>
-			<div id="admin_nav">
-				<ul>
-				<li><a href="new.html">+</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="clear-both"></div>
-		Articles:
-		<div class="content-wrapper" id="LatestArticle">
-
-
-		</div>
-
-
-<div class='content-wrapper'>
-	<h2>網站的架設</h2>
-	<p>這是一個實驗性質的網站，建設在amazon ec2，在其中自行建設網站伺服器，保有了較大的彈性，可以基於node.js Server上實驗一些後端的功能，也將blog架設在底下。blog儲存在github上，同步於Dropbox，因此blog底下的所有文件任何人都可以access 到，而任何一台電腦可以開啟Dropbox中的網頁檔進行編輯並自動同步，當完成變更後再push到github上。而在github上的網站則是為了確保不用為了有一天因為某些原因網站掛掉時的備份。 </p>
-	<p>目前網站的內容與呈現採疊代的方式進行更新，一邊增加內容，以html的格式存檔，一邊開發美觀(CSS)、以及編輯模式。
-	<h3>是否使用現行的CMS</h3>
-	<p>
-	從筆者開始有在網路上寫文章的時候就一直在現有的Blog系統以及自己架設網站之間拔河。筆者最終是希望自己能夠掌握住技術的，所以自己架設網站是最終的目的，但是要自己架設所需要的技術各方面需要時間熟成，所以目前也在不同的平台上零散地留下文字記錄，比如說Wordpress, blogspot等等。然而隨著技術能量的累積，自己架設網站的魔力始終還是讓人無法忘懷，因而有了現在這個解決方案。
-	<h4>自己架設網站的魔力</h4>
-	<ul>
-	    <li>目標是借由架設網站掌握更多實作細節</li>
-	    <li>只有自己才知道自己要什麼，而一旦知道自己要什麼(從網站的外觀，到網站的行為模式)，最好自己仍保有製造的條件以及能力。當選擇商用的CMS，也少了某些自造的自由。</li>
-	    <li>雖然技術債很多，但是值得花時間學習</li>
-	</ul>
-	<h4>需要克服的地方</h4>
-	<ul>
-		<li>硬體的託管</li>
-		<p>筆者曾經在唸書的時候自己架設過網站，當時因為學校提供固定IP，且剛好管理實驗室網站，所以有機會學習在Ubuntu環境下架設網站，並有自己的一個空間可以架設，但隨著畢業失去這部份的資源後，雖然可以架設在自己家中，但是維護的成本也隨之增加，而且當下也沒有心力維設，在這樣的時空背景下，筆者回到了現成CMS的擁抱。</p>
-		<p>近年由於Amazon EC2的成熟，收費也算可以負擔的情況下，又開始了自行架站，而伺服器就架在EC2上面</p>
-		<li>系統的穩定性</li>
-		<p>自己架設系統的煩惱之一是要擔心會不會某一天因為某種原因(跳電、系統當機等)而在不知情的時候Server掛掉服務中斷而不知情，這也是筆者一直沒辦法長久的使用自己架設的網站的最大原因筆者目前的</p>
-	</ul>
-	<h4>文章的主題</h4>
-	<p>電腦科學與自己打造生活用品是我最喜愛的兩個領域，越是接觸這兩個領域，越覺得他們的關連之大超乎預期，而且是相輔相成的。電腦科學與自造的樂趣在於其中藏了許多人類的智慧在其中，電腦科學幫助我們以更有效率的方法解決當下的問題 並預期未來遇到類似的問題也能以最小的出力來解決他。而自造某方面來看也是幫助我們以生活中最基本的元素開始打造生活中會用到的事務 不只解決當下的需求，也準備好未來遇到問題時，有能力去解析並找出解決方案。</p>
-	</p>
-</div>
-	</div>
 </body>
-
 </html>

@@ -5,7 +5,7 @@ $(document).ready(function(){
 
 	$('body').on('click','.sort',function(){
 		$rel = $(this).attr('rel');
-		console.log($rel);
+//		console.log($rel);
 		$('.sort').removeClass('active');
 		$(this).addClass('active');
 
