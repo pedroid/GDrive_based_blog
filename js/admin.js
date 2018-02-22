@@ -68,7 +68,8 @@ var load = function(uid){
 			//$('#LatestArticle').prepend("<a target=\"_blank\"href=\"blog.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\"><div class=\"grid-item "+folders_name+"\ "+grid_item_text+"\"><div class=\"thumb-title\"><img src=\""+files_smallimg+"\"/></div><div class=\"description\"><div class=\"item-tags\"><div class=\"tag\">"+folders_name+"</div></div><div class=\"item-title\">"+files_filename+"<a target=\"_blank\"href=\"edit.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\">"+"(Edit)"+"</a></div></div></div></a>")
 			//$('.content-wrapper').prepend("<div class=\"grid-item teaching_plan\"><div class=\"description\"><div class=\"item-title\"><a href="">"+blogs_set[i].split('$$')[0]+"</div><div class=\"item-tags\"><div class=\"tag\">"+blogs_set[i].split('$$')[1]+"</div></div></div></div>")
 
-		}
+		}		
+		//$('img').height(280);
 	});
 
 }
@@ -93,7 +94,8 @@ var var2content3 = function(course_name, files_fileid,files_folderid, course_ico
     tmp_text+=")\"";
         tmp_text+="\" class=\"image\">";
 	tmp_text+=course_name;
-	tmp_text+="</a><a target=\"_blank\"href=\"edit.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\">"+"(Edit)"+grid_item_text+"</a></b></p></div></div>";
+	//tmp_text+="</a><a target=\"_blank\"href=\"edit.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\">"+"(Edit)"+grid_item_text+"</a></b></p></div></div>";
+	tmp_text+="</a><a target=\"_blank\"href=\"edit.html?FileID="+files_fileid+"\">"+"(Edit)"+grid_item_text+"</a></b></p></div></div>";
   return tmp_text;
 
 }
@@ -150,8 +152,9 @@ var load_admin_folder_content = function(folderid){
 			$('.posts').prepend(var2content3(files_filename, files_fileid,files_folderid, files_smallimg, files_draft, files_public));
 			//$('#LatestArticle').prepend("<a target=\"_blank\"href=\"blog.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\"><div class=\"grid-item "+folders_name+"\ "+grid_item_text+"\"><div class=\"thumb-title\"><img src=\""+files_smallimg+"\"/></div><div class=\"description\"><div class=\"item-tags\"><div class=\"tag\">"+folders_name+"</div></div><div class=\"item-title\">"+files_filename+"</div></div></div></a>")
 			//$('.content-wrapper').prepend("<div class=\"grid-item teaching_plan\"><div class=\"description\"><div class=\"item-title\"><a href="">"+blogs_set[i].split('$$')[0]+"</div><div class=\"item-tags\"><div class=\"tag\">"+blogs_set[i].split('$$')[1]+"</div></div></div></div>")
-
+			
 		}
+		
 	});
 	}
 }

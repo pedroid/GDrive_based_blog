@@ -36,8 +36,18 @@ $(document).ready(function(e) {
       new Editor($$("text-input"), $$("preview"));
 	
       $('#diagram').hide()
-      currFileID = window.location.search.split("?")[1].split('&')[0].split("=")[1];
-      currFolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];
+	  var text_argument_set = window.location.search.split("?")[1].split('&');
+	  var numArguments = text_argument_set.length;	  
+	  arg_set = {};
+	  text_argument_set.forEach(item=>{		  
+		  arg_set[item.split('=')[0]] = parseInt(item.split('=')[1]);		  
+		  
+	  })
+
+	  if(arg_set["FileID"]) currFileID = arg_set["FileID"];
+	  if(arg_set["FolderID"]) currFolderID = arg_set["FolderID"];
+      //currFileID = window.location.search.split("?")[1].split('&')[0].split("=")[1];
+      //currFolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];
 
       $('#folder_selection select').val(currFolderID);
       console.log(currFileID);
@@ -51,11 +61,11 @@ $(document).ready(function(e) {
           //console.log("the result is :"+data);
           console.log(data);
           title = data.split('$$')[0];
-
-          content = data.split('$$')[1];
+          content = data.split('$$')[1];		  
           $('#is_draft_id').val(data.split('$$')[2]);
           $('#is_public_id').val(data.split('$$')[3]);
-
+		  folderID = parseInt(data.split('$$')[4]);
+		  $('#folder_selection select').val(folderID);
           /*
           var mode = content.pop();
           if(mode=="777"){

@@ -35,6 +35,7 @@ var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-
 
     //end of firebase
 
+	  
 var converter = new showdown.Converter();
 	converter.setOption('tables',true);
 	converter.setOption('tasklists',true);
@@ -60,11 +61,30 @@ var converter = new showdown.Converter();
       var $$ = function (id) { return document.getElementById(id); };
       new Editor($$("text-input"), $$("preview"));	
 	
-    if(window.location.search!=""){
+    if(window.location.search){
+	  text_argument_set = window.location.search.split("?")[1].split('&');
+	  arg_set = {};
+	  text_argument_set.forEach(item=>{		  
+		  arg_set[item.split('=')[0]] = item.split('=')[1];		  
+		  
+	  })
+
+	  if(arg_set["FileName"]){ 	  
+		currFileName = arg_set["FileName"];
+		$('#titleInput').val(currFileName);
+	  }
+	  
+	  if(arg_set["FolderID"]) {
+		currFolderID = arg_set["FolderID"];
+		$('#folder_selection select').val(currFolderID);
+	  }
+      
+	  /*
       var filename_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1];
       var FolderID = parseInt(window.location.search.split("?")[1].split('&')[1].split("=")[1]);
       $('#folder_selection select').val(FolderID);
       $('#titleInput').val(filename_tmp);
+	  */
     }
   });
   $('#text-input').focus()
