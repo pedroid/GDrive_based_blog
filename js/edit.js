@@ -9,10 +9,10 @@ var logout = function(){
   firebase.auth().signOut();
 }
 
-	  
-	  
+
+
 $(document).ready(function(e) {
-	
+
 	var converter = new showdown.Converter();
 	converter.setOption('tables',true);
 	converter.setOption('tasklists',true);
@@ -21,6 +21,7 @@ $(document).ready(function(e) {
 		preview.innerHTML = "";
 		content = input.value;
 		var html_content = md2html(content);
+    
           $('#preview').html(html_content);
 		  var preview_height = $('#preview').height();
 		  if(preview_height < 500) preview_height = 500;
@@ -34,7 +35,7 @@ $(document).ready(function(e) {
       }
       var $$ = function (id) { return document.getElementById(id); };
       new Editor($$("text-input"), $$("preview"));
-	
+
       $('#diagram').hide()
       currFileID = window.location.search.split("?")[1].split('&')[0].split("=")[1];
       currFolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];

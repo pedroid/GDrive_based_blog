@@ -76,9 +76,9 @@ var var2content3 = function(course_name, files_fileid,files_folderid, course_ico
   //console.log(files_draft+','+files_public);
   var grid_item_text;
 	if( (files_draft=="0")&(files_public=="1") ) {grid_item_text = "(publish, public)";}
-	if( (files_draft=="0")&(files_public=="0") ) {grid_item_text = "(publish, private)";}
-	if( (files_draft=="1")&(files_public=="1") ) {grid_item_text = "(private, public)";}
-	if( (files_draft=="1")&(files_public=="0") ) {grid_item_text = "(private, private)";}
+	if( (files_draft=="0")&(files_public=="0") ) {grid_item_text = "(publish, <font color=\"red\">private</font>)";}
+	if( (files_draft=="1")&(files_public=="1") ) {grid_item_text = "(<font color=\"orange\">draft</font>, public)";}
+	if( (files_draft=="1")&(files_public=="0") ) {grid_item_text = "(<font color=\"orange\">draft</font>, <font color=\"red\">private</font>)";}
   var tmp_text = "<div class=\"w3-third w3-container w3-margin-bottom\">";
   tmp_text+="<img src=\"";
   tmp_text+=course_icon;

@@ -4,11 +4,40 @@ var appBlogs = "https://script.google.com/macros/s/AKfycbwlmoiBY_Ip2lt5QICMmOhOn
 $(function(){
 
 	$('#diagram').hide();
+
+	// Initialize Firebase
+		var config = {
+		apiKey: "AIzaSyAtI63y6oM7PO4p0U2AEMsXrhScPYeC3GA",
+		authDomain: "uxapi-74e8b.firebaseapp.com",
+		databaseURL: "https://uxapi-74e8b.firebaseio.com",
+		projectId: "uxapi-74e8b",
+		storageBucket: "",
+		messagingSenderId: "1051481601400"
+		};
+		firebase.initializeApp(config);
+		//console.log(firebase);
+
+
+
+		firebase.auth().onAuthStateChanged(firebaseUser=>{
+			if(firebaseUser){
+					showinfo();
+					console.log('hi,'+firebaseUser.email);
+
+					//load(firebaseUser.uid);
+					//console.log('hi,'+firebaseUser.getDisplayName());
+			}else{
+				  hideinfo();
+					console.log('not logged in');
+
+			}
+		});
+
 	$.get(appFiles, {
 		"command":"commandGetPublicBlogs"
 
 	},function(data){
-		console.log(data);
+		//console.log(data);
 		$('.content').html("");
 		var blogs_set = data.split('||');
 		//console.log(blogs_set);
@@ -33,6 +62,14 @@ $(function(){
 
 
 });
+
+var showinfo = function(){
+$(".login").css("display","inline");
+}
+var hideinfo = function(){
+$(".login").css("display","none");
+}
+
 var hh=[];
 var pwd = function(input){
 
@@ -83,7 +120,7 @@ var load_content = function(fileid){
 			   //console.log(data);
              title = data.split('$$')[0];
              content = data.split('$$')[1];
-			 var html_content = "<a target=\"__blank\" href=\"edit.html?FileID="+ fileid +"&a=1\">(edit)</a>";
+			 var html_content = "<a class=\"login\" target=\"__blank\" href=\"edit.html?FileID="+ fileid +"&a=1\">(edit)</a>";
              html_content += md2html(content,html_content,0);
              $('#blog_title').html(title);
              $('.content').html(html_content);
