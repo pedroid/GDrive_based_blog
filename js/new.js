@@ -35,7 +35,7 @@ var appFolders = "https://script.google.com/macros/s/AKfycbyH1kJBvD1jZ4HaHNUnZm-
 
     //end of firebase
 
-	  
+
 var converter = new showdown.Converter();
 	converter.setOption('tables',true);
 	converter.setOption('tasklists',true);
@@ -44,10 +44,10 @@ var converter = new showdown.Converter();
 		preview.innerHTML = "";
 		content = input.value;
 		//console.log(content);
-		
+
 		  var html_content = md2html(content);
           $('#preview').html(html_content);
-		
+
 		  var preview_height = $('#preview').height();
 		  if(preview_height < 500) preview_height = 500;
 
@@ -59,26 +59,26 @@ var converter = new showdown.Converter();
         this.update();
       }
       var $$ = function (id) { return document.getElementById(id); };
-      new Editor($$("text-input"), $$("preview"));	
-	
+      new Editor($$("text-input"), $$("preview"));
+
     if(window.location.search){
 	  text_argument_set = window.location.search.split("?")[1].split('&');
 	  arg_set = {};
-	  text_argument_set.forEach(item=>{		  
-		  arg_set[item.split('=')[0]] = item.split('=')[1];		  
-		  
+	  text_argument_set.forEach(item=>{
+		  arg_set[item.split('=')[0]] = item.split('=')[1];
+
 	  })
 
-	  if(arg_set["FileName"]){ 	  
+	  if(arg_set["FileName"]){
 		currFileName = arg_set["FileName"];
 		$('#titleInput').val(currFileName);
 	  }
-	  
+
 	  if(arg_set["FolderID"]) {
 		currFolderID = arg_set["FolderID"];
 		$('#folder_selection select').val(currFolderID);
 	  }
-      
+
 	  /*
       var filename_tmp = window.location.search.split("?")[1].split('&')[0].split("=")[1];
       var FolderID = parseInt(window.location.search.split("?")[1].split('&')[1].split("=")[1]);
@@ -101,6 +101,7 @@ function SendScore(){
     }
     //var FolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];
     var FolderID = parseInt($('#folder_selection select').val());
+    console.log(uid);
     //console.log(FolderID);
     $.post(appFiles, {
           "command":"blog_new",
@@ -125,6 +126,7 @@ function SendScore(){
 	$('#submit_button2').val('update')
     has_submitted = true;
   }else{
+    console.log(uid);
     $.post(appFiles, {
 
           "command":"blog_update",

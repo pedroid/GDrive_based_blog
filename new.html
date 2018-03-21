@@ -16,61 +16,7 @@
 
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script type="text/javascript">
-	var currFileID;
-        function SendScore(){
-			if(!has_submitted){
-				console.log('submit!');
-				var mode;
-				if($("#is_publicInput").prop("checked")){
-					mode = "777"
-				}else{
-					mode = "000"
-				}
-				//var FolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];
-				var FolderID = parseInt($('#folder_selection select').val());
-				//console.log(FolderID);
-				$.post(appFiles, {
-						  "command":"blog_new",
-							"filename": document.getElementById("titleInput").value,
-							"content": document.getElementById("text-input").value,
-							"FolderID": FolderID,
-							"is_public":parseInt($('#is_public_id').val()),
-							"is_draft":parseInt($('#is_draft_id').val())
-
-						},
-						function (data) {
-							currFileID = parseInt(data);
-							//console.log(data);
-							//$('#feedback').html(data)
-						//    document.write("--------------------------");
-						//   document.write("Result = "+data);
-						//   document.write("--------------------------");
-				});
-				$('#submit_button').val('update')
-				has_submitted = true;
-			}else{
-				$.post(appFiles, {
-
-						  "command":"blog_update",
-						  "FileID":currFileID,
-						  "FolderID": parseInt($('#folder_selection select').val()),
-						  "filename":  document.getElementById("titleInput").value,
-						  "content":document.getElementById("text-input").value,
-							"is_public":parseInt($('#is_public_id').val()),
-							"is_draft":parseInt($('#is_draft_id').val())
-						},
-						function (data) {
-							//console.log(data);
-
-							//$('#feedback').html(data)
-						//    document.write("--------------------------");
-						//   document.write("Result = "+data);
-						//   document.write("--------------------------");
-				});
-			}
-        }
-    </script>
+    
 
 <link rel="stylesheet" href="css/edit_new.css">
 	</head>
@@ -137,9 +83,9 @@
 
 
 
-   
 
-    
+
+
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   </body>

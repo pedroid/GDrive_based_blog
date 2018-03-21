@@ -64,9 +64,11 @@ $(function(){
 });
 
 var showinfo = function(){
+	console.log("show info");
 $(".login").css("display","inline");
 }
 var hideinfo = function(){
+	console.log("hide info");
 $(".login").css("display","none");
 }
 
