@@ -31,6 +31,27 @@ function md2html(input_content) {
           preview += StringSet[i].data;
           break;
         }
+        case "ref":{
+
+          var tag_test = false;
+          $.get(appBlogs,
+
+                   {
+                       FileID:76,
+                       "command":"read"
+                   },function (data) {
+                     preview += data;
+
+                   });
+
+          break;
+        }
+        case "ls":{
+          preview += "[system message] syntax: ls [type]  : show all resources with specific type.<br/>"
+          preview += StringSet[i].data;
+          preview += "<br/>"
+          break;
+        }
         case "data2div":{
           preview += StringSet[i].data;
           break;
@@ -59,8 +80,8 @@ function md2html(input_content) {
       return preview;
 }
 var StringNode = function(data, property, description){
-	        this.data = data;
-        	this.property = property;
+    this.data = data;
+  	this.property = property;
 		this.description = description;
 }
 
@@ -84,6 +105,9 @@ var html_preprocessing = function(content){
 	var patt_sequence = new RegExp("^@sequence{[ ]*$");
 	var patt_script = new RegExp("tag");
   var patt_data2div = new RegExp("^@data2div{[ ]*$");
+  var patt_ref = new RegExp("^@ref{[ ]*$");
+  //var patt_ls = new RegExp("^@ls{[ ]*$");
+  var patt_ls = new RegExp("^@ls [a-z,1-9]*$");
 
 	var flag_code = false;
 	var flag_u2b = false;
@@ -91,6 +115,8 @@ var html_preprocessing = function(content){
 	var flag_sequence = false;
 	var flag_image = false;
   var flag_data2div = false;
+  var flag_ref = false;
+  var flag_ls = false;
 
 //n
 
@@ -101,7 +127,9 @@ var html_preprocessing = function(content){
     'flowchart':3,
     'sequence':4,
     'image':5,
-    'data2div':6
+    'data2div':6,
+    'ref':7,
+    'ls':8
   }
 
   var doc_type = [];
@@ -124,6 +152,8 @@ var html_preprocessing = function(content){
 	var tmp_image_content = "";
   var tmp_data2div_content = "";
   var tmp_content = "";
+  var tmp_ref_content = "";
+  var tmp_ls_content="";
 //n
   var reg_content = [];
   for(var i=0;i<Object.keys(doc_type).length;i++){
@@ -202,6 +232,30 @@ var html_preprocessing = function(content){
 			tmp_content = "";
 			continue;
 
+		}else if(patt_ref.test(each_content)){
+			tmp_ref_content = "";
+			flag_ref = true;
+			var tmp = new StringNode(tmp_content, "markdown_input", "");
+			if(tmp_content!=""){
+				StringSet.push(tmp);
+			}
+			tmp_content = "";
+			continue;
+
+		}else if(patt_ls.test(each_content)){
+			tmp_ls_content = "";
+			//flag_ls = true;
+			var tmp = new StringNode(tmp_content, "markdown_input", "");
+			if(tmp_content!=""){
+				StringSet.push(tmp);
+			}
+			tmp_content = "";
+
+      var tmp = new StringNode(each_content.split(' ')[1],"ls","");
+
+      StringSet.push(tmp);
+			continue;
+
 		}else if(patt_data2div.test(each_content)){
 			tmp_data2div_content = "";
 			flag_data2div = true;
@@ -260,6 +314,26 @@ var html_preprocessing = function(content){
 
 
 			}
+      if(flag_ref == true){
+
+				var ref_content = "";
+				ref_content+= tmp_ref_content;
+
+				var tmp = new StringNode(ref_content, "ref", "");
+				StringSet.push(tmp);
+				flag_ref = false;
+
+
+			}
+      if(flag_ls == true){
+				var ls_content = "";
+				ls_content+= tmp_ls_content;
+				var tmp = new StringNode(ls_content, "ls", "");
+				StringSet.push(tmp);
+				flag_ls = false;
+
+
+			}
       if(flag_data2div == true){
         var data2div_content = "";
 				data2div_content+= tmp_data2div_content;
@@ -284,6 +358,10 @@ var html_preprocessing = function(content){
 			tmp_image_content += each_content;
 		}else if(flag_data2div){
 			tmp_data2div_content += each_content;
+		}else if(flag_ref){
+			tmp_ref_content += each_content;
+		}else if(flag_ls){
+			tmp_ls_content += each_content;
 		}else{
 			output+= each_content + '\n';
 			tmp_content += each_content + '\n';

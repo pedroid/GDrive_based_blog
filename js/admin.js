@@ -19,10 +19,26 @@ $(function(){
 		  const btnLogout = document.getElementById('btnLogout');
 
 
+
 		  firebase.auth().onAuthStateChanged(firebaseUser=>{
 				if(firebaseUser){
 						console.log('hi,'+firebaseUser.email);
-						load(firebaseUser.uid);
+						if(window.location.search){
+							text_argument_set = window.location.search.split("?")[1].split('&');
+							arg_set = {};
+							text_argument_set.forEach(item=>{
+								arg_set[item.split('=')[0]] = item.split('=')[1];
+
+							})
+
+
+							if(arg_set["FileID"]){
+								currFileID = parseInt(arg_set["FileID"]);
+								load_content(currFileID);
+							}
+						}else{
+								load(firebaseUser.uid);
+						}
 						//console.log('hi,'+firebaseUser.getDisplayName());
 				}else{
 						console.log('not logged in');
@@ -88,10 +104,11 @@ var var2content3 = function(course_name, files_fileid,files_folderid, course_ico
    tmp_text+=course_name;
    tmp_text+="\" style=\"width:100%\" class=\"w3-hover-opacity\">\
 	<div class=\"w3-container w3-white\"><p><b>";
-	tmp_text+="<a href=\"javascript:load_content(";
+	//tmp_text+="<a href=\"javascript:load_content(";
+	tmp_text+="<a href=\"admin.html?FileID=";
 	tmp_text+=files_fileid;
         //tmp_text+="blog.html?CourseID="+course_id;
-    tmp_text+=")\"";
+    tmp_text+="\"";
         tmp_text+="\" class=\"image\">";
 	tmp_text+=course_name;
 	//tmp_text+="</a><a target=\"_blank\"href=\"edit.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\">"+"(Edit)"+grid_item_text+"</a></b></p></div></div>";
@@ -121,6 +138,7 @@ var load_content = function(fileid){
 						 console.log(html_content);
              $('#blog_title').html(title);
              $('.content').html(html_content);
+						 $('img').width('70%');
            });
   }
 }

@@ -21,7 +21,7 @@ $(document).ready(function(e) {
 		preview.innerHTML = "";
 		content = input.value;
 		var html_content = md2html(content);
-    
+
           $('#preview').html(html_content);
 		  var preview_height = $('#preview').height();
 		  if(preview_height < 500) preview_height = 500;
@@ -38,11 +38,11 @@ $(document).ready(function(e) {
 
       $('#diagram').hide()
 	  var text_argument_set = window.location.search.split("?")[1].split('&');
-	  var numArguments = text_argument_set.length;	  
+	  var numArguments = text_argument_set.length;
 	  arg_set = {};
-	  text_argument_set.forEach(item=>{		  
-		  arg_set[item.split('=')[0]] = parseInt(item.split('=')[1]);		  
-		  
+	  text_argument_set.forEach(item=>{
+		  arg_set[item.split('=')[0]] = parseInt(item.split('=')[1]);
+
 	  })
 
 	  if(arg_set["FileID"]) currFileID = arg_set["FileID"];
@@ -51,7 +51,7 @@ $(document).ready(function(e) {
       //currFolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];
 
       $('#folder_selection select').val(currFolderID);
-      console.log(currFileID);
+      //console.log(currFileID);
       $.get(appBlogs,
 
           {
@@ -60,9 +60,9 @@ $(document).ready(function(e) {
           },
         function (data) {
           //console.log("the result is :"+data);
-          console.log(data);
+          //console.log(data);
           title = data.split('$$')[0];
-          content = data.split('$$')[1];		  
+          content = data.split('$$')[1];
           $('#is_draft_id').val(data.split('$$')[2]);
           $('#is_public_id').val(data.split('$$')[3]);
 		  folderID = parseInt(data.split('$$')[4]);
@@ -81,6 +81,7 @@ $(document).ready(function(e) {
           $('#text-input').val(content);
           $('#text-input')[0].editor.update()
           $('#titleInput').val(title);
+          $('img').width('70%');
         });
       document.getElementById('text-input').focus();
 
