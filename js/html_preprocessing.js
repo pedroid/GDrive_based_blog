@@ -41,7 +41,7 @@ function md2html(input_content) {
                        "command":"read"
                    },function (data) {
                      preview += data;
-
+                    
                    });
 
           break;

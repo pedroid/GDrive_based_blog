@@ -36,6 +36,10 @@ $(function(){
 								currFileID = parseInt(arg_set["FileID"]);
 								load_content(currFileID);
 							}
+							if(arg_set["FolderID"]){
+								currFolderID = parseInt(arg_set["FolderID"]);
+								load_admin_folder_content(currFolderID);
+							}
 						}else{
 								load(firebaseUser.uid);
 						}
