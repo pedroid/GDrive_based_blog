@@ -1,6 +1,3 @@
-var appFiles = "https://script.google.com/macros/s/AKfycby8FMMIJQkm0lAqUzyP_epJiw1dP3JMZ8VdiTGHckpfEVpecs-N/exec";
-var appBlogAuthen = "https://script.google.com/macros/s/AKfycby1kO-bI-2KeFM2XKHVRZwsS9cUjoJyklfOsGwP-h3S4c_sZUg/exec";
-var appBlogs = "https://script.google.com/macros/s/AKfycbwlmoiBY_Ip2lt5QICMmOhOnX_dCrAo4_YMsOLk3hmx5M-kihAT/exec";
 
 $(function(){
 	$('#diagram').hide();

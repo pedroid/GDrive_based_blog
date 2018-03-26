@@ -16,12 +16,10 @@ $(function(){
 		  const btnLogout = document.getElementById('btnLogout');
 
 
-
 		  firebase.auth().onAuthStateChanged(firebaseUser=>{
 				if(firebaseUser){
 						console.log('hi,'+firebaseUser.email);
 						if(window.location.search){
-
 							text_argument_set = window.location.search.split("?")[1].split('&');
 							arg_set = {};
 							text_argument_set.forEach(item=>{
@@ -36,7 +34,7 @@ $(function(){
 							}
 							if(arg_set["FolderID"]){
 								currFolderID = parseInt(arg_set["FolderID"]);
-								load_admin_folder_content(currFolderID);
+								load_draft_folder_content(currFolderID);
 							}
 						}else{
 								load(firebaseUser.uid);
@@ -56,7 +54,7 @@ var load = function(uid){
 	//console.log(uid);
 	//prettyPrint();
 	$.get(appFiles, {
-		"command":"commandGetBlogs",
+		"command":"commandGetStarBlogs",
 		"uid":uid
 
 	},function(data){
@@ -87,7 +85,6 @@ var load = function(uid){
 			//$('.content-wrapper').prepend("<div class=\"grid-item teaching_plan\"><div class=\"description\"><div class=\"item-title\"><a href="">"+blogs_set[i].split('$$')[0]+"</div><div class=\"item-tags\"><div class=\"tag\">"+blogs_set[i].split('$$')[1]+"</div></div></div></div>")
 
 		}
-		//$('img').height(280);
 	});
 
 }
@@ -98,23 +95,17 @@ var var2content3 = function(course_name, files_fileid,files_folderid, course_ico
 	if( (files_draft=="0")&(files_public=="0") ) {grid_item_text = "(publish, <font color=\"red\">private</font>)";}
 	if( (files_draft=="1")&(files_public=="1") ) {grid_item_text = "(<font color=\"orange\">draft</font>, public)";}
 	if( (files_draft=="1")&(files_public=="0") ) {grid_item_text = "(<font color=\"orange\">draft</font>, <font color=\"red\">private</font>)";}
-  var tmp_text = "<div class=\"w3-third w3-container w3-margin-bottom\">";
-  tmp_text+="<img src=\"";
-  tmp_text+=course_icon;
+  var tmp_text = "<div class=\"w3-row w3-container w3-margin-bottom\">";
   tmp_text+="\
-   \" alt=\"";
-   tmp_text+=course_name;
-   tmp_text+="\" style=\"width:100%\" class=\"w3-hover-opacity\">\
 	<div class=\"w3-container w3-white\"><p><b>";
 	//tmp_text+="<a href=\"javascript:load_content(";
-	tmp_text+="<a href=\"admin.html?FileID=";
+	tmp_text+="<a href=\"draft.html?FileID=";
 	tmp_text+=files_fileid;
         //tmp_text+="blog.html?CourseID="+course_id;
     tmp_text+="\"";
         tmp_text+="\" class=\"image\">";
 	tmp_text+=course_name;
-	//tmp_text+="</a><a target=\"_blank\"href=\"edit.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\">"+"(Edit)"+grid_item_text+"</a></b></p></div></div>";
-	tmp_text+="</a><a target=\"_blank\"href=\"edit.html?FileID="+files_fileid+"\">"+"(Edit)"+grid_item_text+"</a></b></p></div></div>";
+	tmp_text+="</a><a target=\"_blank\"href=\"edit.html?FileID="+files_fileid+"&FolderID="+files_folderid+"\">"+"(Edit)"+grid_item_text+"</a></b></p></div></div>";
   return tmp_text;
 
 }
@@ -130,27 +121,23 @@ var load_content = function(fileid){
                  "command":"read"
              },
            function (data) {
-			   console.log(data);
+			   //console.log(data);
              title = data.split('$$')[0];
              content = data.split('$$')[1];
-						 $('#portfolio ul').append("<li><a href=\"edit.html?FileID="+ fileid +"&a=1\">edit</a></li>")
-						 var html_content = "";
-			 //var html_content = "<a href=\"../edit.html?FileID="+ fileid +"&a=1\">(edit)</a>";
+			 var html_content = "<a href=\"../edit.html?FileID="+ fileid +"&a=1\">(edit)</a>";
              html_content += md2html(content,html_content,0);
-						 console.log(html_content);
              $('#blog_title').html(title);
              $('.content').html(html_content);
-						 $('img').width('70%');
            });
   }
 }
 
-var load_admin_folder_content = function(folderid){
+var load_draft_folder_content = function(folderid){
 	if(typeof folderid != "undefined"){
 		$('.posts').html("");
 		$('.content').html("");
 	$.get(appFiles, {
-		"command":"commandGetAdminFolderFiles",
+		"command":"commandGetDraftFolderFiles",
 		"FolderID":folderid
 	},function(data){
 		//console.log(data);
@@ -177,7 +164,6 @@ var load_admin_folder_content = function(folderid){
 			//$('.content-wrapper').prepend("<div class=\"grid-item teaching_plan\"><div class=\"description\"><div class=\"item-title\"><a href="">"+blogs_set[i].split('$$')[0]+"</div><div class=\"item-tags\"><div class=\"tag\">"+blogs_set[i].split('$$')[1]+"</div></div></div></div>")
 
 		}
-
 	});
 	}
 }

@@ -27,7 +27,7 @@ var html_preprocessing = function(content){
 
 	var patt_flowchart = new RegExp("^@flowchart{[ ]*$");
 	var patt_flowchard_end = new RegExp("^@flowchart[ ]*$");
-	
+
 	var patt_sequence = new RegExp("^@sequence{[ ]*$");
 
 	var patt_script = new RegExp("tag");
@@ -41,9 +41,9 @@ var html_preprocessing = function(content){
 	var tmp_flowchart_content = "";
 	var tmp_sequence_content = "";
 	var tmp_content = "";
-        var StringSet = [];
+        var mdppSet = [];
 	//parse_result.code.push("");
-	//console.log('1:', StringSet);
+	//console.log('1:', mdppSet);
 	for(id_content_array in content_array){
 		each_content = content_array[id_content_array];
 		//console.log(each_content);
@@ -53,14 +53,14 @@ var html_preprocessing = function(content){
 			var tag_content_array = tag_content.split(',');
 			console.log('tag_content_array:'+tag_content_array);
 			parse_result.tag_content_array = tag_content_array;
-			StringSet.push(StringNode(tag_content_array, "system_cmd", "tag"));
-			console.log(StringSet);
+			mdppSet.push(StringNode(tag_content_array, "system_cmd", "tag"));
+			console.log(mdppSet);
 			continue;
 		}else if(patt_publish.test(each_content)){
 			parse_result.publish = true;
 			var tmp = new StringNode(true, "system_cmd", "publish");
 			//console.log(tmp);
-			StringSet.push(tmp);
+			mdppSet.push(tmp);
 			//console.log('publish');
 			continue;
 		}else if(patt_html.test(each_content)){
@@ -68,7 +68,7 @@ var html_preprocessing = function(content){
 			flag_code = true;
 			var tmp = new StringNode(tmp_content, "markdown_input", "");
 			if(tmp_content!=""){
-				StringSet.push(tmp);
+				mdppSet.push(tmp);
 			}
 			tmp_content = "";
 			continue;
@@ -77,7 +77,7 @@ var html_preprocessing = function(content){
 			flag_u2b = true;
 			var tmp = new StringNode(tmp_content, "markdown_input", "");
 			if(tmp_content!=""){
-				StringSet.push(tmp);
+				mdppSet.push(tmp);
 			}
 			tmp_content = "";
 			continue;
@@ -87,7 +87,7 @@ var html_preprocessing = function(content){
 			flag_flowchart = true;
 			var tmp = new StringNode(tmp_content, "markdown_input", "");
 			if(tmp_content!=""){
-				StringSet.push(tmp);
+				mdppSet.push(tmp);
 			}
 			tmp_content = "";
 			continue;
@@ -97,7 +97,7 @@ var html_preprocessing = function(content){
 			flag_sequence = true;
 			var tmp = new StringNode(tmp_content, "markdown_input", "");
 			if(tmp_content!=""){
-				StringSet.push(tmp);
+				mdppSet.push(tmp);
 			}
 			tmp_content = "";
 			continue;
@@ -109,7 +109,7 @@ var html_preprocessing = function(content){
 					console.log('script included');
 				}else{
 					var tmp = new StringNode(tmp_html_content, "html", "");
-					StringSet.push(tmp);
+					mdppSet.push(tmp);
 				}
 				flag_code = false;
 				tmp_content = "";
@@ -119,7 +119,7 @@ var html_preprocessing = function(content){
 				forfun += tmp_u2b_content;
 				forfun += "'></iframe>";
 				var tmp = new StringNode(forfun, "u2b", "");
-				StringSet.push(tmp);
+				mdppSet.push(tmp);
 				console.log(forfun);
 				flag_u2b = false;
 
@@ -128,7 +128,7 @@ var html_preprocessing = function(content){
 				var flowchart_content = "";
 				flowchart_content+= tmp_flowchart_content;
 				var tmp = new StringNode(flowchart_content, "flowchart", "");
-				StringSet.push(tmp);
+				mdppSet.push(tmp);
 				flag_flowchart = false;
 
 			}
@@ -136,7 +136,7 @@ var html_preprocessing = function(content){
 				var sequence_content = "";
 				sequence_content+= tmp_sequence_content;
 				var tmp = new StringNode(sequence_content, "sequence", "");
-				StringSet.push(tmp);
+				mdppSet.push(tmp);
 				flag_sequence = false;
 
 			}
@@ -166,9 +166,9 @@ var html_preprocessing = function(content){
 	if(tmp_content!=""){
 		//console.log(tmp_content);
 		var tmp = new StringNode(tmp_content, "markdown_input", "");
-		StringSet.push(tmp);
+		mdppSet.push(tmp);
 	}
-//	console.log('parse_result.code:'+StringSet);
-	return [output, parse_result, StringSet]
+//	console.log('parse_result.code:'+mdppSet);
+	return [output, parse_result, mdppSet]
 	//return html_string;
 }
