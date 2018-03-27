@@ -74,6 +74,15 @@ function DivSet2StaticDisplay(mdppSet, DivSet, dp_element) {
                     dp_element.append(tmp_html_content);
                     break;
                 }
+            case "image_rotation":
+                    {
+                        var tmp_html_content = "";
+                        tmp_html_content += '<div id="div' + i + '">'
+                        tmp_html_content += DivSet[i];
+                        tmp_html_content += '</div>'
+                        dp_element.append(tmp_html_content);
+                        break;
+                    }
             case "html":
                 {
                     var tmp_html_content = "";
@@ -186,6 +195,19 @@ function mdpp2DivSet(input_content) {
                     DivSet.push(image_content);
                     break;
                 }
+                case "image_rotation":
+                    {
+                      console.log(mdppSet[i].data);
+                        //var image_content = "<img src=\"https://drive.google.com/uc?export=view&id=";
+
+                        var image_content="<img src=\"https://drive.google.com/uc?export=view&id=";
+                        var tmp_length_array = mdppSet[i].data.split(' ')[0].split("=").length;
+                        image_content+= mdppSet[i].data.split(' ')[0].split("=")[tmp_length_array-1];
+                        image_content+="\">";
+                        console.log(image_content);
+                        DivSet.push(image_content);
+                        break;
+                    }
             case "flowchart":
                 {
                     var tmp = mdppSet[i].data;
