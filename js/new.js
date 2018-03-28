@@ -143,6 +143,7 @@ function Editor(input, preview) {
         if (preview_height < 500) preview_height = 500;
 
         $('.AutoHeight').height(preview_height);
+        $('img').width('70%');
     };
     input.editor = this;
     //	$("#text-input").height($("#preview").height());

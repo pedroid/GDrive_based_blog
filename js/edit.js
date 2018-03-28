@@ -118,7 +118,7 @@ function Editor(input, preview) {
     this.update = function() {
         preview.innerHTML = "";
         content = input.value;
-        var html_content = md2html(content);
+        //var html_content = md2html(content);
         [mdppSet, DivSet] = mdpp2DivSet(content);
 
         DivSet2StaticDisplay(mdppSet, DivSet, $('#preview'));
@@ -130,6 +130,7 @@ function Editor(input, preview) {
         if (preview_height < 500) preview_height = 500;
 
         $('.AutoHeight').height(preview_height);
+        $('img').width('70%');
     };
     input.editor = this;
     //	$("#text-input").height($("#preview").height());

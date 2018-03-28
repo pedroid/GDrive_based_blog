@@ -188,7 +188,7 @@ function mdpp2DivSet(input_content) {
                   //console.log('image');
                     //var image_content = "<img src=\"https://drive.google.com/uc?export=view&id=";
 
-                    var image_content="<img src=\"https://drive.google.com/uc?export=view&id=";
+                    var image_content="<img class=\"rotation\" src=\"https://drive.google.com/uc?export=view&id=";
                     var tmp_length_array = mdppSet[i].data.split("=").length;
                     image_content+= mdppSet[i].data.split("=")[tmp_length_array-1];
                     image_content+="\">";
@@ -199,12 +199,14 @@ function mdpp2DivSet(input_content) {
                     {
                       console.log(mdppSet[i].data);
                         //var image_content = "<img src=\"https://drive.google.com/uc?export=view&id=";
-
-                        var image_content="<img src=\"https://drive.google.com/uc?export=view&id=";
+                        var rotation_degrees = mdppSet[i].data.split(' ')[1];
+                        var image_content="<img class=\"rotation"+ rotation_degrees +"\" src=\"https://drive.google.com/uc?export=view&id=";
                         var tmp_length_array = mdppSet[i].data.split(' ')[0].split("=").length;
                         image_content+= mdppSet[i].data.split(' ')[0].split("=")[tmp_length_array-1];
                         image_content+="\">";
-                        console.log(image_content);
+
+                        //console.log(rotation_degrees);
+                        //console.log(image_content);
                         DivSet.push(image_content);
                         break;
                     }

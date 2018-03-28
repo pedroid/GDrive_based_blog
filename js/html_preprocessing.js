@@ -32,8 +32,8 @@ var html_preprocessing = function(content) {
     // 1 line syntax
     var patt_ls = new RegExp("^@ls [a-z,0-9,A-Z]*[ ]*$");
     var patt_ls_export = new RegExp("^@ls [a-z,0-9,A-Z]*[ ]+>[ ]+[a-z0-9A-Z\_]*$");
-    var patt_image = new RegExp("^@image [a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[ ]*$");
-    var patt_image_rotation = new RegExp("^@image [a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[ ]+[-][0-9]+[ ]*$");
+    var patt_image = new RegExp("^@image [a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[\\t ]*$");
+    var patt_image_rotation = new RegExp("^@image [a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[ ]+[-]*[0-9]+[ ]*$");
     // end of 1 line syntax
 
     var flag_code = false;
@@ -215,12 +215,13 @@ var html_preprocessing = function(content) {
 
             continue;
         } else if (patt_image_rotation.test(each_content)) {
-          //console.log(each_content);
+          console.log(each_content);
             tmp_image_rotation_content = "";
             var tmp = new StringNode(tmp_content, "markdown_input", "");
             if (tmp_content != "") {
                 mdppSet.push(tmp);
             }
+            console.log(tmp);
             tmp_content = "";
             var tmp = new StringNode(each_content.split(' ')[1]+' '+each_content.split(' ')[2], "image_rotation", "");
             mdppSet.push(tmp);
