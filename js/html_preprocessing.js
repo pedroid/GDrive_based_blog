@@ -215,13 +215,13 @@ var html_preprocessing = function(content) {
 
             continue;
         } else if (patt_image_rotation.test(each_content)) {
-          console.log(each_content);
+          //console.log(each_content);
             tmp_image_rotation_content = "";
             var tmp = new StringNode(tmp_content, "markdown_input", "");
             if (tmp_content != "") {
                 mdppSet.push(tmp);
             }
-            console.log(tmp);
+            //console.log(tmp);
             tmp_content = "";
             var tmp = new StringNode(each_content.split(' ')[1]+' '+each_content.split(' ')[2], "image_rotation", "");
             mdppSet.push(tmp);
@@ -255,7 +255,6 @@ var html_preprocessing = function(content) {
                 forfun += "'></iframe>";
                 var tmp = new StringNode(forfun, "u2b", "");
                 mdppSet.push(tmp);
-                console.log(forfun);
                 flag_u2b = false;
 
             }
