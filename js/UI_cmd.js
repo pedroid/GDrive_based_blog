@@ -45,7 +45,7 @@ function showPlot(mode, var_set) {
                 .call(xy_chart)
                 .attr("class", "graph-svg-component");
 
-            console.log(var_set);
+            //console.log(var_set);
             $('#d3_div').show()
 
             break;
@@ -499,7 +499,7 @@ $(document).ready(function(e) {
                                     log("Client", "please check input (y): " + var_y + ":" + variable_lib[var_y]);
                                 } else {
 
-                                    console.log(variable_lib);
+                                    //console.log(variable_lib);
                                     showPlot('2d', [variable_lib[var_x], variable_lib[var_y]]);
                                     break;
                                 }
@@ -525,7 +525,7 @@ $(document).ready(function(e) {
                                     console.log(variable_lib);
                                     showPlot('2d', [variable_lib[var_x], variable_lib[var_y]]);
                                     break;
-                                }								
+                                }
 								break;
                             default:
                                 break;
@@ -984,7 +984,7 @@ function d3_xy_chart() {
     function chart(selection) {
         selection.each(function(datasets) {
             //
-            // Create the plot. 
+            // Create the plot.
             //
             var margin = {
                     top: 20,
