@@ -35,6 +35,7 @@ var html_preprocessing = function(content) {
     var patt_ls_export = new RegExp("^@ls [a-z,0-9,A-Z]*[ ]+>[ ]+[a-z0-9A-Z\_]*$");
     var patt_image = new RegExp("^@image [a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[\\t ]*$");
     var patt_image_rotation = new RegExp("^@image [a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[ ]+[-]*[0-9]+[ ]*$");
+    var patt_plot = new RegExp("^@plot .");
     // end of 1 line syntax
 
     var flag_code = false;
@@ -47,6 +48,8 @@ var html_preprocessing = function(content) {
     var flag_ls = false;
     var flag_list = false;
     var flag_list_ref = false;
+    var flag_plot = false;
+
     //n
 
     var dict_doc_type = {
@@ -59,7 +62,8 @@ var html_preprocessing = function(content) {
         'data2div': 6,
         'ref': 7,
         'ls': 8,
-        'list': 9
+        'list': 9,
+        'plot':10
     }
 
     var doc_type = [];
@@ -87,6 +91,7 @@ var html_preprocessing = function(content) {
     var tmp_ls_content = "";
     var tmp_list_content = "";
     var tmp_list_ref_content = "";
+    var tmp_plot_content = "";
     //n
     var reg_content = [];
     for (var i = 0; i < Object.keys(doc_type).length; i++) {
@@ -100,7 +105,7 @@ var html_preprocessing = function(content) {
     //console.log('1:', mdppSet);
     for (id_content_array in content_array) {
         each_content = content_array[id_content_array];
-        //console.log(each_content);
+        console.log(each_content);
         if (patt_tag.test(each_content)) {
             var tag_content = each_content.split('!tag')[1];
             console.log('tag_content' + tag_content);
@@ -216,6 +221,18 @@ var html_preprocessing = function(content) {
             mdppSet.push(tmp);
 
             continue;
+        } else if (patt_plot.test(each_content)) {
+          //console.log(each_content);
+            tmp_plot_content = "";
+            var tmp = new StringNode(tmp_content, "markdown_input", "");
+            if (tmp_content != "") {
+                mdppSet.push(tmp);
+            }
+            tmp_content = "";
+            var tmp = new StringNode(each_content.substring(6,), "plot", "");
+            mdppSet.push(tmp);
+
+            continue;
         } else if (patt_image.test(each_content)) {
           //console.log(each_content);
             tmp_image_content = "";
@@ -262,6 +279,14 @@ var html_preprocessing = function(content) {
                 }
                 flag_code = false;
                 tmp_content = "";
+            }
+            if (flag_plot == true) {
+                var plot_content = "";
+                plot_content += tmp_plot_content;
+                var tmp = new StringNode(plot_content, "plot", "");
+                mdppSet.push(tmp);
+                flag_plot = false;
+
             }
             if (flag_u2b == true) {
                 var forfun = "<iframe width='600' height='450' src='";
@@ -370,6 +395,8 @@ var html_preprocessing = function(content) {
             tmp_ls_content += each_content;
         } else if (flag_list_ref) {
             tmp_list_ref_content += each_content;
+        } else if (flag_plot) {
+            tmp_plot_content += each_content;
         } else {
             output += each_content + '\n';
             tmp_content += each_content + '\n';

@@ -173,6 +173,17 @@ function DivSet2StaticDisplay(mdppSet, DivSet, dp_element) {
                       dp_element.append(tmp_html_content);
                       break;
                   }
+              case "plot":
+              {
+                var tmp_html_content = "";
+                tmp_html_content += '<div id="div' + i + '">'
+                tmp_html_content += DivSet[i];
+                tmp_html_content += '</div>'
+                dp_element.append(tmp_html_content);
+                //showPlot('2d', [variable_lib[var_x], variable_lib[var_y]], "div"+i);
+                showPlot('2d', [[1,2,3], [3,4,5]], "#div"+i);
+                break;
+              }
         }
 
     }
@@ -270,7 +281,14 @@ function mdpp2DivSet(input_content) {
                     DivSet.push($('#diagram').html());
                     break;
                 }
-
+                case "plot":
+                    {
+                      var plot_content = "";
+                      plot_content+= "@plot\n"
+                      plot_content+= mdppSet[i].data;
+                      DivSet.push(plot_content);
+                      break;
+                    }
         }
     }
     return [mdppSet, DivSet];
