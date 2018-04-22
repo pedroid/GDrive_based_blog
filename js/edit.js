@@ -111,7 +111,45 @@ function SendScore() {
             if (data == "true") {
                 $('#feedback').html('done')
             }
-        });
+        }
+      );
+      var ResourceContentToSend = "";
+      var ResourceNameToSend = "";
+    for(var i=0;i<mdppSet.length;i++){
+      switch(mdppSet[i].property){
+        case "list":
+
+          var ResourceRawSet = mdppSet[i].data.split("\n");
+
+          ResourceNameToSend = ResourceRawSet[0];
+          ResourceRawSet.shift();
+          ResourceRawSet.pop();
+
+          ResourceContentToSendSet = ResourceRawSet.join("\n");
+          //console.log('list');
+          ResourceContentToSend+=ResourceNameToSend;//name
+          ResourceContentToSend+="$$";
+          ResourceContentToSend+="list";//type
+          ResourceContentToSend+="$$";
+          ResourceContentToSend+=ResourceContentToSendSet;//content
+          ResourceContentToSend+="||";
+          break;
+        default:
+          break;
+      }
+
+    }
+
+    //console.log(ResourceContentToSend);
+    $.post(appResources,{
+      "command":"commandPostResources",
+      "FileID":currFileID,
+      "ResourceContent":ResourceContentToSend,
+      "ResourceName":ResourceNameToSend
+    },function(data){
+
+    })
+
 }
 
 function Editor(input, preview) {

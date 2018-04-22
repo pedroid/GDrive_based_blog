@@ -27,6 +27,7 @@ var html_preprocessing = function(content) {
     var patt_data2div = new RegExp("^@data2div{[ ]*$");
     var patt_ref = new RegExp("^@ref{[ ]*$");
     var patt_list = new RegExp("^@list{[ ]*$");
+    var patt_list_ref = new RegExp("^@list[ ]*:[ ]*[a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[\\t ]*$");
     //var patt_ls = new RegExp("^@ls{[ ]*$");
 
     // 1 line syntax
@@ -45,7 +46,7 @@ var html_preprocessing = function(content) {
     var flag_ref = false;
     var flag_ls = false;
     var flag_list = false;
-
+    var flag_list_ref = false;
     //n
 
     var dict_doc_type = {
@@ -85,6 +86,7 @@ var html_preprocessing = function(content) {
     var tmp_ref_content = "";
     var tmp_ls_content = "";
     var tmp_list_content = "";
+    var tmp_list_ref_content = "";
     //n
     var reg_content = [];
     for (var i = 0; i < Object.keys(doc_type).length; i++) {
@@ -202,6 +204,18 @@ var html_preprocessing = function(content) {
             mdppSet.push(tmp);
             continue;
 
+        }else if (patt_list_ref.test(each_content)) {
+          //console.log(each_content);
+            tmp_list_content = "";
+            var tmp = new StringNode(tmp_content, "markdown_input", "");
+            if (tmp_content != "") {
+                mdppSet.push(tmp);
+            }
+            tmp_content = "";
+            var tmp = new StringNode(each_content.replace(/ /g,'').split(':')[1], "list_ref", "");
+            mdppSet.push(tmp);
+
+            continue;
         } else if (patt_image.test(each_content)) {
           //console.log(each_content);
             tmp_image_content = "";
@@ -284,6 +298,15 @@ var html_preprocessing = function(content) {
 
 
             }
+            if (flag_list_ref == true) {
+                var list_ref_content = "";
+                list_ref_content += tmp_list_ref_content;
+                var tmp = new StringNode(list_ref_content, "list_ref", "");
+                mdppSet.push(tmp);
+                flag_list_ref = false;
+
+
+            }
             if (flag_ref == true) {
 
                 var ref_content = "";
@@ -342,9 +365,11 @@ var html_preprocessing = function(content) {
         } else if (flag_ref) {
             tmp_ref_content += each_content;
         } else if (flag_list) {
-            tmp_list_content += each_content;
+            tmp_list_content += each_content + "\n";
         } else if (flag_ls) {
             tmp_ls_content += each_content;
+        } else if (flag_list_ref) {
+            tmp_list_ref_content += each_content;
         } else {
             output += each_content + '\n';
             tmp_content += each_content + '\n';
