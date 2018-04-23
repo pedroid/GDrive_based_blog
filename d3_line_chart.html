@@ -47,7 +47,7 @@ var yAxis = d3.svg.axis().scale(y)
 
 // Define the line
 var valueline = d3.svg.line()
-    .x(function(d) { return x(d.date); })
+    .x(function(d) { return x(d.test); })
     .y(function(d) { return y(d.close); });
     
 // Adds the svg canvas
@@ -62,12 +62,12 @@ var svg = d3.select("body")
 // Get the data
 d3.csv("./data.csv", function(error, data) {
     data.forEach(function(d) {
-        d.date = parseDate(d.date);
+        d.test = d.test;
         d.close = +d.close;
     });
 
     // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { return d.date; }));
+    x.domain(d3.extent(data, function(d) { return d.test; }));
     y.domain([0, d3.max(data, function(d) { return d.close; })]);
 
     // Add the valueline path.
@@ -80,7 +80,7 @@ d3.csv("./data.csv", function(error, data) {
         .data(data)
       .enter().append("circle")
         .attr("r", 3.5)
-        .attr("cx", function(d) { return x(d.date); })
+        .attr("cx", function(d) { return x(d.test); })
         .attr("cy", function(d) { return y(d.close); });
 
     // Add the X Axis
