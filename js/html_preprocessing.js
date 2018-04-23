@@ -36,6 +36,8 @@ var html_preprocessing = function(content) {
     var patt_image = new RegExp("^@image [a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[\\t ]*$");
     var patt_image_rotation = new RegExp("^@image [a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[ ]+[-]*[0-9]+[ ]*$");
     var patt_plot = new RegExp("^@plot .");
+	var patt_set = new RegExp("^@set .");
+	var patt_marked = new RegExp("^@#.");
     // end of 1 line syntax
 
     var flag_code = false;
@@ -49,6 +51,8 @@ var html_preprocessing = function(content) {
     var flag_list = false;
     var flag_list_ref = false;
     var flag_plot = false;
+	var flag_set = false;
+	var flag_marked = false;
 
     //n
 
@@ -63,7 +67,9 @@ var html_preprocessing = function(content) {
         'ref': 7,
         'ls': 8,
         'list': 9,
-        'plot':10
+        'plot':10,
+		'set':11,
+		'marked':12
     }
 
     var doc_type = [];
@@ -92,6 +98,8 @@ var html_preprocessing = function(content) {
     var tmp_list_content = "";
     var tmp_list_ref_content = "";
     var tmp_plot_content = "";
+	var tmp_set_content = "";
+	var tmp_marked_content = "";
     //n
     var reg_content = [];
     for (var i = 0; i < Object.keys(doc_type).length; i++) {
@@ -229,7 +237,31 @@ var html_preprocessing = function(content) {
                 mdppSet.push(tmp);
             }
             tmp_content = "";
-            var tmp = new StringNode(each_content.substring(6,), "plot", "");
+            var tmp = new StringNode(each_content.replace(/ +/g,' ').substring(6,), "plot", "");
+            mdppSet.push(tmp);
+
+            continue;
+        } else if (patt_set.test(each_content)) {
+          //console.log(each_content);
+            tmp_set_content = "";
+            var tmp = new StringNode(tmp_content, "markdown_input", "");
+            if (tmp_content != "") {
+                mdppSet.push(tmp);
+            }
+            tmp_content = "";
+            var tmp = new StringNode(each_content.replace(/ +/g,' ').substring(5,), "set", "");
+            mdppSet.push(tmp);
+
+            continue;
+        } else if (patt_marked.test(each_content)) {
+          //console.log(each_content);
+            tmp_marked_content = "";
+            var tmp = new StringNode(tmp_content, "markdown_input", "");
+            if (tmp_content != "") {
+                mdppSet.push(tmp);
+            }
+            tmp_content = "";
+            var tmp = new StringNode(each_content, "marked", "");
             mdppSet.push(tmp);
 
             continue;
@@ -279,6 +311,22 @@ var html_preprocessing = function(content) {
                 }
                 flag_code = false;
                 tmp_content = "";
+            }
+			if (flag_marked == true) {
+                var marked_content = "";
+                marked_content += tmp_marked_content;
+                var tmp = new StringNode(marked_content, "marked", "");
+                mdppSet.push(tmp);
+                flag_marked = false;
+
+            }			
+			if (flag_set == true) {
+                var set_content = "";
+                set_content += tmp_set_content;
+                var tmp = new StringNode(set_content, "set", "");
+                mdppSet.push(tmp);
+                flag_set = false;
+
             }
             if (flag_plot == true) {
                 var plot_content = "";
@@ -363,6 +411,7 @@ var html_preprocessing = function(content) {
 
 
             }
+			
             if (flag_data2div == true) {
                 var data2div_content = "";
                 data2div_content += tmp_data2div_content;
@@ -397,6 +446,10 @@ var html_preprocessing = function(content) {
             tmp_list_ref_content += each_content;
         } else if (flag_plot) {
             tmp_plot_content += each_content;
+        } else if (flag_set) {
+            tmp_set_content += each_content;
+        }  else if (flag_marked) {
+            tmp_marked_content += each_content;
         } else {
             output += each_content + '\n';
             tmp_content += each_content + '\n';
