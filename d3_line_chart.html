@@ -1,11 +1,14 @@
 <!DOCTYPE html>
+<head>
 <script src="js/jquery-1.9.0.min.js"></script>
+<script src="js/d3.v3.js"></script>
+
 <meta charset="utf-8">
 <style> /* set the CSS */
 
 body { font: 12px Arial;}
 
-path { 
+path {
     stroke: steelblue;
     stroke-width: 2;
     fill: none;
@@ -20,17 +23,16 @@ path {
 }
 
 </style>
+</head>
 <body>
 <div id="graph" class="aGraph" style="position:absolute;top:0px;left:0; float:left;"></div>
 
-<!-- load the d3.js library -->    
-<script src="http://d3js.org/d3.v3.min.js"></script>
 
 <script>
 		var m = [80, 80, 80, 80]; // margins
 		var w = 1000 - m[1] - m[3]; // width
 		var h = 400 - m[0] - m[2]; // height
-		
+
 		// create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
 		var data = [4,3,1,2];
 
@@ -38,27 +40,27 @@ path {
 		var x = d3.scale.linear().domain([0, data.length]).range([0, w]);
 		// Y scale will fit values from 0-10 within pixels h-0 (Note the inverted domain for the y-scale: bigger is up!)
 		var y = d3.scale.linear().domain([0, 10]).range([h, 0]);
-		
+
 			// automatically determining max range can work something like this
 			// var y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
 
 		// create a line function that can convert data[] into x and y points
 		var line = d3.svg.line()
 			// assign the X function to plot our line as we wish
-			.x(function(d,i) { 
+			.x(function(d,i) {
 				// verbose logging to show what's actually being done
 				console.log('Plotting X value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
 				// return the X coordinate where we want to plot this datapoint
-				return x(i); 
+				return x(i);
 			})
-			.y(function(d) { 
+			.y(function(d) {
 				// verbose logging to show what's actually being done
 				console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
 				// return the Y coordinate where we want to plot this datapoint
-				return y(d); 
+				return y(d);
 			})
-			
-$(function(){	
+
+$(function(){
 
 			// Add an SVG element with the desired dimensions and margin.
 			var graph = d3.select("#graph").append("svg:svg")
@@ -83,12 +85,12 @@ $(function(){
 			      .attr("class", "y axis")
 			      .attr("transform", "translate(0,0)")
 			      .call(yAxisLeft);
-			
+
   			// Add the line by appending an svg:path element with the data line we created above
 			// do this AFTER the axes above so that the line is above the tick-lines
   			graph.append("svg:path").attr("d", line(data));
 
-});	
-			
+});
+
 </script>
 </body>
