@@ -1,18 +1,18 @@
 function VariableManager(){
 	this.variable_objects = {};
-	
+
 }
 
 VariableManager.prototype.newVariable = function(variable_object, callback){
 	var new_var_name = variable_object.name;
-	var new_var_value = variable_object.value;	
+	var new_var_value = variable_object.value;
 	this.variable_objects[new_var_name] = new_var_value;
 	callback(variable_object)
 }
 
 VariableManager.prototype.updateVariable = function(variable_object, callback){
 	var new_var_name = variable_object.name;
-	var new_var_value = variable_object.value;	
+	var new_var_value = variable_object.value;
 	this.variable_objects[new_var_name] = new_var_value;
 	callback(variable_object)
 }

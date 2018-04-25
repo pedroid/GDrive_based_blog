@@ -1,4 +1,5 @@
 var variable_manager = new VariableManager;
+var ui_manager = new UImanager;
 function DynamicDisplay(mdppSet, DivSet, id) {
 
 
@@ -179,16 +180,16 @@ function DivSet2StaticDisplay(mdppSet, DivSet, dp_element) {
                 var tmp_html_content = "";
                 tmp_html_content += '<div id="div' + i + '">'
                 tmp_html_content += DivSet[i];
-                
+
                 //showPlot('2d', [variable_lib[var_x], variable_lib[var_y]], "div"+i);
-				
+
 				var tmp_argument_set = mdppSet[i].data.split(" ");
-				var var_x_name = tmp_argument_set[1];				
+				var var_x_name = tmp_argument_set[1];
 				var var_y_name = tmp_argument_set[3];
-								
+
 				var var_x_value = variable_manager.variable_objects[var_x_name];
 				var var_y_value = variable_manager.variable_objects[var_y_name];
-				
+
 				if(typeof var_x_value == "undefined" | typeof var_y_value == "undefined"){
 					tmp_html_content+= "!!! x undefined or y undefined, please check"
 					tmp_html_content += '</div>'
@@ -198,9 +199,9 @@ function DivSet2StaticDisplay(mdppSet, DivSet, dp_element) {
 					dp_element.append(tmp_html_content);
 					//console.log('x:'+var_x_name+',y:'+var_y_name);
 					//showPlot('2d', [[1,2,3], [3,4,5]], "#div"+i);
-					showPlot('2d', [var_x_value, var_y_value], "#div"+i);					
+					showPlot('2d', [var_x_value, var_y_value], "#div"+i);
 				}
-				
+
                 break;
               }
               case "set":
@@ -211,19 +212,30 @@ function DivSet2StaticDisplay(mdppSet, DivSet, dp_element) {
                 tmp_html_content += '</div>'
                 dp_element.append(tmp_html_content);
 				var var_name = mdppSet[i].data.replace(/ +/g,'').split('=')[0];
-				var var_value = mdppSet[i].data.replace(/ +/g,'').split('=')[1];					  
+				var var_value = mdppSet[i].data.replace(/ +/g,'').split('=')[1];
 				var new_var_x = {'name':var_name, 'value':eval(var_value)};
-				variable_manager.newVariable(new_var_x, display_var);                
+				variable_manager.newVariable(new_var_x, display_var);
+                break;
+              }
+              case "ui_slidebar":
+              {
+                var tmp_html_content = "";
+                tmp_html_content += '<div id="div' + i + '">'
+                tmp_html_content += DivSet[i];
+                tmp_html_content += '</div>'
+                dp_element.append(tmp_html_content);
+        				var var_value = mdppSet[i].data.split(' ')[1];
+                ui_manager.newSlidebar('#div'+i, var_value);
                 break;
               }
               case "marked":
               {
                 var tmp_html_content = "";
-                tmp_html_content += '<div id="div' + i + '">'                
+                tmp_html_content += '<div id="div' + i + '">'
                 tmp_html_content += '</div>'
-                dp_element.append(tmp_html_content);                
+                dp_element.append(tmp_html_content);
                 break;
-              }			  
+              }
         }
 
     }
@@ -337,14 +349,22 @@ function mdpp2DivSet(input_content) {
                       set_content+= mdppSet[i].data;
                       DivSet.push(set_content);
                       break;
-                    }	
+                    }
+                    case "ui_slidebar":
+                        {
+                          var ui_slidebar_content = "";
+                          ui_slidebar_content+= "@ui_slidebar\n"
+                          ui_slidebar_content+= mdppSet[i].data;
+                          DivSet.push(ui_slidebar_content);
+                          break;
+                        }
                 case "marked":
                     {
                       var marked_content = "";
                       //marked_content+= mdppSet[i].data;
                       DivSet.push(marked_content);
                       break;
-                    }						
+                    }
         }
     }
     return [mdppSet, DivSet];

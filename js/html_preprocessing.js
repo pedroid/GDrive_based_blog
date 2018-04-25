@@ -27,7 +27,7 @@ var html_preprocessing = function(content) {
     var patt_data2div = new RegExp("^@data2div{[ ]*$");
     var patt_ref = new RegExp("^@ref{[ ]*$");
     var patt_list = new RegExp("^@list{[ ]*$");
-    var patt_list_ref = new RegExp("^@list[ ]*:[ ]*[a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[\\t ]*$");
+
     //var patt_ls = new RegExp("^@ls{[ ]*$");
 
     // 1 line syntax
@@ -38,6 +38,8 @@ var html_preprocessing = function(content) {
     var patt_plot = new RegExp("^@plot .");
 	var patt_set = new RegExp("^@set .");
 	var patt_marked = new RegExp("^@#.");
+  var patt_list_ref = new RegExp("^@list[ ]*:[ ]*[a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[\\t ]*$");
+  var patt_ui_slidebar = new RegExp("^@ui_slidebar .");
     // end of 1 line syntax
 
     var flag_code = false;
@@ -53,6 +55,7 @@ var html_preprocessing = function(content) {
     var flag_plot = false;
 	var flag_set = false;
 	var flag_marked = false;
+  var flag_ui_slidebar = false;
 
     //n
 
@@ -69,7 +72,8 @@ var html_preprocessing = function(content) {
         'list': 9,
         'plot':10,
 		'set':11,
-		'marked':12
+		'marked':12,
+    'ui_slidebar':13
     }
 
     var doc_type = [];
@@ -100,6 +104,7 @@ var html_preprocessing = function(content) {
     var tmp_plot_content = "";
 	var tmp_set_content = "";
 	var tmp_marked_content = "";
+  var tmp_ui_slidebar_content = "";
     //n
     var reg_content = [];
     for (var i = 0; i < Object.keys(doc_type).length; i++) {
@@ -113,7 +118,7 @@ var html_preprocessing = function(content) {
     //console.log('1:', mdppSet);
     for (id_content_array in content_array) {
         each_content = content_array[id_content_array];
-        console.log(each_content);
+        //console.log(each_content);
         if (patt_tag.test(each_content)) {
             var tag_content = each_content.split('!tag')[1];
             console.log('tag_content' + tag_content);
@@ -241,7 +246,19 @@ var html_preprocessing = function(content) {
             mdppSet.push(tmp);
 
             continue;
-        } else if (patt_set.test(each_content)) {
+        } else if (patt_ui_slidebar.test(each_content)) {
+          //console.log(each_content);
+            tmp_slidebar_content = "";
+            var tmp = new StringNode(tmp_content, "markdown_input", "");
+            if (tmp_content != "") {
+                mdppSet.push(tmp);
+            }
+            tmp_content = "";
+            var tmp = new StringNode(each_content.replace(/ +/g,' ').substring(13,), "ui_slidebar", "");
+            mdppSet.push(tmp);
+
+            continue;
+        }  else if (patt_set.test(each_content)) {
           //console.log(each_content);
             tmp_set_content = "";
             var tmp = new StringNode(tmp_content, "markdown_input", "");
@@ -319,7 +336,15 @@ var html_preprocessing = function(content) {
                 mdppSet.push(tmp);
                 flag_marked = false;
 
-            }			
+            }
+            if (flag_ui_slidebar == true) {
+                      var ui_slidebar_content = "";
+                      ui_slidebar_content += tmp_ui_slidebar_content;
+                      var tmp = new StringNode(ui_slidebar_content, "ui_slidebar", "");
+                      mdppSet.push(tmp);
+                      flag_ui_slidebar = false;
+
+                  }
 			if (flag_set == true) {
                 var set_content = "";
                 set_content += tmp_set_content;
@@ -411,7 +436,7 @@ var html_preprocessing = function(content) {
 
 
             }
-			
+
             if (flag_data2div == true) {
                 var data2div_content = "";
                 data2div_content += tmp_data2div_content;
@@ -448,6 +473,8 @@ var html_preprocessing = function(content) {
             tmp_plot_content += each_content;
         } else if (flag_set) {
             tmp_set_content += each_content;
+        } else if (flag_ui_slidebar) {
+            tmp_ui_slidebar_content += each_content;
         }  else if (flag_marked) {
             tmp_marked_content += each_content;
         } else {
