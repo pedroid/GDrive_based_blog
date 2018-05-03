@@ -165,6 +165,15 @@ function DivSet2StaticDisplay(mdppSet, DivSet, dp_element) {
                     dp_element.append(tmp_html_content);
                     break;
                 }
+            case "menu":
+                {
+                    var tmp_html_content = "";
+                    tmp_html_content += '<div id="div' + i + '">';
+                    tmp_html_content += string2html(DivSet[i]);
+                    tmp_html_content += '</div>'
+                    dp_element.append(tmp_html_content);
+                    break;
+                }				
               case "list_ref":
                   {
                       //console.log('list_ref');
@@ -274,12 +283,17 @@ function mdpp2DivSet(input_content) {
                 {
                     DivSet.push(mdppSet[i].data);
                     break;
-                }
+                }				
             case "list_ref":
                 {
                   DivSet.push("");
                   break;
                 }
+            case "menu":
+                {
+                    DivSet.push(mdppSet[i].data);
+                    break;
+                }				
             case "ls":
                 {
                   //console.log(mdppSet[i].data);

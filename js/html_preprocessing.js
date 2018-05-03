@@ -27,7 +27,7 @@ var html_preprocessing = function(content) {
     var patt_data2div = new RegExp("^@data2div{[ ]*$");
     var patt_ref = new RegExp("^@ref{[ ]*$");
     var patt_list = new RegExp("^@list{[ ]*$");
-
+	var patt_menu = new RegExp("^@menu{[ ]*$");
     //var patt_ls = new RegExp("^@ls{[ ]*$");
 
     // 1 line syntax
@@ -40,6 +40,7 @@ var html_preprocessing = function(content) {
 	var patt_marked = new RegExp("^@#.");
   var patt_list_ref = new RegExp("^@list[ ]*:[ ]*[a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[\\t ]*$");
   var patt_ui_slidebar = new RegExp("^@ui_slidebar .");
+  
     // end of 1 line syntax
 
     var flag_code = false;
@@ -51,6 +52,7 @@ var html_preprocessing = function(content) {
     var flag_ref = false;
     var flag_ls = false;
     var flag_list = false;
+	var flag_menu = false;
     var flag_list_ref = false;
     var flag_plot = false;
 	var flag_set = false;
@@ -73,7 +75,8 @@ var html_preprocessing = function(content) {
         'plot':10,
 		'set':11,
 		'marked':12,
-    'ui_slidebar':13
+		'ui_slidebar':13,
+		'menu':14
     }
 
     var doc_type = [];
@@ -100,11 +103,13 @@ var html_preprocessing = function(content) {
     var tmp_ref_content = "";
     var tmp_ls_content = "";
     var tmp_list_content = "";
+	var tmp_menu_content = "";
     var tmp_list_ref_content = "";
     var tmp_plot_content = "";
 	var tmp_set_content = "";
 	var tmp_marked_content = "";
-  var tmp_ui_slidebar_content = "";
+	var tmp_ui_slidebar_content = "";
+	
     //n
     var reg_content = [];
     for (var i = 0; i < Object.keys(doc_type).length; i++) {
@@ -187,6 +192,16 @@ var html_preprocessing = function(content) {
         } else if (patt_list.test(each_content)) {
             tmp_list_content = "";
             flag_list = true;
+            var tmp = new StringNode(tmp_content, "markdown_input", "");
+            if (tmp_content != "") {
+                mdppSet.push(tmp);
+            }
+            tmp_content = "";
+            continue;
+
+        } else if (patt_menu.test(each_content)) {
+            tmp_menu_content = "";
+            flag_menu = true;
             var tmp = new StringNode(tmp_content, "markdown_input", "");
             if (tmp_content != "") {
                 mdppSet.push(tmp);
@@ -427,6 +442,17 @@ var html_preprocessing = function(content) {
 
 
             }
+            if (flag_menu == true) {
+
+                var menu_content = "";
+                menu_content += tmp_menu_content;
+
+                var tmp = new StringNode(menu_content, "menu", "");
+                mdppSet.push(tmp);
+                flag_menu = false;
+
+
+            }			
             if (flag_ls == true) {
                 var ls_content = "";
                 ls_content += tmp_ls_content;
@@ -465,6 +491,8 @@ var html_preprocessing = function(content) {
             tmp_ref_content += each_content;
         } else if (flag_list) {
             tmp_list_content += each_content + "\n";
+        } else if (flag_menu) {
+            tmp_menu_content += each_content + "\n";
         } else if (flag_ls) {
             tmp_ls_content += each_content;
         } else if (flag_list_ref) {
