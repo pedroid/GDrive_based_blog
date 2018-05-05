@@ -39,13 +39,14 @@ $(document).ready(function(e) {
             "command": "read"
         },
         function(data) {
-            //console.log("the result is :"+data);
-            //console.log(data);
+            //console.log("the result is :"+data);            
             title = data.split('$$')[0];
             content = data.split('$$')[1];
             $('#is_draft_id').val(data.split('$$')[2]);
             $('#is_public_id').val(data.split('$$')[3]);
             folderID = parseInt(data.split('$$')[4]);
+			$('#StarCheckbox').prop('checked',parseInt(data.split('$$')[5]));
+			$('#smallimage').val(data.split('$$')[6]);
             $('#folder_selection select').val(folderID);
             /*
             var mode = content.pop();
@@ -94,8 +95,7 @@ function SendScore() {
         mode = "777"
     } else {
         mode = "000"
-    }
-
+    }	
     $.post(appFiles, {
 
             "command": "blog_update",
@@ -105,7 +105,9 @@ function SendScore() {
             "content": document.getElementById("text-input").value,
             "is_public": parseInt($('#is_public_id').val()),
             "is_draft": parseInt($('#is_draft_id').val()),
-            "uid": uid
+			"is_star":($('#StarCheckbox').is(":checked")==true)?1:0,
+            "uid": uid,
+			"smallimg":$('#smallimage').val()
         },
         function(data) {
             if (data == "true") {

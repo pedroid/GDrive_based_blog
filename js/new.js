@@ -85,7 +85,9 @@ function SendScore() {
                 "FolderID": FolderID,
                 "is_public": parseInt($('#is_public_id').val()),
                 "is_draft": parseInt($('#is_draft_id').val()),
-                "uid": uid
+				"is_star":($('#StarCheckbox').is(":checked")==true)?1:0,
+                "uid": uid,
+				"smallimg":$('#smallimage').val()
             },
             function(data) {
                 currFileID = parseInt(data);
@@ -111,7 +113,9 @@ function SendScore() {
                 "content": document.getElementById("text-input").value,
                 "is_public": parseInt($('#is_public_id').val()),
                 "is_draft": parseInt($('#is_draft_id').val()),
-                "uid": uid
+				"is_star":($('#StarCheckbox').is(":checked")==true)?1:0,
+                "uid": uid,
+				"smallimg":$('#smallimage').val()
             },
             function(data) {
                 if (data == "true") {
