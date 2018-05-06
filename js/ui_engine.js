@@ -11,8 +11,8 @@ var display_var = (input)=>{
 var slidebar_on = (input)=>{
 	console.log(input.name);
 	forfun = input;
-	var new_var = {'name':input.name, 'value':[input.value]};
-	variable_manager.newVariable(new_var, display_var);
+	var new_var = {'name':input.name, 'value':eval(input.value)};
+	variable_manager.updateVariable(new_var, display_var);
 }
 
 UImanager.prototype.newSlidebar = (div, name) =>{

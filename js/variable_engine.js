@@ -22,12 +22,12 @@ VariableManager.prototype.deleteVariable = function(variable_object){
 	delete this.variable_objects[var_name];
 }
 
-VariableManager.prototype.listVariables = function(callback){
+VariableManager.prototype.listVariables = function(){
 	var list_variables = [];
 	$.each(this.variable_objects, function(index, value) {
 		list_variables.push(index);
 	});
-	callback(list_variables);
+	return list_variables;
 
 }
 
