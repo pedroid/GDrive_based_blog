@@ -34,6 +34,7 @@ var html_preprocessing = function(content) {
     var patt_ls_export = new RegExp("^@ls [a-z,0-9,A-Z]*[ ]+>[ ]+[a-z0-9A-Z\_]*$");
     var patt_image = new RegExp("^@image [a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[\\t ]*$");
     var patt_image_rotation = new RegExp("^@image [a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[ ]+[-]*[0-9]+[ ]*$");
+    var patt_mp3 = new RegExp("^@mp3 [a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[\\t ]*$");
     var patt_plot = new RegExp("^@plot .");
     var patt_set = new RegExp("^@set .");
     var patt_print = new RegExp("^@print .");
@@ -63,6 +64,7 @@ var html_preprocessing = function(content) {
     var flag_ui_slidebar = false;
     var flag_print = false;
     var flag_whos = false;
+    var flag_mp3 = false;
 
     //n
 
@@ -83,7 +85,8 @@ var html_preprocessing = function(content) {
         'ui_slidebar': 13,
         'menu': 14,
         'print': 15,
-        'whos': 16
+        'whos': 16,
+        'mp3':17
     }
 
     var doc_type = [];
@@ -118,6 +121,7 @@ var html_preprocessing = function(content) {
     var tmp_ui_slidebar_content = "";
     var tmp_print_content = "";
     var tmp_whos_content = "";
+    var tmp_mp3_content = "";
 
     //n
     var reg_content = [];
@@ -330,7 +334,19 @@ var html_preprocessing = function(content) {
             mdppSet.push(tmp);
 
             continue;
-        } else if (patt_image.test(each_content)) {
+        } else if (patt_mp3.test(each_content)) {
+            //console.log(each_content);
+            tmp_mp3_content = "";
+            var tmp = new StringNode(tmp_content, "markdown_input", "");
+            if (tmp_content != "") {
+                mdppSet.push(tmp);
+            }
+            tmp_content = "";
+            var tmp = new StringNode(each_content.split(' ')[1], "mp3", "");
+            mdppSet.push(tmp);
+
+            continue;
+        }  else if (patt_image.test(each_content)) {
             //console.log(each_content);
             tmp_image_content = "";
             var tmp = new StringNode(tmp_content, "markdown_input", "");
@@ -450,6 +466,16 @@ var html_preprocessing = function(content) {
                 flag_sequence = false;
 
             }
+            if (flag_mp3 == true) {
+                var mp3_content = "<audio controls><source src=\"https://drive.google.com/uc?export=view&id=";
+                mp3_content += tmp_mp3_content;
+                mp3_content += "\"\" type=\"audo/mpeg\"></audio>"
+                var tmp = new StringNode(mp3_content, "mp3", "");
+                mdppSet.push(tmp);
+                flag_mp3 = false;
+
+
+            }
             if (flag_image == true) {
                 var image_content = "<img src=\"https://drive.google.com/uc?export=view&id=";
                 image_content += tmp_image_content;
@@ -534,6 +560,8 @@ var html_preprocessing = function(content) {
             tmp_sequence_content += each_content;
         } else if (flag_image) {
             tmp_image_content += each_content;
+        } else if (flag_mp3) {
+            tmp_mp3_content += each_content;
         } else if (flag_data2div) {
             tmp_data2div_content += each_content;
         } else if (flag_ref) {

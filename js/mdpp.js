@@ -26,8 +26,8 @@ function DynamicDisplay(mdppSet, DivSet, id) {
                             //data.split('||')[2];
                             //tmp.pop();
                             var tmp_text = "";
-                            tmp_text += "@ls list<br/>";
-                            tmp_text += "=====<br/>";
+                            //tmp_text += "@ls list<br/>";
+                            //tmp_text += "=====<br/>";
                             tmp.forEach(item => {
                                 var resource_name = item.split("$$")[3];
                                 var resource_id = item.split("$$")[0];
@@ -37,7 +37,7 @@ function DynamicDisplay(mdppSet, DivSet, id) {
                                 tmp_text += resource_name + ':' + resource_content;
                                 tmp_text += "</br>";
                             })
-                            tmp_text += "=====<br/>";
+                            //tmp_text += "=====<br/>";
 
                             //var content = tmp.split('$$')[2];
                             $(div_id).html(tmp_text);
@@ -56,7 +56,7 @@ function DynamicDisplay(mdppSet, DivSet, id) {
                             "ResourceName": mdppSet[id].data
                         },
                         function(data) {
-                            console.log(data);
+                            //console.log(data);
                             var div_id = '#div' + id;
                             //console.log(div_id);
                             var ls_ref_content = data.split('$$')[1];
@@ -104,6 +104,15 @@ function DivSet2StaticDisplay(mdppSet, DivSet, dp_element) {
                     dp_element.append(tmp_html_content);
                     break;
                 }
+                case "mp3":
+                    {
+                        var tmp_html_content = "";
+                        tmp_html_content += '<div id="div' + i + '">'
+                        tmp_html_content += DivSet[i];
+                        tmp_html_content += '</div>'
+                        dp_element.append(tmp_html_content);
+                        break;
+                    }
             case "image":
                 {
                     var tmp_html_content = "";
@@ -134,7 +143,7 @@ function DivSet2StaticDisplay(mdppSet, DivSet, dp_element) {
             case "ref":
                 {
                     var tmp_html_content = "";
-                    tmp_html_content += '<div id="div' + i + '">'
+                    tmp_html_content += '<div class="system_msg" id="div' + i + '">'
                     tmp_html_content += DivSet[i];
                     tmp_html_content += '</div>'
                     dp_element.append(tmp_html_content);
@@ -143,7 +152,7 @@ function DivSet2StaticDisplay(mdppSet, DivSet, dp_element) {
             case "ls":
                 {
                     var tmp_html_content = "";
-                    tmp_html_content += '<div id="div' + i + '">'
+                    tmp_html_content += '<div class="system_msg" id="div' + i + '">'
                     tmp_html_content += DivSet[i];
                     tmp_html_content += '</div>'
                     dp_element.append(tmp_html_content);
@@ -161,7 +170,7 @@ function DivSet2StaticDisplay(mdppSet, DivSet, dp_element) {
             case "list":
                 {
                     var tmp_html_content = "";
-                    tmp_html_content += '<div id="div' + i + '">';
+                    tmp_html_content += '<div class="system_msg" id="div' + i + '">';
                     tmp_html_content += string2html(DivSet[i]);
                     tmp_html_content += '</div>'
                     dp_element.append(tmp_html_content);
@@ -180,7 +189,7 @@ function DivSet2StaticDisplay(mdppSet, DivSet, dp_element) {
                 {
                     //console.log('list_ref');
                     var tmp_html_content = "";
-                    tmp_html_content += '<div id="div' + i + '">'
+                    tmp_html_content += '<div class="system_msg" id="div' + i + '">'
                     tmp_html_content += DivSet[i];
                     tmp_html_content += '</div>'
                     dp_element.append(tmp_html_content);
@@ -353,7 +362,19 @@ function mdpp2DivSet(input_content) {
                     DivSet.push("");
                     break;
                 }
-            case "image":
+                case "mp3":
+                    {
+                        //console.log('image');
+                        //var image_content = "<img src=\"https://drive.google.com/uc?export=view&id=";
+
+                        var mp3_content = "<audio controls><source src=\"https://drive.google.com/uc?export=view&id=";
+                        var tmp_length_array = mdppSet[i].data.split("=").length;
+                        mp3_content += mdppSet[i].data.split("=")[tmp_length_array - 1];
+                        mp3_content += "\">";
+                        DivSet.push(mp3_content);
+                        break;
+                    }
+                  case "image":
                 {
                     //console.log('image');
                     //var image_content = "<img src=\"https://drive.google.com/uc?export=view&id=";
