@@ -367,10 +367,19 @@ function mdpp2DivSet(input_content) {
                         //console.log('image');
                         //var image_content = "<img src=\"https://drive.google.com/uc?export=view&id=";
 
-                        var mp3_content = "<audio controls><source src=\"https://drive.google.com/uc?export=view&id=";
+                        //var mp3_content = "<audio controls><source src=\"https://drive.google.com/uc?export=view&id=";
+                        var mp3_content = "<audio controls><source src=\"";
+                        //var tmp_length_array = mdppSet[i].data.split("=").length;
+                        mp3_content += mdppSet[i].data;
+                        mp3_content += "\"  type=\"audio/ogg\">";
+                        mp3_content += "</audio>"
+                        //mp3_content += "<audio controls><source src=\"https://drive.google.com/uc?export=view&id=";
+                        var mp3_content = "<audio controls><source src=\"";
                         var tmp_length_array = mdppSet[i].data.split("=").length;
-                        mp3_content += mdppSet[i].data.split("=")[tmp_length_array - 1];
-                        mp3_content += "\">";
+                        //mp3_content += mdppSet[i].data.split("=")[tmp_length_array - 1];
+                        mp3_content += mdppSet[i].data;
+                        mp3_content += "\"  type=\"audio/mpeg\">";
+                        mp3_content += "</audio>"
                         DivSet.push(mp3_content);
                         break;
                     }

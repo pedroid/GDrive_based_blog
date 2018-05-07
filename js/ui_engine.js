@@ -4,7 +4,7 @@ function UImanager(){
 }
 
 var display_var = (input)=>{
-	console.log(input);
+	//console.log(input);
 }
 
 

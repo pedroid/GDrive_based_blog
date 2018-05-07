@@ -99,7 +99,7 @@ var var2content3 = function(course_name, files_fileid,files_folderid, course_ico
   tmp_text+="\
 	<div class=\"w3-container w3-white\"><p><b>";
 	//tmp_text+="<a href=\"javascript:load_content(";
-	tmp_text+="<a href=\"draft.html?FileID=";
+	tmp_text+="<a href=\"admin.html?FileID=";
 	tmp_text+=files_fileid;
         //tmp_text+="blog.html?CourseID="+course_id;
     tmp_text+="\"";

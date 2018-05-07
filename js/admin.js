@@ -159,7 +159,7 @@ var load_admin_folder_content = function(folderid){
 		"command":"commandGetAdminFolderFiles",
 		"FolderID":folderid
 	},function(data){
-		//console.log(data);
+		console.log(data);
 
 		var blogs_set = data.split('||');
 		//console.log(blogs_set);
