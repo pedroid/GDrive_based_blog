@@ -39,7 +39,8 @@ var html_preprocessing = function(content) {
     var patt_set = new RegExp("^@set .");
     var patt_print = new RegExp("^@print .");
     var patt_whos = new RegExp("^@whos[ ]*");
-
+    var patt_jog = new RegExp("^@jog .");
+    var patt_pdf = new RegExp("^@pdf .");
 
     var patt_marked = new RegExp("^@#.");
     var patt_list_ref = new RegExp("^@list[ ]*:[ ]*[a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[\\t ]*$");
@@ -65,6 +66,8 @@ var html_preprocessing = function(content) {
     var flag_print = false;
     var flag_whos = false;
     var flag_mp3 = false;
+    var flag_jog = false;
+    var flag_pdf = false;
 
     //n
 
@@ -86,7 +89,9 @@ var html_preprocessing = function(content) {
         'menu': 14,
         'print': 15,
         'whos': 16,
-        'mp3':17
+        'mp3':17,
+        'jog':18,
+        'pdf':19
     }
 
     var doc_type = [];
@@ -122,6 +127,8 @@ var html_preprocessing = function(content) {
     var tmp_print_content = "";
     var tmp_whos_content = "";
     var tmp_mp3_content = "";
+    var tmp_jog_content = "";
+    var tmp_pdf_content = "";
 
     //n
     var reg_content = [];
@@ -262,6 +269,18 @@ var html_preprocessing = function(content) {
             mdppSet.push(tmp);
 
             continue;
+        } else if (patt_pdf.test(each_content)) {
+            //console.log(each_content);
+            tmp_pdf_content = "";
+            var tmp = new StringNode(tmp_content, "markdown_input", "");
+            if (tmp_content != "") {
+                mdppSet.push(tmp);
+            }
+            tmp_content = "";
+            var tmp = new StringNode(each_content.replace(/ +/g, ' ').substring(5, ), "pdf", "");
+            mdppSet.push(tmp);
+
+            continue;
         } else if (patt_plot.test(each_content)) {
             //console.log(each_content);
             tmp_plot_content = "";
@@ -346,7 +365,19 @@ var html_preprocessing = function(content) {
             mdppSet.push(tmp);
 
             continue;
-        }  else if (patt_image.test(each_content)) {
+        } else if (patt_jog.test(each_content)) {
+            //console.log(each_content);
+            tmp_jog_content = "";
+            var tmp = new StringNode(tmp_content, "markdown_input", "");
+            if (tmp_content != "") {
+                mdppSet.push(tmp);
+            }
+            tmp_content = "";
+            var tmp = new StringNode(each_content.replace(/ +/g, ' ').substring(5, ), "jog", "");
+            mdppSet.push(tmp);
+
+            continue;
+        }   else if (patt_image.test(each_content)) {
             //console.log(each_content);
             tmp_image_content = "";
             var tmp = new StringNode(tmp_content, "markdown_input", "");
@@ -409,12 +440,28 @@ var html_preprocessing = function(content) {
                 flag_ui_slidebar = false;
 
             }
+            if (flag_pdf == true) {
+                var pdf_content = "";
+                pdf_content += tmp_pdf_content;
+                var tmp = new StringNode(pdf_content, "pdf", "");
+                mdppSet.push(tmp);
+                flag_pdf = false;
+
+            }
             if (flag_set == true) {
                 var set_content = "";
                 set_content += tmp_set_content;
                 var tmp = new StringNode(set_content, "set", "");
                 mdppSet.push(tmp);
                 flag_set = false;
+
+            }
+            if (flag_jog == true) {
+                var jog_content = "";
+                jog_content += tmp_jog_content;
+                var tmp = new StringNode(jog_content, "jog", "");
+                mdppSet.push(tmp);
+                flag_jog = false;
 
             }
             if (flag_print == true) {
@@ -578,6 +625,8 @@ var html_preprocessing = function(content) {
             tmp_plot_content += each_content;
         } else if (flag_set) {
             tmp_set_content += each_content;
+        } else if (flag_jog) {
+            tmp_jog_content += each_content;
         } else if (flag_ui_slidebar) {
             tmp_ui_slidebar_content += each_content;
         } else if (flag_marked) {
@@ -586,7 +635,9 @@ var html_preprocessing = function(content) {
             tmp_print_content += each_content;
         } else if (flag_whos) {
             tmp_whos_content += each_content;
-        } else {
+        } else if (flag_pdf) {
+            tmp_pdf_content += each_content;
+        }  else {
             output += each_content + '\n';
             tmp_content += each_content + '\n';
             //		console.log(tmp_content);

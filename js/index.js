@@ -38,6 +38,9 @@ $(function() {
 
         if (arg_set["FileID"]) {
             currFileID = parseInt(arg_set["FileID"]);
+						$('.w3-dropdown-content').append('<a href=\"presentation.html?FileID='+currFileID+'\" class=\"w3-bar-item w3-button\">presentation</a>')
+						$('.w3-dropdown-content').append('<a href=\"book.html?FileID='+currFileID+'\" class=\"w3-bar-item w3-button\">book</a>')
+					
             load_content(currFileID);
         }
         if (arg_set["FolderID"]) {
@@ -127,7 +130,7 @@ var var2content3 = function(course_name, course_id, course_icon) {
 var load_content = function(fileid) {
     $('.posts').html('');
     if (typeof fileid != "undefined") {
-        $('#content').html("loading..");
+        $('.content').html("loading..");
         $('#blog_title').html("");
         $.get(appBlogs,
 
@@ -137,6 +140,7 @@ var load_content = function(fileid) {
             },
             function(data) {
                 //console.log(data);
+								$('.content').html("");
                 title = data.split('$$')[0];
                 content = data.split('$$')[1];
                 var html_content = "<a class=\"login\" target=\"__blank\" href=\"edit.html?FileID=" + fileid + "&a=1\">(edit)</a>";

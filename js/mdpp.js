@@ -104,6 +104,15 @@ function DivSet2StaticDisplay(mdppSet, DivSet, dp_element) {
                     dp_element.append(tmp_html_content);
                     break;
                 }
+                case "pdf":
+                    {
+                        var tmp_html_content = "";
+                        tmp_html_content += '<div id="div' + i + '">'
+                        tmp_html_content += DivSet[i];
+                        tmp_html_content += '</div>'
+                        dp_element.append(tmp_html_content);
+                        break;
+                    }
                 case "mp3":
                     {
                         var tmp_html_content = "";
@@ -122,6 +131,15 @@ function DivSet2StaticDisplay(mdppSet, DivSet, dp_element) {
                     dp_element.append(tmp_html_content);
                     break;
                 }
+                case "jog":
+                    {
+                        var tmp_html_content = "";
+                        tmp_html_content += '<div id="div' + i + '">'
+                        tmp_html_content += DivSet[i];
+                        tmp_html_content += '</div>'
+                        dp_element.append(tmp_html_content);
+                        break;
+                    }
             case "image_rotation":
                 {
                     var tmp_html_content = "";
@@ -325,6 +343,14 @@ function mdpp2DivSet(input_content) {
                     DivSet.push(mdppSet[i].data);
                     break;
                 }
+                case "pdf":
+                    {
+                        var pdf_content = "<embed src= \"";
+                        pdf_content += mdppSet[i].data;
+                        pdf_content += "\" width= \"100%\" height=\"400\">";
+                        DivSet.push(pdf_content);
+                        break;
+                    }
             case "ref":
                 {
                     DivSet.push(mdppSet[i].data);
@@ -436,6 +462,14 @@ function mdpp2DivSet(input_content) {
                     DivSet.push(set_content);
                     break;
                 }
+                case "jog":
+                    {
+                        var jog_content = "";
+                        jog_content += "@jog\n"
+                        jog_content += mdppSet[i].data;
+                        DivSet.push(jog_content);
+                        break;
+                    }
             case "print":
                 {
                     var print_content = "";
@@ -511,6 +545,11 @@ function md2html(input_content) {
                     preview += mdppSet[i].data;
                     break;
                 }
+                case "pdf":
+                    {
+                        preview += mdppSet[i].data;
+                        break;
+                    }
             case "ref":
                 {
 
@@ -542,7 +581,12 @@ function md2html(input_content) {
                     break;
 
                 }
-            case "image":
+                case "jog":
+                    {
+                        preview += mdppSet[i].data;
+                        break;
+                    }
+                    case "image":
                 {
                     preview += mdppSet[i].data;
                     break;
