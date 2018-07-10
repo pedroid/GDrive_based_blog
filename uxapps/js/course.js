@@ -172,7 +172,7 @@ return content;
 var load_content = function(fileid){
 
   if(typeof fileid != "undefined"){
-	  $('#content').html("loading..");
+	  $('.content').html("loading..");
 	  $('#blog_title').html("");
 		$.get(appBlogs,
 
@@ -181,18 +181,27 @@ var load_content = function(fileid){
                  "command":"read"
              },
            function (data) {
+             $('.content').html("");
 			   //console.log(data);
              title = data.split('$$')[0];
              content = data.split('$$')[1];
 			 var html_content = "<a href=\"../edit.html?FileID="+ fileid +"&a=1\">(edit)</a>";
-             html_content += md2html(content,html_content,0);
+             //html_content += md2html(content,html_content,0);
+             console.log(content);
+             [mdppSet, DivSet] = mdpp2DivSet(content);
+
+						 DivSet2StaticDisplay(mdppSet, DivSet, $('.content'));
+						 for (var i = 0; i < mdppSet.length; i++) {
+						 		DynamicDisplay(mdppSet, DivSet, i);
+						 }
              $('#blog_title').html(title);
-             $('.content').html(html_content);
+  //           $('.content').html(html_content);
            });
   }
 }
 
 var toEdit = function(){
 	var course_id = window.location.search.split("?")[1].split("=")[1];
-	window.location.replace("../edit.html?fileid="+course_id+"&a=1");
+	//window.location.replace("../edit.html?FileID="+course_id);
+  window.open("../edit.html?FileID="+course_id);
 }

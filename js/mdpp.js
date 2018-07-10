@@ -441,7 +441,7 @@ function mdpp2DivSet(input_content) {
                     var tmp = mdppSet[i].data;
                     var diagram = flowchart.parse(tmp);
                     $('#diagram').html('');
-                    diagram.drawSVG('diagram');
+                    //diagram.drawSVG('diagram');
 
                     DivSet.push($('#diagram').html());
                     break;
