@@ -428,6 +428,12 @@ $(document).ready(function(e) {
                 //console.log(word.length);
 
                 switch (word.length) {
+					case 2:
+						if(word[1] == "-h" | word[1] == "help"){
+							log("Website", "example:");
+							log("Website", "plot -x a -y -b");
+						}
+						break;
                     case 3: //1-D
                         switch (currState) {
                             case StateIdle:
