@@ -261,7 +261,7 @@ function DivSet2StaticDisplay(mdppSet, DivSet, dp_element) {
             case "print":
                 {
                     var tmp_html_content = "";
-                    tmp_html_content += '<div class="system_msg" id="div' + i + '">'
+                    tmp_html_content += '<div class="system_msg" name='+mdppSet[i].data+' id="div' + i + '">'
                     //tmp_html_content += DivSet[i];
                     //tmp_html_content += '<br/>===<br/>';
                     tmp_html_content += variable_manager.variable_objects[mdppSet[i].data];

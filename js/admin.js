@@ -33,7 +33,7 @@ $(function(){
 							if(arg_set["FileID"]){
 								currFileID = parseInt(arg_set["FileID"]);
 								load_content(currFileID);
-				
+
 								$('.w3-dropdown-content').append('<a href=\"presentation.html?FileID='+currFileID+'\" class=\"w3-bar-item w3-button\">presentation</a>')
 								$('.w3-dropdown-content').append('<a href=\"book.html?FileID='+currFileID+'\" class=\"w3-bar-item w3-button\">book</a>')
 							}
@@ -139,6 +139,8 @@ var load_content = function(fileid){
 				 $('.content').html("");
              title = data.split('$$')[0];
              content = data.split('$$')[1];
+						 folder_name = data.split('$$')[7];
+						 //console.log(folder_name);
 						 $('#portfolio ul').append("<li><a href=\"edit.html?FileID="+ fileid +"&a=1\">edit</a></li>")
 						 var html_content = "";
 			 //var html_content = "<a href=\"../edit.html?FileID="+ fileid +"&a=1\">(edit)</a>";
@@ -150,7 +152,7 @@ var load_content = function(fileid){
 						 		DynamicDisplay(mdppSet, DivSet, i);
 						 }
 						 //console.log(html_content);
-             $('#blog_title').html(title);
+             $('#blog_title').html(title+' (#'+folder_name+')');
              //$('.content').html(html_content);
 						 $('img').width('70%');
            });

@@ -9,10 +9,13 @@ var display_var = (input)=>{
 
 
 var slidebar_on = (input)=>{
-	console.log(input.name);
+	console.log(input);
 	forfun = input;
 	var new_var = {'name':input.name, 'value':eval(input.value)};
 	variable_manager.updateVariable(new_var, display_var);
+	console.log(new_var.value);
+	console.log(input.name);
+	$( "div[name$="+ input.name +"]" ).html(new_var.value.toString());
 }
 
 UImanager.prototype.newSlidebar = (div, name) =>{

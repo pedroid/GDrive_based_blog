@@ -39,7 +39,7 @@ $(document).ready(function(e) {
             "command": "read"
         },
         function(data) {
-            console.log("the result is :"+data);            
+            console.log("the result is :"+data);
             title = data.split('$$')[0];
             content = data.split('$$')[1];
             $('#is_draft_id').val(data.split('$$')[2]);
