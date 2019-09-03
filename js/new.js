@@ -1,4 +1,3 @@
-
 var has_submitted = false;
 var uid;
 $(document).ready(function(e) {
@@ -85,9 +84,9 @@ function SendScore() {
                 "FolderID": FolderID,
                 "is_public": parseInt($('#is_public_id').val()),
                 "is_draft": parseInt($('#is_draft_id').val()),
-				"is_star":($('#StarCheckbox').is(":checked")==true)?1:0,
+                "is_star": ($('#StarCheckbox').is(":checked") == true) ? 1 : 0,
                 "uid": uid,
-				"smallimg":$('#smallimage').val()
+                "smallimg": $('#smallimage').val()
             },
             function(data) {
                 currFileID = parseInt(data);
@@ -113,9 +112,9 @@ function SendScore() {
                 "content": document.getElementById("text-input").value,
                 "is_public": parseInt($('#is_public_id').val()),
                 "is_draft": parseInt($('#is_draft_id').val()),
-				"is_star":($('#StarCheckbox').is(":checked")==true)?1:0,
+                "is_star": ($('#StarCheckbox').is(":checked") == true) ? 1 : 0,
                 "uid": uid,
-				"smallimg":$('#smallimage').val()
+                "smallimg": $('#smallimage').val()
             },
             function(data) {
                 if (data == "true") {
@@ -135,14 +134,14 @@ function Editor(input, preview) {
     this.update = function() {
         preview.innerHTML = "";
         content = input.value;
-        var html_content = md2html(content);
-        [mdppSet, DivSet] = mdpp2DivSet(content);
 
-        DivSet2StaticDisplay(mdppSet, DivSet, $('#preview'));
+        [mdppSet, DivSet] = mdpp2ListDiv(content);
+
+        ListDiv2StaticDisplay(mdppSet, DivSet, $('#preview'));
         for (var i = 0; i < mdppSet.length; i++) {
             DynamicDisplay(mdppSet, DivSet, i);
         }
-        //$('#preview').html(html_content);
+
         var preview_height = $('#preview').height();
         if (preview_height < 500) preview_height = 500;
 

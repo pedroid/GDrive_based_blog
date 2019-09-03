@@ -38,8 +38,8 @@ $(function() {
 
         if (arg_set["FileID"]) {
             currFileID = parseInt(arg_set["FileID"]);
-						$('.w3-dropdown-content').append('<a href=\"presentation.html?FileID='+currFileID+'\" class=\"w3-bar-item w3-button\">presentation</a>')
-						$('.w3-dropdown-content').append('<a href=\"book.html?FileID='+currFileID+'\" class=\"w3-bar-item w3-button\">book</a>')
+            $('.w3-dropdown-content').append('<a href=\"presentation.html?FileID=' + currFileID + '\" class=\"w3-bar-item w3-button\">presentation</a>')
+            $('.w3-dropdown-content').append('<a href=\"book.html?FileID=' + currFileID + '\" class=\"w3-bar-item w3-button\">book</a>')
 
             load_content(currFileID);
         }
@@ -109,56 +109,56 @@ var pwd = function(input) {
 var var2content3 = function(course_name, course_id, course_icon) {
     var tmp_text = "";
     tmp_text += "<div class=\"w3-container w3-margin-bottom\">";
-    if(course_icon){
-      tmp_text += "<div class=\"w3-row-padding\">";
-      tmp_text += "<a href=\"index.html?FileID=";
-      tmp_text += course_id;
-      //tmp_text+="blog.html?CourseID="+course_id;
-      tmp_text += "\"";
-      tmp_text += "		class=\"image\">";
-      tmp_text += course_name;
-      tmp_text += "</a></b></p></div>"
+    if (course_icon) {
+        tmp_text += "<div class=\"w3-row-padding\">";
+        tmp_text += "<a href=\"index.html?FileID=";
+        tmp_text += course_id;
+        //tmp_text+="blog.html?CourseID="+course_id;
+        tmp_text += "\"";
+        tmp_text += "		class=\"image\">";
+        tmp_text += course_name;
+        tmp_text += "</a></b></p></div>"
 
-      tmp_text += "<div class=\"w3-row-padding\">"
-      tmp_text += "<div class=\"w3-third w3-col\">";
-      //var tmp_text = "<div class=\"w3-third w3-container w3-margin-bottom\">";
-      tmp_text += "<img src=\"";
-      tmp_text += course_icon;
-      tmp_text += "\
+        tmp_text += "<div class=\"w3-row-padding\">"
+        tmp_text += "<div class=\"w3-third w3-col\">";
+        //var tmp_text = "<div class=\"w3-third w3-container w3-margin-bottom\">";
+        tmp_text += "<img src=\"";
+        tmp_text += course_icon;
+        tmp_text += "\
       \" alt=\"";
-      tmp_text += course_name;
-      tmp_text += "\" style=\"width:100%\" class=\"w3-hover-opacity\"></div>";
+        tmp_text += course_name;
+        tmp_text += "\" style=\"width:100%\" class=\"w3-hover-opacity\"></div>";
 
-      tmp_text +="<div class=\"w3-twothird w3-col\"><p><b>";
-      //tmp_text+="<a href=\"javascript:load_content(";
-      tmp_text += "<a href=\"index.html?FileID=";
-      tmp_text += course_id;
-      //tmp_text+="blog.html?CourseID="+course_id;
-      tmp_text += "\"";
-      tmp_text += "		class=\"image\">";
-      tmp_text += course_name;
-      tmp_text += "</a></b></p></div></div>"
-    }else{
-      tmp_text += "<div class=\"w3-row-padding\">";
-      tmp_text += "<a href=\"index.html?FileID=";
-      tmp_text += course_id;
-      //tmp_text+="blog.html?CourseID="+course_id;
-      tmp_text += "\"";
-      tmp_text += "		class=\"image\">";
-      tmp_text += course_name;
-      tmp_text += "</a></b></p></div>"
-      tmp_text += "<div class=\"w3-row-padding\">"
-      tmp_text +="<div class=\"w3-twothird w3-col\"><p><b>";
-      //tmp_text+="<a href=\"javascript:load_content(";
-      tmp_text += "<a href=\"index.html?FileID=";
-      tmp_text += course_id;
-      //tmp_text+="blog.html?CourseID="+course_id;
-      tmp_text += "\"";
-      tmp_text += "		class=\"image\">";
-      tmp_text += course_name;
-      tmp_text += "</a></b></p></div></div>"
+        tmp_text += "<div class=\"w3-twothird w3-col\"><p><b>";
+        //tmp_text+="<a href=\"javascript:load_content(";
+        tmp_text += "<a href=\"index.html?FileID=";
+        tmp_text += course_id;
+        //tmp_text+="blog.html?CourseID="+course_id;
+        tmp_text += "\"";
+        tmp_text += "		class=\"image\">";
+        tmp_text += course_name;
+        tmp_text += "</a></b></p></div></div>"
+    } else {
+        tmp_text += "<div class=\"w3-row-padding\">";
+        tmp_text += "<a href=\"index.html?FileID=";
+        tmp_text += course_id;
+        //tmp_text+="blog.html?CourseID="+course_id;
+        tmp_text += "\"";
+        tmp_text += "		class=\"image\">";
+        tmp_text += course_name;
+        tmp_text += "</a></b></p></div>"
+        tmp_text += "<div class=\"w3-row-padding\">"
+        tmp_text += "<div class=\"w3-twothird w3-col\"><p><b>";
+        //tmp_text+="<a href=\"javascript:load_content(";
+        tmp_text += "<a href=\"index.html?FileID=";
+        tmp_text += course_id;
+        //tmp_text+="blog.html?CourseID="+course_id;
+        tmp_text += "\"";
+        tmp_text += "		class=\"image\">";
+        tmp_text += course_name;
+        tmp_text += "</a></b></p></div></div>"
     }
-    tmp_text +="</div>";
+    tmp_text += "</div>";
 
 
     return tmp_text;
@@ -178,15 +178,15 @@ var load_content = function(fileid) {
             },
             function(data) {
                 //console.log(data);
-								$('.content').html("");
+                $('.content').html("");
                 title = data.split('$$')[0];
                 content = data.split('$$')[1];
                 var html_content = "<a class=\"login\" target=\"__blank\" href=\"edit.html?FileID=" + fileid + "&a=1\">(edit)</a>";
-                //html_content += md2html(content,html_content,0);
 
-                [mdppSet, DivSet] = mdpp2DivSet(content);
 
-                DivSet2StaticDisplay(mdppSet, DivSet, $('.content'));
+                [mdppSet, DivSet] = mdpp2ListDiv(content);
+
+                ListDiv2StaticDisplay(mdppSet, DivSet, $('.content'));
                 for (var i = 0; i < mdppSet.length; i++) {
                     DynamicDisplay(mdppSet, DivSet, i);
                 }
@@ -194,7 +194,7 @@ var load_content = function(fileid) {
                 $('#blog_title').html(title);
                 //$('.content').html(html_content);
                 console.log('test');
-								$('img').width('70%');
+                $('img').width('70%');
             }
 
         );

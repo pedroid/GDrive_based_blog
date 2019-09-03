@@ -144,10 +144,10 @@ var load_content = function(fileid){
 						 $('#portfolio ul').append("<li><a href=\"edit.html?FileID="+ fileid +"&a=1\">edit</a></li>")
 						 var html_content = "";
 			 //var html_content = "<a href=\"../edit.html?FileID="+ fileid +"&a=1\">(edit)</a>";
-             //html_content += md2html(content,html_content,0);
-						 [mdppSet, DivSet] = mdpp2DivSet(content);
 
-						 DivSet2StaticDisplay(mdppSet, DivSet, $('.content'));
+						 [mdppSet, DivSet] = mdpp2ListDiv(content);
+
+						 ListDiv2StaticDisplay(mdppSet, DivSet, $('.content'));
 						 for (var i = 0; i < mdppSet.length; i++) {
 						 		DynamicDisplay(mdppSet, DivSet, i);
 						 }

@@ -188,9 +188,9 @@ var load_content = function(fileid){
 			 var html_content = "<a href=\"../edit.html?FileID="+ fileid +"&a=1\">(edit)</a>";
              //html_content += md2html(content,html_content,0);
              console.log(content);
-             [mdppSet, DivSet] = mdpp2DivSet(content);
+             [mdppSet, DivSet] = mdpp2ListDiv(content);
 
-						 DivSet2StaticDisplay(mdppSet, DivSet, $('.content'));
+						 ListDiv2StaticDisplay(mdppSet, DivSet, $('.content'));
 						 for (var i = 0; i < mdppSet.length; i++) {
 						 		DynamicDisplay(mdppSet, DivSet, i);
 						 }

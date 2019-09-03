@@ -1,4 +1,3 @@
-
 var currFileID;
 var currFolderID;
 var logout = function() {
@@ -39,14 +38,14 @@ $(document).ready(function(e) {
             "command": "read"
         },
         function(data) {
-            console.log("the result is :"+data);
+            console.log("the result is :" + data);
             title = data.split('$$')[0];
             content = data.split('$$')[1];
             $('#is_draft_id').val(data.split('$$')[2]);
             $('#is_public_id').val(data.split('$$')[3]);
             folderID = parseInt(data.split('$$')[4]);
-			$('#StarCheckbox').prop('checked',parseInt(data.split('$$')[5]));
-			$('#smallimage').val(data.split('$$')[6]);
+            $('#StarCheckbox').prop('checked', parseInt(data.split('$$')[5]));
+            $('#smallimage').val(data.split('$$')[6]);
             $('#folder_selection select').val(folderID);
             /*
             var mode = content.pop();
@@ -105,50 +104,50 @@ function SendScore() {
             "content": document.getElementById("text-input").value,
             "is_public": parseInt($('#is_public_id').val()),
             "is_draft": parseInt($('#is_draft_id').val()),
-			"is_star":($('#StarCheckbox').is(":checked")==true)?1:0,
+            "is_star": ($('#StarCheckbox').is(":checked") == true) ? 1 : 0,
             "uid": uid,
-			"smallimg":$('#smallimage').val()
+            "smallimg": $('#smallimage').val()
         },
         function(data) {
             if (data == "true") {
                 $('#feedback').html('done')
             }
         }
-      );
-      var ResourceContentToSend = "";
-      var ResourceNameToSend = "";
-    for(var i=0;i<mdppSet.length;i++){
-      switch(mdppSet[i].property){
-        case "list":
+    );
+    var ResourceContentToSend = "";
+    var ResourceNameToSend = "";
+    for (var i = 0; i < ListMdppObject.length; i++) {
+        switch (ListMdppObject[i].property) {
+            case "list":
 
-          var ResourceRawSet = mdppSet[i].data.split("\n");
+                var ResourceRawSet = ListMdppObject[i].data.split("\n");
 
-          ResourceNameToSend = ResourceRawSet[0];
-          ResourceRawSet.shift();
-          ResourceRawSet.pop();
+                ResourceNameToSend = ResourceRawSet[0];
+                ResourceRawSet.shift();
+                ResourceRawSet.pop();
 
-          ResourceContentToSendSet = ResourceRawSet.join("\n");
-          //console.log('list');
-          ResourceContentToSend+=ResourceNameToSend;//name
-          ResourceContentToSend+="$$";
-          ResourceContentToSend+="list";//type
-          ResourceContentToSend+="$$";
-          ResourceContentToSend+=ResourceContentToSendSet;//content
-          ResourceContentToSend+="||";
-          break;
-        default:
-          break;
-      }
+                ResourceContentToSendSet = ResourceRawSet.join("\n");
+                //console.log('list');
+                ResourceContentToSend += ResourceNameToSend; //name
+                ResourceContentToSend += "$$";
+                ResourceContentToSend += "list"; //type
+                ResourceContentToSend += "$$";
+                ResourceContentToSend += ResourceContentToSendSet; //content
+                ResourceContentToSend += "||";
+                break;
+            default:
+                break;
+        }
 
     }
 
     //console.log(ResourceContentToSend);
-    $.post(appResources,{
-      "command":"commandPostResources",
-      "FileID":currFileID,
-      "ResourceContent":ResourceContentToSend,
-      "ResourceName":ResourceNameToSend
-    },function(data){
+    $.post(appResources, {
+        "command": "commandPostResources",
+        "FileID": currFileID,
+        "ResourceContent": ResourceContentToSend,
+        "ResourceName": ResourceNameToSend
+    }, function(data) {
 
     })
 
@@ -158,12 +157,11 @@ function Editor(input, preview) {
     this.update = function() {
         preview.innerHTML = "";
         content = input.value;
-        //var html_content = md2html(content);
-        [mdppSet, DivSet] = mdpp2DivSet(content);
+        [ListMdppObject, ListDiv] = mdpp2ListDiv(content);
 
-        DivSet2StaticDisplay(mdppSet, DivSet, $('#preview'));
-        for (var i = 0; i < mdppSet.length; i++) {
-            DynamicDisplay(mdppSet, DivSet, i);
+        ListDiv2StaticDisplay(ListMdppObject, ListDiv, $('#preview'));
+        for (var i = 0; i < ListMdppObject.length; i++) {
+            DynamicDisplay(ListMdppObject, ListDiv, i);
         }
         //$('#preview').html(html_content);
         var preview_height = $('#preview').height();
